@@ -3,11 +3,6 @@ layout: page
 title: About
 sidebar_link: true
 ---
-
-<p class="message">
-  Hey there! This page is included as an example. Feel free to customize it
-  for your own use upon downloading. Carry on!
-</p>
-
-To make pages show up in the sidebar, add `sidebar_link: true` to the front
-matter.
+데이터 분석을 공부하고 있는 고동영입니다.
+상당한 노력 끝에 정리한 자료들이지만, 그럼에도 틀릴수도 있습니다.
+수정할 부분이 있다면 언제든 알려주시길 바랍니다.
