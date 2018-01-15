@@ -3,6 +3,7 @@ layout: post
 title: "[ISL] An Overview of Statistical Learning"
 tags:
   - ISL
+  - Machine Learning
 comment: true
 ---
 
