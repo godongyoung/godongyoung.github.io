@@ -37,7 +37,7 @@ $$h(y)=\sum _{x=1}^{n} [f(x)\cdot g(d \cdot(y-1)+k-(x-1))]$$으로 식으로 쓸
 
 non-linearity로는 ReLU를 사용 ($$h(x)=max\left\{0,x\right\}$$), SGD를 사용.
 
-####2.2 Character quantization
+#### 2.2 Character quantization
 
 모델의 input으로는 encoding된 알파벳이 들어온다. encoding은 one-hot encoding을 한다.
 
