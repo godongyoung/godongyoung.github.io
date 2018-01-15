@@ -7,6 +7,8 @@ comment: true
 html header: <script type="text/javascript"  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
 ---
 
+1.
+
 첫시간이니 만큼, 아주 기본적이고 개괄적인 내용들부터 시작합니다. 틀린 내용이 있다면 가차없이 처단바랍니다.
 
 [TOC]
