@@ -145,17 +145,17 @@ test data는 아직 주어지지 않은 데이터라는 점에서, 이를 미리
 > >
 > > $E(y\hat f(x))=E[(f(x)+\epsilon)*\hat f(x)]$
 > >
-> > ​      		   $= E(f(x)*\hat f(x)+\epsilon*\hat f(x))$
+> > ​       		  $ = E[f(x)*\hat f(x)+\epsilon*\hat f(x)]$ 
 > >
 > > ​		  $=f(x)E(\hat f(x))+E(\epsilon*\hat f(x))$
 > >
-> > ​		 $=f(x)E(\hat f(x))+E(\epsilon)*E(\hat f(x))$, $\because $irreducible error $ \epsilon과 $ 우리가 추정한 값$\hat f(x)$은 $indep.$
+> > ​		 $=f(x)E(\hat f(x))+E(\epsilon)*E(\hat f(x))$, $\because $irreducible error $ \epsilon $와 우리가 추정한 값 $\hat f(x)$은 $indep.$
 > >
 > > ​	 $=f(x)E(\hat f(x))$
 > >
 > > $E(\hat f(x)^2)=Var(\hat f(x))+[E(\hat f(x))]^2$		 
 >
-> $\therefore$ $E[{y}-\hat f({x})]^2=E[y^2 -2y\hat f(x)+\hat f(x)^2]= E(y^2)-2E(y\hat f(x))+E(\hat f(x)^2)$
+> $\therefore E[{y}-\hat f({x})]^2=E[y^2 -2y\hat f(x)+\hat f(x)^2]= E(y^2)-2E(y\hat f(x))+E(\hat f(x)^2)$
 >
 > ​					$=  Var(\epsilon)+(f(x))^2-2[f(x)E(\hat f(x))]+Var(\hat f(x))+[E(\hat f(x))]^2$ 
 >
@@ -217,13 +217,13 @@ $$\frac { 1 }{ n } \sum _{ i=1 }^{ n }I(y_{i} \neq \hat y_{i})$$
 
 test data에 대한 error rate를 줄이기 위해서는 Bayes Classifier라 불리는 아주 간단한 원리의 classification을 하면 된다.  Bayes Classifier는 ${x}_{0}$라는 input이 주어졌을때 $Y$가 어느 클래스에 속할지 확률(즉 conditional probability)을 구하고 그 확률이 최대가 되는 class에 분류를 하는 것이다. 이를 식으로 나타내자면 다음과 같다.
 
-$Pr(Y=j|X={x}_{0})$,    ($j=1,2,...,K$)
+$Pr(Y=j|X=x_{0})$,    ($j=1,2,...,K$)
 
-총 K개의 클래스가 있을때,  ${x}_{0}​$라는 condition, 즉 조건이 있을때 해당 자료가 1번째 클래스에 속할 확률, 2번째 클래스에 속할 확률,..., 등을 전부 구해, 속할 확률이 가장 큰 클래스에 배정해주면 된다.
+총 K개의 클래스가 있을때,  $x_{0}$라는 condition, 즉 조건이 있을때 해당 자료가 1번째 클래스에 속할 확률, 2번째 클래스에 속할 확률,..., 등을 전부 구해, 속할 확률이 가장 큰 클래스에 배정해주면 된다.
 
 ![bayes-classifier](https://user-images.githubusercontent.com/31824102/34830553-2523029e-f6dc-11e7-903e-4c5fc6a4e7d0.PNG)
 
-대충 이러한 그림으로 나오는는데, 이는 ${x}_{1},{x}_{2}$가 주어지는 경우의 classification이다. 모든 점에 대해 노랑색 클래스에 속할지 파랑색 클래스에 속할지 확률을 구하고 그에 따라 classification해준 것이다. 물론 해당 확률은 그 input일때 해당 클래스에 속하는 경우가 더 많다는 것이다. 특정 input의 경우 100% 한 클래스에 속할수도 있겠지만(그림에서 맨 오른쪽, 혹은 맨 아래의 점들은 모두 파란색이므로 이때의 conditional probability  $Pr(Y=파랑|X={x}_{0})$는 1이다.) 애초에 모집단의 분포 자체가 섞여 있을 수도 있다(그림에서 정 중앙라인 부분). 그럴 경우 100% 그 클래스에 속하는 것은 아니고, 해당 경우 $Pr(Y=파랑|X={x}_{0})$는 1보다 작다. 
+대충 이러한 그림으로 나오는는데, 이는 $x_{1},x_{2}$가 주어지는 경우의 classification이다. 모든 점에 대해 노랑색 클래스에 속할지 파랑색 클래스에 속할지 확률을 구하고 그에 따라 classification해준 것이다. 물론 해당 확률은 그 input일때 해당 클래스에 속하는 경우가 더 많다는 것이다. 특정 input의 경우 100% 한 클래스에 속할수도 있겠지만(그림에서 맨 오른쪽, 혹은 맨 아래의 점들은 모두 파란색이므로 이때의 conditional probability  $Pr(Y=파랑|X=x_{0})$는 1이다.) 애초에 모집단의 분포 자체가 섞여 있을 수도 있다(그림에서 정 중앙라인 부분). 그럴 경우 100% 그 클래스에 속하는 것은 아니고, 해당 경우 $Pr(Y=파랑|X=x_{0})$는 1보다 작다. 
 
 ## KNN(K-Nearest Neighbors)
 
