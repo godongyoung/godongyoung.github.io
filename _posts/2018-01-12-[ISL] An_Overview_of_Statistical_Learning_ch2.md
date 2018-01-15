@@ -1,6 +1,8 @@
 ---
 layout: post
 title: "[ISL] An Overview of Statistical Learning"
+categories:
+  - 머신러닝
 tags:
   - ISL
   - Machine Learning
