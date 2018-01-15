@@ -214,6 +214,7 @@ $$\frac { 1 }{ n } \sum _{ i=1 }^{ n }I(y_{i} \neq \hat y_{i})$$
 ## Bayes Classifier
 
 test data에 대한 error rate를 줄이기 위해서는 Bayes Classifier라 불리는 아주 간단한 원리의 classification을 하면 된다.  Bayes Classifier는 $x_{0}$라는 input이 주어졌을때 $Y$가 어느 클래스에 속할지 확률(즉 conditional probability)을 구하고 그 확률이 최대가 되는 class에 분류를 하는 것이다. 이를 식으로 나타내자면 다음과 같다.
+
 $$
 Pr(Y=j|X=x_{0}),    (j=1,2,...,K)
 $$
