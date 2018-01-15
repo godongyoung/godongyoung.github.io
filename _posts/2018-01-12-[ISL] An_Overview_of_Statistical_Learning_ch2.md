@@ -4,10 +4,9 @@ title: "[ISL] An Overview of Statistical Learning"
 tags:
   - ISL
 comment: true
-html header: <script type="text/javascript"  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
 ---
 
-2.
+1.
 
 첫시간이니 만큼, 아주 기본적이고 개괄적인 내용들부터 시작합니다. 틀린 내용이 있다면 가차없이 처단바랍니다.
 
@@ -90,7 +89,7 @@ $f$를 추정하는 방법으로는 **parametric 방법**과 **non-parametric방
 앞에도 말했듯이 하나의 데이터를 다루고자 할때 여러가지 방법들과 모델들이 쓰일수가 있는데, 그럼 그 모델들을 어떻게 평가해야 할까? 우선 첫째로, 우리의 모델이 우리가 가지고 있는 데이터를 얼마나 잘 맞추는가를 볼 수 있다.  회귀문제에서는, 이를 평가하는 지표로 **MSE**라는 것을 가장 많이 쓴다. MSE의 식은 다음과 같다.
 
 $$
-MSE =\frac { 1 }{ n } \sum { i=1 }^{ n }({y}{i} − \hat f({x}_{i}))^2
+MSE =\frac { 1 }{ n } \sum _{ i=1 }^{ n }({y}_{i} − \hat f({x}_{i}))^2
 $$
 ${y}_{i}$는 i번째 실제 우리가 가지고 있는 데이터고, $\hat f({x}_{i})$는 i번째 변수들을 통해 우리가 예측한 y값이다. 
 
@@ -224,7 +223,7 @@ $Pr(Y=j|X={x}_{0})$,    ($j=1,2,...,K$)
 
 ![bayes-classifier](https://user-images.githubusercontent.com/31824102/34830553-2523029e-f6dc-11e7-903e-4c5fc6a4e7d0.PNG)
 
-대충 이러한 그림으로 나오는는데, 이는 ${x}_{1},{x}_{2}$가 주어지는 경우의 classification이다. 모든 점에 대해 노랑색 클래스에 속할지 파랑색 클래스에 속할지 확률을 구하고 그에 따라 classification해준 것이다. 물론 해당 확률은 그 input일때 해당 클래스에 속하는 경우가 더 많다는 것이다. 특정 input의 경우 100% 한 클래스에 속할수도 있겠지만(그림에서 맨 오른쪽, 혹은 맨 아래의 점들은 모두 파란색이므로 이때의 conditional probability  $Pr(Y=파랑|X={x}_{0})$는 1이다.) 애초에 모집단의 분포 자체가 섞여 있을 수도 있다(그림에서 정 중앙라인 부분). 그럴 경우 100% 그 클래스에 속하는 것은 아니고, 해당 경우 $Pr(Y=파랑|X={x}_{0})$는 1보다 작다. 
+대충 이러한 그림으로 나오는는데, 이는 ${x}_{1},{x}_{2}​$가 주어지는 경우의 classification이다. 모든 점에 대해 노랑색 클래스에 속할지 파랑색 클래스에 속할지 확률을 구하고 그에 따라 classification해준 것이다. 물론 해당 확률은 그 input일때 해당 클래스에 속하는 경우가 더 많다는 것이다. 특정 input의 경우 100% 한 클래스에 속할수도 있겠지만(그림에서 맨 오른쪽, 혹은 맨 아래의 점들은 모두 파란색이므로 이때의 conditional probability  $Pr(Y=파랑|X={x}_{0})​$는 1이다.) 애초에 모집단의 분포 자체가 섞여 있을 수도 있다(그림에서 정 중앙라인 부분). 그럴 경우 100% 그 클래스에 속하는 것은 아니고, 해당 경우 $Pr(Y=파랑|X={x}_{0})​$는 1보다 작다. 
 
 ## KNN(K-Nearest Neighbors)
 
