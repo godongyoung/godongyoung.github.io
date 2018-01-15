@@ -7,6 +7,10 @@ comment: true
 ---
 
 [TOC]
+$MSE =\frac { 1 }{ n } \sum _{ i=1 }^{ n }({y}_{i} − \hat f({x}_{i}))^2$
+
+$MSE =\frac { 1 }{ n } \sum _{ i=1 }^{ n }(y_{i} − \hat f(x_{i}))^2$
+
 $f(x)$ $x_{1},X_{P}$와 $x_{a},v_{a}$가 있다.
 
 asd1
