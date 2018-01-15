@@ -217,6 +217,7 @@ test data에 대한 error rate를 줄이기 위해서는 Bayes Classifier라 불
 $$
 Pr(Y=j|X=x_{0}),    (j=1,2,...,K)
 $$
+
 총 K개의 클래스가 있을때,  $x_{0}$라는 condition, 즉 조건이 있을때 해당 자료가 1번째 클래스에 속할 확률, 2번째 클래스에 속할 확률,..., 등을 전부 구해, 속할 확률이 가장 큰 클래스에 배정해주면 된다.
 
 ![bayes-classifier](https://user-images.githubusercontent.com/31824102/34830553-2523029e-f6dc-11e7-903e-4c5fc6a4e7d0.PNG)

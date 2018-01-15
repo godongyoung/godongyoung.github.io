@@ -6,8 +6,7 @@ tags:
 comment: true
 ---
 
-{:toc}여기샟...
-샟밑에..
+{:toc}..
 ## 1.개요
 
  - ML 이론서 중 유명하고, 인기있는 그리고 비교적 입문과정인 이론서로 알고 있습니다. 원래는 ESL(elementary to statistical learning)이 원조이고 좀더 깊은 내용을 다루고 있는 것으로 알고 있는데, 배탈이 나지 않기 위해 물 탄 버전인 ISL부터 함께 공부하고자 합니다
