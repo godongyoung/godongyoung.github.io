@@ -1,10 +1,13 @@
-<script type="text/javascript" src="{{site.baseurl}}/assets/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="{{site.baseurl}}/assets/js/materialize.min.js"></script>
-<script src="{{site.baseurl}}/assets/js/init.js"></script>
-</body>
-<footer class="page-footer">
-  <div class="footer-copyright" style="padding-left: 30px">
-    <i class="material-icons" style="padding-right:5px">copyright</i><p>2018 Copyright {{ site.name }} | All rights reserved</p>
-  </div>
+{% if site.theme_settings.footer_text %}
+<footer class="site-footer">
+    <p class="text">{{ site.theme_settings.footer_text }}</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                {% include icons.html %}
+                </ul>
+            </div>
 </footer>
-</html>
+{% endif %}
+
+

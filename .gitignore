@@ -1,6 +1,16 @@
-*.gem
-.bundle
-.sass-cache
-Gemfile.lock
+# Byte-compiled / optimized / DLL files
+*.manifest
+*.spec
+
+
+_site/**
 _site
-material-theme.gemspec
+_development_tool/**
+_development_tool
+
+.sass-cache/**
+*.css.map
+*.scssc
+
+Gemfile.lock
+*.gem
