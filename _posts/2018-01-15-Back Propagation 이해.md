@@ -23,7 +23,7 @@ node by node로 본것과 matrix form으로 본것. 정리 및 스스로의 이�
 >
 > $w_{ij}$: $a_{i}$에 곱해지는 weight 중 첫번째 요소. 그림에선 6개가 있으나 여기에서는 맨 위의 계산과정만을 따라가고 있다. (1x2와 2x3의 matrix)
 >
-> $z_{j}$: input layer$_{i}$에서 온 input에 weight을 element wise곱을 해서 합친 값에 bias ${b}_{j}$를 더한값. 
+> $z_{j}$: input layer$_{i}$에서 온 input에 weight을 element wise곱을 해서 합친 값에 bias $b_{j}$를 더한값. 
 >
 > $g_{j}$: input에 weight과 bias를 계산해준 최종값($z_{j}$)에 씌워주는 non-linear function. ReLU나 sigmoid 등등. 이 최종 값이 새로운 input$_{j}$으로써 활용된다. 
 >
@@ -39,7 +39,7 @@ node by node로 본것과 matrix form으로 본것. 정리 및 스스로의 이�
 
 ![\Large{\begin{array}{rcl} E &=& \frac{1}{2} \sum_{k \in K}(a_k - t_k)^2 \end{array}}](https://s0.wp.com/latex.php?latex=%5CLarge%7B%5Cbegin%7Barray%7D%7Brcl%7D+E+%26%3D%26+%5Cfrac%7B1%7D%7B2%7D+%5Csum_%7Bk+%5Cin+K%7D%28a_k+-+t_k%29%5E2+%5Cend%7Barray%7D%7D&bg=ffffff&fg=4e4e4e&s=0)![loss-func](https://user-images.githubusercontent.com/31824102/34932670-b4ecb96e-f9cb-11e7-925e-5338057adfc2.PNG)
 
-neural net을 학습시키는 것의 가장 큰 부분은 위의 error를 minimize하는 parameter의 세트 $\theta = \left\{ \boldsymbol{W} ,\mathbf{b} \right\}$ 를 찾아내는 것이다. (W,b가 bold체인것을 명심. 모든 parameter를 포함하는 notation이다)
+neural net을 학습시키는 것의 가장 큰 부분은 위의 error를 minimize하는 parameter의 세트 $$\theta = \left\{ \boldsymbol{W} ,\mathbf{b} \right\}$$ 를 찾아내는 것이다. (W,b가 bold체인것을 명심. 모든 parameter를 포함하는 notation이다)
 
 이 문제는 nn의 핵심개념인 gradient descent를 이용하여 푸는데, 즉 $\theta$의 모든 parameter에 대해 $\frac{\partial E}{\partial \theta}$를 구하고(gradient를 구하고), ![w_{jk}\leftarrow w_{jk} - \eta \frac{\partial E }{\partial w_{jk}}](https://s0.wp.com/latex.php?latex=w_%7Bjk%7D%5Cleftarrow+w_%7Bjk%7D+-+%5Ceta+%5Cfrac%7B%5Cpartial+E+%7D%7B%5Cpartial+w_%7Bjk%7D%7D&bg=ffffff&fg=4e4e4e&s=0)이런 식으로 그 방향으로 parameter를 조금씩 조정(descent)해주는 것이다. ($\eta$는 learning rate)
 
@@ -52,7 +52,7 @@ $\frac{\partial E}{\partial \theta}$, 즉 error에 미치는 각 parameter의 �
 1. error의 식에 직접적으로 관여하는 $a_{k}$를 계산하는데 사용된 마지막 Weight (그림에선 $w_{jk}$)
 2. 최종 output $a_{k}$속에 숨어 있어 좀더 간접적으로 작용하는 이전의 수많은 Weight들 (그림에선 $w_{ij}$)가 있다. 
 
-###1. output layer weights
+### 1. output layer weights
 
 우선 좀더 직관적인 마지막 레이어에 있는 weight의 gradient부터 살펴보자. 즉, $\frac{\partial E}{\partial W_{jk}}$를 계산해보자.
 
@@ -93,8 +93,7 @@ $\frac{\partial E}{\partial \theta}$, 즉 error에 미치는 각 parameter의 �
 ![\Large{\begin{array}{rcl} \frac{\partial E }{\partial w_{jk}} = \delta_k a_j \end{array}}](https://s0.wp.com/latex.php?latex=%5CLarge%7B%5Cbegin%7Barray%7D%7Brcl%7D+%5Cfrac%7B%5Cpartial+E+%7D%7B%5Cpartial+w_%7Bjk%7D%7D+%3D+%5Cdelta_k+a_j+%5Cend%7Barray%7D%7D&bg=ffffff&fg=4e4e4e&s=0)
 
 으로 최종 정리할 수 있다. 여기서 $\delta_{k}$는 마지막 non-linear function을 back-propagation한 것이다. 어렵당..원문(
-
-Here the ![\delta_k](https://s0.wp.com/latex.php?latex=%5Cdelta_k&bg=ffffff&fg=4e4e4e&s=0) terms can be interpreted as the network output error after being back-propagated through the output activation function, thus creating an error “signal”. Loosely speaking, Equation (5) can be interpreted as determining how much each ![w_{jk}](https://s0.wp.com/latex.php?latex=w_%7Bjk%7D&bg=ffffff&fg=4e4e4e&s=0) contributes to the error signal by weighting the error signal by the magnitude of the output activation from the previous (hidden) layer associated with each weight )
+Here the $\delta_{k}$terms can be interpreted as the network output error after being back-propagated through the output activation function, thus creating an error “signal”. Loosely speaking, Equation (5) can be interpreted as determining how much each $w_{jk}$ contributes to the error signal by weighting the error signal by the magnitude of the output activation from the previous (hidden) layer associated with each weight )
 
 덤으로 output layer bias $b_{k}$는 위의 계산과정에서 ![\frac{\partial}{\partial b_k} z_k = \frac{\partial}{\partial b_k} \left[ b_k + \sum_j g_j(z_j)\right] = 1](https://s0.wp.com/latex.php?latex=%5Cfrac%7B%5Cpartial%7D%7B%5Cpartial+b_k%7D+z_k+%3D+%5Cfrac%7B%5Cpartial%7D%7B%5Cpartial+b_k%7D+%5Cleft%5B+b_k+%2B+%5Csum_j+g_j%28z_j%29%5Cright%5D+%3D+1&bg=ffffff&fg=4e4e4e&s=0) 이므로
 
@@ -131,8 +130,7 @@ summation이 여기서 사라지지 않은것에 유의! 왜냐면 이전 layer�
 ![\Large{\begin{array}{rcl} \frac{\partial E }{\partial w_{ij}}&=& a_i g'_j(z_j) \sum_{k \in K} \delta_k w_{jk} \\  &=& \delta_j a_i \\  \text{where} \\  \delta_j &=& g'_j(z_j) \sum_{k \in K} \delta_k w_{jk} \end{array}}](https://s0.wp.com/latex.php?latex=%5CLarge%7B%5Cbegin%7Barray%7D%7Brcl%7D+%5Cfrac%7B%5Cpartial+E+%7D%7B%5Cpartial+w_%7Bij%7D%7D%26%3D%26+a_i+g%27_j%28z_j%29+%5Csum_%7Bk+%5Cin+K%7D+%5Cdelta_k+w_%7Bjk%7D+%5C%5C++%26%3D%26+%5Cdelta_j+a_i+%5C%5C++%5Ctext%7Bwhere%7D+%5C%5C++%5Cdelta_j+%26%3D%26+g%27_j%28z_j%29+%5Csum_%7Bk+%5Cin+K%7D+%5Cdelta_k+w_%7Bjk%7D+%5Cend%7Barray%7D%7D&bg=ffffff&fg=4e4e4e&s=0)
 
 이는 결국 임의의$l$ 번째 레이어의 weight gradient를 구하고 싶으면 error를 우리의 계산과정을 역으로 미분하고 앞에서 온 input $a_{l-1}$을 곱해주면 된다는것. 이부분 어렵당..원문(
-
-This suggests that in order to calculate the weight gradients at any layer ![l](https://s0.wp.com/latex.php?latex=l&bg=ffffff&fg=4e4e4e&s=0) in an arbitrarily-deep neural network, we simply need to calculate the backpropagated error signal that reaches that layer ![\delta_l](https://s0.wp.com/latex.php?latex=%5Cdelta_l&bg=ffffff&fg=4e4e4e&s=0) and weight it by the feed-forward signal ![a_{l-1}](https://s0.wp.com/latex.php?latex=a_%7Bl-1%7D&bg=ffffff&fg=4e4e4e&s=0)feeding into that layer! )
+This suggests that in order to calculate the weight gradients at any layer$l$ in an arbitrarily-deep neural network, we simply need to calculate the backpropagated error signal that reaches that layer$\delta_{l}$ and weight it by the feed-forward signal $a_{l-1}$feeding into that layer! )
 
 덤으로 bias 는 이리 구해진다. 사실, 위의 식$\delta_{j}a_{j}$에서 $a_{j}$부분만 빼주면 된다.
 
@@ -144,7 +142,7 @@ This suggests that in order to calculate the weight gradients at any layer ![l](
 
 역시 차원이 많아지면 matrix가 보기에 짱.
 
-$   Input=x$, $Output=f(Wx+b)$은 여전히 유효하다. 아니, 여기서는 bias가 없다. (실제로 빈번히 이렇게 쓰는듯)
+$   Input=x​$, $Output=f(Wx+b)​$은 여전히 유효하다. 아니, 여기서는 bias가 없다. (실제로 빈번히 이렇게 쓰는듯)
 
 ![Neural Network](https://raw.githubusercontent.com/sudeepraja/sudeepraja.github.io/master/images/neuron.PNG)
 
