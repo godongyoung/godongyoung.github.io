@@ -31,11 +31,11 @@ text classification 이란? nlp의 전통적인 topic중 하나로 자연어가 
 
 주된 구성은 1-D input, 즉 1차원 벡터에 대한 1-D convolution과 똑같다. input g(x)와 사이즈가 k, stride가 d인 kernel function f(x)와 convolution h(x)가 있다고 하면 
 
-$h(y)=\sum _{x=1}^{n} [f(x)\cdot g(d \cdot(y-1)+k-(x-1))]$으로 식으로 쓸 수 있는데, 그냥 우리가 알고 있는 1-D CNN.....저기서 $f \cdot g$는 내적이 아니라 element wise곱을 의미. 그냥 우리가 알고 있는 filter개념...이미지에서 처럼 filter를 여러개 만들어 여러 output $h_{j}$를 만들수 있다.
+$$h(y)=\sum _{x=1}^{n} [f(x)\cdot g(d \cdot(y-1)+k-(x-1))]$$으로 식으로 쓸 수 있는데, 그냥 우리가 알고 있는 1-D CNN.....저기서 $$f \cdot g$$는 내적이 아니라 element wise곱을 의미. 그냥 우리가 알고 있는 filter개념...이미지에서 처럼 filter를 여러개 만들어 여러 output $h_{j}$를 만들수 있다.
 
 여기에 더 깊은 모델을 위한 max-pooling을 해준다. max-pooling외의 방식을 쓴 ConvNets의 경우 6개 이상을 쌓는데 실패했다 한다.
 
-non-linearity로는 ReLU를 사용 ($h(x)=max\left\{0,x\right\}$), SGD를 사용.
+non-linearity로는 ReLU를 사용 ($$h(x)=max\left\{0,x\right\}$$), SGD를 사용.
 
 ####2.2 Character quantization
 
@@ -47,11 +47,11 @@ non-linearity로는 ReLU를 사용 ($h(x)=max\left\{0,x\right\}$), SGD를 사용
 
 large feature와 small feature로 2개의 ConvNet을 구성했고, 모두 6개의 conv layer와 3개의 fully-connected layer가 있다. 3개의 fc 사이에는 정규화를 위해 2개의 dropout이 있고 dropout의 확률은 0.5이다. filter의 stride는 1, pooling은 non-overlapping을 하였으므로 stride는 3.
 
-![char-cnn-table](C:\Users\admin\내파일\3-2.5\스터디\NLP스터디\data\char-cnn-table.PNG)
+![char-cnn-table](https://user-images.githubusercontent.com/31824102/34938407-28412a9e-f9e0-11e7-858d-441410fe76ca.PNG)
 
 large feature와 small feature는 filter가 몇개의 feature를 잡아낼지를 설정한것, 즉 filter의 수라고 이해하였다(맞나요???)
 
-이후 6번째 layer를 통해 나온 output을 다음과 같은 output unit을 가진 FC에 넣는다. 마지막 output unit은 문제에 따라 다르다(ex. 목표가 10개의 class로 classification이면 10개의 output unit올 설정)![char-cnn-table2](C:\Users\admin\내파일\3-2.5\스터디\NLP스터디\data\char-cnn-table2.PNG) 
+이후 6번째 layer를 통해 나온 output을 다음과 같은 output unit을 가진 FC에 넣는다. 마지막 output unit은 문제에 따라 다르다(ex. 목표가 10개의 class로 classification이면 10개의 output unit올 설정)![char-cnn-table2](https://user-images.githubusercontent.com/31824102/34938408-289e1966-f9e0-11e7-9f33-47fe38b04892.PNG) 
 
 #### 2.4 Data Augmentation using Thesaurus
 
@@ -82,7 +82,7 @@ large feature와 small feature는 filter가 몇개의 feature를 잡아낼지를
 
 text data중에는 CNN의 성능을 확인할만한 large-scale datasets 이 없었기에 여기저기서 따와서 만들었다.
 
-거기에는 news article(내용과 topic label), DBPedia, Yelp review(리뷰 내용과 별몇개인지, 혹은 호1~불호4-즉 2개의 dataset을 여기서 구함) Yahoo! (질문과 답 내용, label) Amazon review (yelp과 같이 review와 별점, 호1~불호4)가 쓰임. **데이터의 양**은 뒤로갈 수록 방대함.(large-scale일 수록 CNN이 잘할것!) 여러가지 모델들의 최종 성능은 다음과 같다.![char-cnn-result](C:\Users\admin\내파일\3-2.5\스터디\NLP스터디\data\char-cnn-result.PNG)
+거기에는 news article(내용과 topic label), DBPedia, Yelp review(리뷰 내용과 별몇개인지, 혹은 호1~불호4-즉 2개의 dataset을 여기서 구함) Yahoo! (질문과 답 내용, label) Amazon review (yelp과 같이 review와 별점, 호1~불호4)가 쓰임. **데이터의 양**은 뒤로갈 수록 방대함.(large-scale일 수록 CNN이 잘할것!) 여러가지 모델들의 최종 성능은 다음과 같다.![char-cnn-result](https://user-images.githubusercontent.com/31824102/34938406-281004c8-f9e0-11e7-9885-02a3715c27ed.PNG)
 
 파랑이 best, 빨강이 worst
 
@@ -90,7 +90,7 @@ text data중에는 CNN의 성능을 확인할만한 large-scale datasets 이 없
 
 아래 그림은 각 method별, 각 주제별 Char-CNN과의 오류율 차이%로 나타낸것. (양의 방향으로 막대가 간게 Char-CNN이 잘한것)
 
-![char-cnn-graph](C:\Users\admin\내파일\3-2.5\스터디\NLP스터디\data\char-cnn-graph.PNG)
+![char-cnn-graph](https://user-images.githubusercontent.com/31824102/34938409-29fa6882-f9e0-11e7-87f8-57351116e194.PNG)
 
 - Character-level ConvNet is an effective method: word를 찾을 필요 없다는 점에서, 언어 데이터를 다른 데이터와 같은 방식으로 다룰 수 잇다는 강점이 잇다.
 - Dataset size에 따라 데이터 사이즈가 작을때에는 n-gram TFIDF가 여전히 잘했다. 그러나 데이터 scale이 많아질수록 char-CNN이 잘했다.
