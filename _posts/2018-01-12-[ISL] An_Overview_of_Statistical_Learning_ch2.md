@@ -13,22 +13,6 @@ comment: true
 
 {:toc}
 
-목차
-
-- [간략한 책구성](#간략한-책구성)
-- [시작! (statistical learning이란?)](#시작-!-(-statistical-learning이란-?-))
-- [시작! (statistical learning이란?)](#시작!-(-statistical-learning이란?-))
-- [시작! (statistical learning이란?)](#시작-!-(statistical-learning이란-?-))
-- [Assessing Model Accuracy](#assessing-model-accuracy)
-- [Bias-Variance Trade-Off](#bias-variance-trade-off)
-- [Assessing Model Accuracy at Classification](#assessing-model-accuracy-at-classification)
-- [Bayes Classifier](#bayes-classifier)
-- [KNN(K-Nearest Neighbors)](#knn-(-k-nearest-neighbors-))
-- [KNN(K-Nearest Neighbors)](#knn-(k-nearest-neighbors-))
-- [KNN(K-Nearest Neighbors)](#knn-(-k-nearest-neighbors-)-)
-- [KNN(K-Nearest Neighbors)](#knn(-k-nearest-neighbors)-)
-
-
 
 ## preface
 
