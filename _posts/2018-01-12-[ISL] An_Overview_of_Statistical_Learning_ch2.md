@@ -15,24 +15,21 @@ comment: true
 
 [간략한 책구성](##간략한 책구성)
 
-```
-**목차**
+[간략한 책구성](#간략한 책구성)
 
-- [GAN?](#gan)
-- [간략](##간략한 책구성)
-- [간략](#간략한 책구성)
-- [Before GAN](#before-gan)
-- [Adversarial Nets](#adversarial-nets)
-- [How to Train](#how-to-train)
-- [Into Deep](#into-deep)
-- [Algorithm](#algorithm)
-```
-
-```
-- [GAN?](#gan)
-```
+ [GAN?](#gan)
 
 [Assessing Model Accuracy](##Assessing Model Accuracy)
+
+[Assessing Model Accuracy](#Assessing Model Accuracy)
+
+[Assessing Model Accuracy](#Assessing Model Accuracy)
+
+[Assessing Model Accuracy](#Assessing-Model-Accuracy)
+
+[Assessing Model Accuracy](#assessing-model-accuracy)
+
+
 
 - [Load Datasets](#Load-Datasets)
 
