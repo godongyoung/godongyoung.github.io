@@ -189,13 +189,17 @@ $E=\frac{1}{2}\left\|x_{3}-t\right\|_{2}^2$   (다시 상기)
 위의 계산들을 정리해보자면, $L$개의 layer가 있고 그에 따라 L개의 Weight $W_{1},..,W_{L}$과 각각의 non-linear function이 있으면,
 
 Forward Pass(원 방향 계산)는
+
 $$
 x_{i}=f_{i}(W_{i}x_{i-1})
 $$
+
 이렇게 이루어 지고, Error는 다음과 같이 계산된다.
+
 $$
 E=\frac{1}{2}\left\|x_{L}-t\right\|_{2}^2
 $$
+
 Backward Pass에서는 마지막 layer의 backprop과 그 이전 layer들의 backprop으로 나뉘는데, 요렇다.![matix4](https://user-images.githubusercontent.com/31824102/34932675-b6608500-f9cb-11e7-8efc-50dd5b92e2b1.PNG)
 
 위에서 정의한 $\delta$들을가지고 요렇게 weight 를 update를 할 수 있다.
