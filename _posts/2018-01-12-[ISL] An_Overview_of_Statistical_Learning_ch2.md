@@ -13,25 +13,23 @@ comment: true
 
 {:toc}
 
-[간략한 책구성](##간략한 책구성)
+목차
 
-[간략한 책구성](#간략한 책구성)
+[간략한 책구성](#간략한-책구성)
 
- [GAN?](#gan)
-
-[Assessing Model Accuracy](##Assessing Model Accuracy)
-
-[Assessing Model Accuracy](#Assessing Model Accuracy)
-
-[Assessing Model Accuracy](#Assessing Model Accuracy)
-
-[Assessing Model Accuracy](#Assessing-Model-Accuracy)
+[시작! (statistical learning이란?)](#시작!-(statistical-learning이란?))
 
 [Assessing Model Accuracy](#assessing-model-accuracy)
 
+[Bias-Variance Trade-Off](#bias-variance-trade-off)
+
+[Assessing Model Accuracy at Classification](#assessing-model-accuracy-at-classification)
+
+[Bayes Classifier](#bayes-classifier)
+
+[KNN(K-Nearest Neighbors)](#knn(k-nearest-neighbors))
 
 
-- [Load Datasets](#Load-Datasets)
 
 ## preface
 
@@ -67,7 +65,7 @@ study plan에서도 적어놨지만, 무엇을 공부할것인지, 간략하게 
 
 
 
-## 시작!
+## 시작! (statistical learning이란?)
 
 statistical learning의 가장 일반적인 목표는 x들과 y의 어떠한 '관계'가 있을것이라 '가정'하고, 이를 밝히는 것이다. 좀 더 구체적으로 말하자면, 우리에게 $ x_{ 1 }, x_{ 2 },.., x_{ p }$, 즉 p개의 input이 주어졌을때, 우리의 목표 $y$ 를 예측하는 것이다.(사실 x와 y의 관계를 '추론'하는 것도 아주 큰 분야 중 하나이지만, 여기선 예측에 중점을 둔다.)  이는 수식으로 말하면 다음과 같다.
 
