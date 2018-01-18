@@ -13,6 +13,29 @@ comment: true
 
 {:toc}
 
+[간략한 책구성](##간략한 책구성)
+
+```
+**목차**
+
+- [GAN?](#gan)
+- [간략](##간략한 책구성)
+- [간략](#간략한 책구성)
+- [Before GAN](#before-gan)
+- [Adversarial Nets](#adversarial-nets)
+- [How to Train](#how-to-train)
+- [Into Deep](#into-deep)
+- [Algorithm](#algorithm)
+```
+
+```
+- [GAN?](#gan)
+```
+
+[Assessing Model Accuracy](##Assessing Model Accuracy)
+
+- [Load Datasets](#Load-Datasets)
+
 ## preface
 
 시작하기에 앞서, 이 책은 ESL(Elementary of Statistical Learning)에서 수정을 통해 나온 책이다. ISL은 데이터 시대에 접어들면서, statistical learning이 학문적 분야를 넘어 각 분야에 적용되고 있는 흐름에 맞추어 변형된 책이다. 
