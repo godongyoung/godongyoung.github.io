@@ -49,7 +49,7 @@ $$Y=\beta_{0}+\beta_{1}X+\epsilon$$
 
 간단하게 우리가 가진 데이터에 우리의 선형 식이 최대한 잘 맞도록 계수를 구한다. '잘 맞도록'하는 방법으로는 가장 대표적으로 **least squares**방법으 쓰인다.(다른 방법은 6장에서 다룬다!) 이는 결국 앞장에서 나왔던 MSE를 최소화하는 계수를 구하는 것과 같다. 
 
-![linear-regression](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\linear-regression.PNG)
+![linear-regression](https://user-images.githubusercontent.com/31824102/35181510-dc9c2998-fdba-11e7-9a2a-edf38c40b3f3.PNG)
 
 앞장에도 나왔던 그림. 저기서 빨간색이 우리가 가진 데이터, 파란색이 우리가 추정한 함수. 추정된 함수와 가지고 있는 데이터의 차를 잔차라고 하는데, $i$번째 데이터에 대한 잔차를 $e_{i}$라고 표현한다. 데이터와 추정된 함수가 얼마나 잘 맞는지는 잔차들을 제곱(square)해서 구한다. 이를 $RSS$(sum of squares residual) 혹은 $SSE$(sum of square error)이라고 한다. 
 
@@ -67,21 +67,30 @@ $$b_{1}=\frac{\sum x_{i}(y_{i}-\bar y)}{\sum x_{i}(x_{i}-\bar x)}$$
 >
 > $$\frac {\partial RSS} {\partial b_0}=\frac {\partial \sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i})^2} {\partial b_0}=0$$이 되는 값을 찾으면 된다.
 >
-> $${- 2\sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i})}=0 $$
-> $${\sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i})}=0 $$
-> $${\sum(y_{i})-nb_{0}-\sum b_{1}x_{i}}=0 $$
-> $${\sum(y_{i})-\sum b_{1}x_{i}}=nb_{0} $$
-> $$b_{0}=\frac{\sum(y_{i})}{n} -\frac{\sum b_{1}x_{i}}{n}$$
-> $$\therefore b_{0}=\bar y -b_{1}\bar x$$
-> 
+> ${- 2\sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i})}=0 $
+>
+> ${\sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i})}=0 $
+>
+> ${\sum(y_{i})-nb_{0}-\sum b_{1}x_{i}}=0 $
+>
+> ${\sum(y_{i})-\sum b_{1}x_{i}}=nb_{0} $
+>
+> $b_{0}=\frac{\sum(y_{i})}{n} -\frac{\sum b_{1}x_{i}}{n}$
+>
+> $\therefore b_{0}=\bar y -b_{1}\bar x$
+>
 > $b_{1}$의 경우
 >
 > $$\frac {\partial RSS} {\partial b_1}=\frac {\partial \sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i})^2} {\partial b_1}=0$$이 되는 값을 찾으면 된다.
 >
-> $${- 2\sum_{i=1}^{n}x_{i}(y_{i}-b_{0}-b_{1}x_{i})}=0 $$
-> $${\sum_{i=1}^{n}x_{i}(y_{i}-b_{0}-b_{1}x_{i})}=0 $$
-> $${\sum(x_{i}y_{i})-b_{0}\sum x_{i}-\sum b_{1}x_{i}^2}=0 $$
-> $$\sum x_{i}(y_{i}-\bar y)-b_{1}\sum x_{i}(x_{i}-\bar x)=0, \because b_{0}=\bar y -b1\bar x$$
+> ${- 2\sum_{i=1}^{n}x_{i}(y_{i}-b_{0}-b_{1}x_{i})}=0 $
+>
+> ${\sum_{i=1}^{n}x_{i}(y_{i}-b_{0}-b_{1}x_{i})}=0 $
+>
+> ${\sum(x_{i}y_{i})-b_{0}\sum x_{i}-\sum b_{1}x_{i}^2}=0 $
+>
+> $\sum x_{i}(y_{i}-\bar y)-b_{1}\sum x_{i}(x_{i}-\bar x)=0, \because b_{0}=\bar y -b1\bar x$
+>
 > $$\therefore b_{1}=\frac{\sum x_{i}(y_{i}-\bar y)}{\sum x_{i}(x_{i}-\bar x)}$$, 이는 $$\frac{\sum (x_{i}-\bar x)(y_{i}-\bar y)}{\sum (x_{i}-\bar x)(x_{i}-\bar x)} $$로도 나타낼 수 있어(전개하면 똑같다) $$b_{1}=\frac{Sxy}{Sxx}$$라고 쓰기도 한다 (sum of x&y, sum of x&x)
 
 이 중 기울기, 즉 $$b_{1}$$은 독립변수 $$x$$가 한단위 증가 했을때 종속변수 $$\hat y$$($$=\hat f(x)$$)가 얼마나 변하는지를 의미한다. TV와 매출의 예시에서 $$b_{1}=0.475$$라면 TV광고에 1달라 더 쓸때마다 평균 매출은 0.475개 늘어난다는 것을 의미한다. (추정된 선형 모델이 이렇게 예측한다는 것이지 실제 세상에선 당근 오차가 있다. )
@@ -114,10 +123,13 @@ $$Y=2+3X+\epsilon$$ 여기서 $\epsilon$은 평균이 0이고 많은 경우에 �
 
 > (글고  $$E[MSE]=\sigma$$는 분포가정이 없이 가능하지만, t분포를 통한 추정은 $$\epsilon \sim N$$이라는 가정이 있기에 가능하다. 책 48참고)
 >
-> $$\frac {(y_{i}-\beta_0-\beta_{1}x_{i})}{\sigma} \sim N(0,1)$$
-> $$\frac {\sum (y_{i}-\hat \beta_0-\hat \beta_{1}x_{i})^2}{\sigma^2} \sim \chi^2[n-2]$$
-> $$\therefore \frac {SSE}{\sigma^2} \sim \chi^2[n-2]$$
-> $$\therefore E[\frac {SSE}{\sigma^2}]=n-2$$
+> $\frac {(y_{i}-\beta_0-\beta_{1}x_{i})}{\sigma} \sim N(0,1)$
+>
+> $\frac {\sum (y_{i}-\hat \beta_0-\hat \beta_{1}x_{i})^2}{\sigma^2} \sim \chi^2[n-2]$
+>
+> $\therefore \frac {SSE}{\sigma^2} \sim \chi^2[n-2]$
+>
+> $\therefore E[\frac {SSE}{\sigma^2}]=n-2$
 
 고로 앞장에서 언급하였던 MSE가 $$\sigma^2$$ 추정에 사용되는 신비한 결과. ($$MSE= \frac{SSE}{(n-2)}=\hat \sigma^2$$) 그러나 직관적으로 생각해보면 분산을 '추정'한다는 개념에서는 우리의 추정 선에서의 변동을 보는 MSE를 쓰는것이 이해될 수 있다.
 
@@ -320,6 +332,7 @@ $$MSE= \frac{SSE}{n-(p+1)}$$ 다시 상기. 사용된 변수갯수(p)에 $$b_{0}
 > 개별값 $$y_{0}$$이 추정된 평균$$\hat f(x_{0})$$와 얼마나 떨어져 있는지를 $$pred$$라고 하면
 >
 > $$\sigma^2 [pred]=\sigma^2[y_{0}-\hat f(x_{0})]=\sigma^2+\sigma^2[\hat f(x_{0})]$$
+>
 > $$=\sigma^2+\sigma^2[\frac{1}{n}+\frac{(x_{0}-\bar x)^2}{\sum(x_{i}-\bar x)^2}]=\sigma^2[1+\frac{1}{n}+\frac{(x_{0}-\bar x)^2}{\sum(x_{i}-\bar x)^2}]$$
 >
 > 이 된다. 이때 $$\sigma$$는 MSE로 추정된다.(이 과정에서 자유도를 2잃고 t분포가 된다)
