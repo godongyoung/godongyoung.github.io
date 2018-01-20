@@ -27,6 +27,8 @@ plugins:
   - jekyll-paginate
 
 # Custom vars
+disqus:
+disqus_shortname: [godongyoung]
 version:            3.5.3
 sidebar_home_link:  true
 # sidebar_blog_link:  '/blog'   # By default, your home page is your blog
