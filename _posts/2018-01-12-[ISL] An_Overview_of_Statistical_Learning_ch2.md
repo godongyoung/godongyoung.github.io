@@ -4,7 +4,7 @@ title: "[ISL] An Overview of Statistical Learning"
 categories:
   - 머신러닝
 tags:
-  - ISL
+  - An Introduction to Statistical Learning
   - Machine Learning
 comment: true
 ---
@@ -13,6 +13,23 @@ comment: true
 
 {:toc}
 
+##목차
+
+[preface](#preface)
+
+[시작! (statistical learning이란?)](시작_(statistical_learning이란))
+
+[Assessing Model Accuracy](#Assessing_Model_Accuracy)
+
+[Bias-Variance Trade-Off](#bias-variance_trade-off)
+
+[Assessing Model Accuracy at Classification](#assessing_model_accuracy_at_classification)
+
+[Bayes Classifier](#bayes_classifier)
+
+[KNN(K-Nearest Neighbors)](#knn(k-nearest_neighbors))
+
+---
 
 ## preface
 

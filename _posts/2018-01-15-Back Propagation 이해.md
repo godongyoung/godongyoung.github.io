@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[stat385] Back Propagation 이해"
+title: "[stats385] Back Propagation 이해"
 categories:
   - 딥러닝
 tags:

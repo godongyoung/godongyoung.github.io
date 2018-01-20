@@ -4,7 +4,7 @@ title: "[ISL] ISL스터디 플랜"
 categories:
   - 머신러닝
 tags:
-  - ISL
+  - An Introduction to Statistical Learning
   - Machine Learning
 comment: true
 ---
