@@ -68,29 +68,20 @@ $$b_{1}=\frac{\sum x_{i}(y_{i}-\bar y)}{\sum x_{i}(x_{i}-\bar x)}$$
 > $$\frac {\partial RSS} {\partial b_0}=\frac {\partial \sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i})^2} {\partial b_0}=0$$이 되는 값을 찾으면 된다.
 >
 > $${- 2\sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i})}=0 $$
->
 > $${\sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i})}=0 $$
->
 > $${\sum(y_{i})-nb_{0}-\sum b_{1}x_{i}}=0 $$
->
 > $${\sum(y_{i})-\sum b_{1}x_{i}}=nb_{0} $$
->
 > $$b_{0}=\frac{\sum(y_{i})}{n} -\frac{\sum b_{1}x_{i}}{n}$$
->
 > $$\therefore b_{0}=\bar y -b_{1}\bar x$$
->
+> 
 > $b_{1}$의 경우
 >
 > $$\frac {\partial RSS} {\partial b_1}=\frac {\partial \sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i})^2} {\partial b_1}=0$$이 되는 값을 찾으면 된다.
 >
 > $${- 2\sum_{i=1}^{n}x_{i}(y_{i}-b_{0}-b_{1}x_{i})}=0 $$
->
 > $${\sum_{i=1}^{n}x_{i}(y_{i}-b_{0}-b_{1}x_{i})}=0 $$
->
 > $${\sum(x_{i}y_{i})-b_{0}\sum x_{i}-\sum b_{1}x_{i}^2}=0 $$
->
 > $$\sum x_{i}(y_{i}-\bar y)-b_{1}\sum x_{i}(x_{i}-\bar x)=0, \because b_{0}=\bar y -b1\bar x$$
->
 > $$\therefore b_{1}=\frac{\sum x_{i}(y_{i}-\bar y)}{\sum x_{i}(x_{i}-\bar x)}$$, 이는 $$\frac{\sum (x_{i}-\bar x)(y_{i}-\bar y)}{\sum (x_{i}-\bar x)(x_{i}-\bar x)} $$로도 나타낼 수 있어(전개하면 똑같다) $$b_{1}=\frac{Sxy}{Sxx}$$라고 쓰기도 한다 (sum of x&y, sum of x&x)
 
 이 중 기울기, 즉 $$b_{1}$$은 독립변수 $$x$$가 한단위 증가 했을때 종속변수 $$\hat y$$($$=\hat f(x)$$)가 얼마나 변하는지를 의미한다. TV와 매출의 예시에서 $$b_{1}=0.475$$라면 TV광고에 1달라 더 쓸때마다 평균 매출은 0.475개 늘어난다는 것을 의미한다. (추정된 선형 모델이 이렇게 예측한다는 것이지 실제 세상에선 당근 오차가 있다. )
@@ -105,7 +96,7 @@ $$Y=2+3X+\epsilon$$ 여기서 $\epsilon$은 평균이 0이고 많은 경우에 �
 
 위의 식에서 무작위로 100개의 data를 10번 뽑으면, random noise $\epsilon$으로 인해 아주 조금씩 다른 10개의 dataset(크기는 100)이 뽑힐것. 
 
-![unbiased-linear](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\unbiased-linear.PNG)
+![unbiased-linear](https://user-images.githubusercontent.com/31824102/35181416-0fab4cda-fdb9-11e7-8743-2efd0010bd19.PNG)
 
 위 그림의 왼쪽에서 빨간선은 진짜 관계선, 즉 true $$f$$이다. ($$Y=2+3X+\epsilon$$) 이를 토대로 10번 랜덤하게 뽑은 데이터에 적합한 10개의 '추정선'들이 오른쪽 그림에 있다. 선들 하나 하나는 빨간선과 조금씩 오차가 있지만, 이들을 모아 **평균**을 낸다면 진짜 빨간선과 점점 더 가까워 지는 것을 볼 수 있다. 즉 우리의 추정선의 **기대값**은 진짜 선형 모회귀선의 값이다.
 
@@ -113,7 +104,7 @@ $$Y=2+3X+\epsilon$$ 여기서 $\epsilon$은 평균이 0이고 많은 경우에 �
 
 그럼 기대되는 값이 참값과 같다면 다음 질문은 '얼마나 그 기대값이 믿을만한가?'이다. 이는 추정된 값($$\hat y_{0},\hat \beta_{0},\hat \beta_{1}$$)의 **분산**을 구하는 문제가 된다. (기대값이 같아도 분산은 당근 천차만별일 수 있다.) 이 '분산'역시, 진짜값은 알 수 없고 우리가 가진 표본의 '표본분산'을 사용 해야한다. least square를 통해 구한 계수의 표본분산(standard error)은 다음과 같다
 
-![se_of_coeff](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\se_of_coeff.PNG)
+![se_of_coeff](https://user-images.githubusercontent.com/31824102/35181415-0f655a22-fdb9-11e7-8f84-0d85dcf34f3f.PNG)
 
 (이는 사실 앞에서 말했던 **'오차의 분산이 같다'**라는 가정이 있어야만 성립한다.)
 
@@ -124,11 +115,8 @@ $$Y=2+3X+\epsilon$$ 여기서 $\epsilon$은 평균이 0이고 많은 경우에 �
 > (글고  $$E[MSE]=\sigma$$는 분포가정이 없이 가능하지만, t분포를 통한 추정은 $$\epsilon \sim N$$이라는 가정이 있기에 가능하다. 책 48참고)
 >
 > $$\frac {(y_{i}-\beta_0-\beta_{1}x_{i})}{\sigma} \sim N(0,1)$$
->
 > $$\frac {\sum (y_{i}-\hat \beta_0-\hat \beta_{1}x_{i})^2}{\sigma^2} \sim \chi^2[n-2]$$
->
 > $$\therefore \frac {SSE}{\sigma^2} \sim \chi^2[n-2]$$
->
 > $$\therefore E[\frac {SSE}{\sigma^2}]=n-2$$
 
 고로 앞장에서 언급하였던 MSE가 $$\sigma^2$$ 추정에 사용되는 신비한 결과. ($$MSE= \frac{SSE}{(n-2)}=\hat \sigma^2$$) 그러나 직관적으로 생각해보면 분산을 '추정'한다는 개념에서는 우리의 추정 선에서의 변동을 보는 MSE를 쓰는것이 이해될 수 있다.
@@ -184,9 +172,9 @@ $$Y=\beta_{0}+\beta_{1}X_{1}+...+\beta_{p}X_{p}+\epsilon$$
 
 #### 모델의 평가
 
-모델의 평가는 역시 똑같은 방식으로 한다. 예측한 값$$y_{i}$$와 $$\hat y_{i}$$이 얼마나 차이가 날지. 식으로 쓰면 다음과 같다.![RSS-multi](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\RSS-multi.PNG)
+모델의 평가는 역시 똑같은 방식으로 한다. 예측한 값$$y_{i}$$와 $$\hat y_{i}$$이 얼마나 차이가 날지. 식으로 쓰면 다음과 같다.![RSS-multi](https://user-images.githubusercontent.com/31824102/35181414-0f1badbe-fdb9-11e7-95d9-bedbdbd2d925.PNG)
 
-변수가 2개인 경우 그림으로 나타낼 경우 좀더 직관적으로 와닿을 수 있다. 이제 2차원 평면에서의 1차원 선이 아니라 3차원 공간에서의 2차원 평면과 데이터의 차이를 의미하게 되었다. (사람의 인식의 한계가 3차원이기에, X1, X2 두개의 독립변수에 대한 multi linear regression을 본다.)![graph-multi](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\graph-multi.PNG)
+변수가 2개인 경우 그림으로 나타낼 경우 좀더 직관적으로 와닿을 수 있다. 이제 2차원 평면에서의 1차원 선이 아니라 3차원 공간에서의 2차원 평면과 데이터의 차이를 의미하게 되었다. (사람의 인식의 한계가 3차원이기에, X1, X2 두개의 독립변수에 대한 multi linear regression을 본다.)![graph-multi](https://user-images.githubusercontent.com/31824102/35181413-0ee0c08c-fdb9-11e7-9ef1-50d888cba8e1.PNG)
 
 #### 모델의 계수
 
@@ -205,11 +193,8 @@ $$X'Xb=X'Y$$
 > $$X'Xb=X'Y$$ 이 식은 이렇게 풀린다. 일일이 해봄
 >
 > $$X'X=(3 *n)(n*3)=\begin{pmatrix}\ n& \sum x_{1}&\sum x_{2}\\ \sum x_{1}& \sum x_{1}^2&\sum x_{1}\sum x_{2}\\ \sum x_{2}& \sum x_{1}\sum x_{2}&\sum x_{2}^2\end{pmatrix}$$
->
 > $$X'Y=(3*n)(n*1)=\begin{pmatrix}\sum y\\\sum x_{1}y\\\sum x_{2}y\end{pmatrix}$$
->
 > $$\therefore X'Xb=X'Y$$
->
 > $$=\begin{pmatrix}\ n& \sum x_{1}&\sum x_{2}\\ \sum x_{1}& \sum x_{1}^2&\sum x_{1}\sum x_{2}\\ \sum x_{2}& \sum x_{1}\sum x_{2}&\sum x_{2}^2\end{pmatrix}\begin{pmatrix}b_{0}\\ b_{1}\\b_{2}\end{pmatrix}=\begin{pmatrix}\sum y\\\sum x_{1}y\\\sum x_{2}y\end{pmatrix}$$
 >
 > 이를 전개해보면 
@@ -218,7 +203,7 @@ $$X'Xb=X'Y$$
 
 실제로 다중회귀를 해보면, 각각 하나씩 넣었을때는 유의하다(p-value가 작게)나온 변수일지라도 함께 들어가면 별로 안 중요한 경우가 생긴다. 아래 예시.
 
-![multi-table](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\multi-table.PNG)
+![multi-table](https://user-images.githubusercontent.com/31824102/35181413-0ee0c08c-fdb9-11e7-9ef1-50d888cba8e1.PNG)
 
 단순회귀에서는 newspaper역시 p-value가 유의하게 나왔다.
 
@@ -259,7 +244,7 @@ $$F=\frac{(SST-SSE)/p}{SSE/(n-(p+1))}=\frac{MSR}{MSE}$$ (MSR은 SSR을 df로 나
 
 구체적으로 위의 통계량 $$F$$는 자유도가 $$(p, n-(p+1))$$인 F분포를 따른다. F분포는 이렇게 생김.
 
-![F-dist](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\F-dist.PNG)
+![F-dist](https://user-images.githubusercontent.com/31824102/35181411-0e6496a6-fdb9-11e7-9e85-fb60c94caef6.PNG)
 
 q개의 변수에 대한 검정은 다음을 통한다.
 
@@ -308,7 +293,7 @@ $$MSE= \frac{SSE}{n-(p+1)}$$ 다시 상기. 사용된 변수갯수(p)에 $$b_{0}
 
 단순한 수치 외에, 사실 그림이 이를 판단하는데에 좋다. (실제로는 잔차그림이 많이 쓰인다.)
 
-![graph-multi2](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\graph-multi2.PNG)
+![graph-multi2](https://user-images.githubusercontent.com/31824102/35181410-0e137ae6-fdb9-11e7-8e87-1f3560c5c9c5.PNG)
 
 그림을 보면 TV와 Radio에 따른 sales에서 애초에 빨간점의 분포가 약간 곡선(convex)를 띄고 있어 '선형'이 아님을 볼 수 있다. 이는 TV와 Radio에 둘다 투자할 경우 '시너지'가 발생해서 sale이 더 올라간다는 직관적인 생각과도 일치한다. '시너지' 혹은 '상호작용'에 대해서는 뒷 부분에서 설명한다.
 
@@ -335,7 +320,6 @@ $$MSE= \frac{SSE}{n-(p+1)}$$ 다시 상기. 사용된 변수갯수(p)에 $$b_{0}
 > 개별값 $$y_{0}$$이 추정된 평균$$\hat f(x_{0})$$와 얼마나 떨어져 있는지를 $$pred$$라고 하면
 >
 > $$\sigma^2 [pred]=\sigma^2[y_{0}-\hat f(x_{0})]=\sigma^2+\sigma^2[\hat f(x_{0})]$$
->
 > $$=\sigma^2+\sigma^2[\frac{1}{n}+\frac{(x_{0}-\bar x)^2}{\sum(x_{i}-\bar x)^2}]=\sigma^2[1+\frac{1}{n}+\frac{(x_{0}-\bar x)^2}{\sum(x_{i}-\bar x)^2}]$$
 >
 > 이 된다. 이때 $$\sigma$$는 MSE로 추정된다.(이 과정에서 자유도를 2잃고 t분포가 된다)
@@ -358,7 +342,7 @@ $$MSE= \frac{SSE}{n-(p+1)}$$ 다시 상기. 사용된 변수갯수(p)에 $$b_{0}
 
 책의 예를 들어 credit card balance를 예측하기 위한 독립변수로 {인종 아시아인, 백인, 아프리카인}이 있다면, 이런 식의 더미 변수를 만들어준다.
 
-![dummy-var](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\dummy-var.PNG)
+![dummy-var](https://user-images.githubusercontent.com/31824102/35181409-0dcdd61c-fdb9-11e7-9267-8c515c3f37e8.PNG)
 
 즉 [아시아인 인지 아닌지], [백인 인지 아닌지]를 나타내는 변수를 만든것. 3개가 아닌 2개의 변수를 만든 이유는 두개의 변수가 모두 0이면 필연적으로 3번째 class를 의미하는것이기도 하고, 사실 필연적으로 그렇기에 3번째 변수를 넣으면 변수간에 **완벽한 함수관계**가 생겨버려 문제가 생긴다. (matrix연산에서 inverse matrix가 아예 안만들어 진다.)
 
@@ -368,7 +352,7 @@ $$MSE= \frac{SSE}{n-(p+1)}$$ 다시 상기. 사용된 변수갯수(p)에 $$b_{0}
 
 이 경우 위의 더미 변수들은 {0,1}의 값만을 가질 수 있기에, 결과적으로 각 범주에 따른 3개의 함수선이 나오게 된다.
 
-![dummy-var2](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\dummy-var2.PNG)
+![dummy-var2](https://user-images.githubusercontent.com/31824102/35181408-0d831e42-fdb9-11e7-8e7e-f2e7cc2ce3ab.PNG)
 
 이때 맨 오른쪽 식을 보면 알 수 있듯이 $$\beta_{2}$$는 백인과 아프리카인의 평균 credit balance의 차이를 의미하게 된다. 
 
@@ -386,7 +370,7 @@ $$MSE= \frac{SSE}{n-(p+1)}$$ 다시 상기. 사용된 변수갯수(p)에 $$b_{0}
 
 선형 모델은 하나의 $$X_{i}$$증가로 인한 Y의 변화는 다른 $$X_{j}$$에 관계없이 상수라고 가정하지만, 그러지 않을때도 있다. TV와 radio에 동시에 투자 했을때 시너지로 인해 sale이 각각 그만큼 투자한 것의 합보다 더 많이 증가하는 경우. 이를 통계에선 **상호작용 효과**라고 한다. 대표적으로 이런 그림.
 
-![graph-multi2](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\graph-multi2.PNG)
+![graph-multi2](https://user-images.githubusercontent.com/31824102/35181410-0e137ae6-fdb9-11e7-8e87-1f3560c5c9c5.PNG)
 
 이 경우 상호작용을 인정하고, **상호 작용항**을 넣어준다.
 
@@ -400,11 +384,11 @@ $$MSE= \frac{SSE}{n-(p+1)}$$ 다시 상기. 사용된 변수갯수(p)에 $$b_{0}
 
 이 경우 $$X_{1}$$의 한단위 증가로 인한 Y의 변동은 $$(\beta_{1}+\beta_{3}X_{2})$$로, $$X_{2}$$에 따라서 변동하게 되었다. $$X_{2}$$에 대한 경우도 반대로 똑같이 이해하면 된다. $$\beta_{3}$$역시 p-value를 계산하여 상호작용항이 유의한지 안한지를 판단한다. 이 경우 main항(예시에선 TV, Radio)중 하나는 유의하지 않은데 상호작용항(TV * Radio)이 유의하다 나오는 경우가 있을 수 있는데, **계층적 구조 원칙(archical principle)**에 따라 **p-value가 유의하지 않더라도** 관련된 모든항을 모델에 포함한다. $$X_{1}X_{2}$$자체가 $$X_{1}$$과 연관되어 있기에, 이들을 빼는건 의도한 의미를 왜곡하게 된다(!).
 
-상호작용항은 질적변수*양적변수의 경우도 그대로 작용한다. 질적변수만 있을때는 기울기는 동일하고 절편이 다른 여러개의 직선이었지만(왼쪽 그림), 상호작용항이 있으면 '기울기도 다른'여러개의 직선이 나오게 된다. (오른쪽 그림)![inter-dummy](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\inter-dummy.PNG)
+상호작용항은 질적변수*양적변수의 경우도 그대로 작용한다. 질적변수만 있을때는 기울기는 동일하고 절편이 다른 여러개의 직선이었지만(왼쪽 그림), 상호작용항이 있으면 '기울기도 다른'여러개의 직선이 나오게 된다. (오른쪽 그림)![inter-dummy](https://user-images.githubusercontent.com/31824102/35181407-0d3e34e4-fdb9-11e7-9ca2-75308c0ae60a.PNG)
 
 ##### linear
 
-선형성에 대한 가정을 덜어내는것은 다항회귀(polynomial regression)를 통해 이루어 진다. 쉽게 말해 $$x^2, x^3$$등도 고려하는 것이다. 다음 장에서 이에 대해 좀더 다룰 것이다.![mpg](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\mpg.PNG)
+선형성에 대한 가정을 덜어내는것은 다항회귀(polynomial regression)를 통해 이루어 진다. 쉽게 말해 $$x^2, x^3$$등도 고려하는 것이다. 다음 장에서 이에 대해 좀더 다룰 것이다.![mpg](https://user-images.githubusercontent.com/31824102/35181406-0d0a1f4c-fdb9-11e7-9298-7b5878c900d4.PNG)
 
 이를 보면 우선, 1차 선형은 잘 안맞는 것을 알 수 있다.
 
@@ -449,7 +433,7 @@ $$mpg=\beta_{0}+\beta_{1}*horsepower+\beta_{2}*horsepower^2+\epsilon$$
 
 그러나 time series data등에서는 빈번하게 error term이 correlated되어 있다. 이를 보기 위해선 역시나 잔차그림이 활용된다. time에 따른 잔차를 그려보는 것
 
-![time-series](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\time-series.PNG)
+![time-series](https://user-images.githubusercontent.com/31824102/35181405-0cd260fc-fdb9-11e7-9506-215322ea3eab.PNG)
 
 위 그림을 보면 random하게 지그재그로 분포되어 있는 경우와 시간에 따라 일정한 선이 있는 아래그림이 있다. time series가 아니더라도, **같은 가족에게서 자료가 나온 경우, 같은 생활환경의 사람에서 자료가 수집된 경우** 등 correlated된 경우가 있을 수 있다. error의 uncorrelation은 선형회귀의 중요한 가정이기에, timeseries를 다루기 위한 여러 방법들이 고안 되었다. 사실 timeseries의 특성에 적합한 모델이 따로 있으므로, 이 경우 회귀분석은 지양한다.
 
@@ -457,7 +441,7 @@ $$mpg=\beta_{0}+\beta_{1}*horsepower+\beta_{2}*horsepower^2+\epsilon$$
 
  모든 X수준에서의 error term $$\epsilon_{1},\epsilon_{2},...,\epsilon_{n}$$은 $$Var(\epsilon_{i})=\sigma^2$$라고 가정하였다. 그러나 실제에서는 잔차그림을 그려보면 일정한 범위 내에서 random하게 분포하는게 아니라(이상적인 잔차) 나팔모양으로 퍼져나가는 등 '이분산성'을 띄는 경우가 있다. 이 경우 다른 통계방법을 쓰기도 하고, 선형회귀를 유지하는 방안으로는 Y에 대해 변환을 해주는 것으로 $$logY, \sqrt Y$$등의 방법이 있다.
 
-![non-equal](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\non-equal.PNG)
+![non-equal](https://user-images.githubusercontent.com/31824102/35181404-0c454032-fdb9-11e7-8c3e-423e436854e2.PNG)
 
 혹은, 자료에 대한 추가적인 정보가 있으면 **weighted least squares**(머지???추가적으로 찾아보자)를 할 수도 있다. 예를 들어 i수준에서 자료가 $$n_{i}$$개 있다면 $$\sigma_{i}^2=\sigma/n_{i}$$로 가중치를 줘서 계산하는 형식이다.
 
@@ -469,7 +453,7 @@ $$mpg=\beta_{0}+\beta_{1}*horsepower+\beta_{2}*horsepower^2+\epsilon$$
 
 그러나 젤 중요한건 high-leverage point인데 우리의 예측에 엄청나게 영향을 미치기 때문, 이는 변수가1개, 2개일때는 찾기 쉬우나 다중회귀로 가면 눈으로는 볼 수 없다. (그림은 변수가 2개일 경우. 각각 한변수의 관점에서 보았을때는 벗어나는 점을 잡을 수 없다는 것에 주의)
 
-![high-lev](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\high-lev.PNG)
+![high-lev](https://user-images.githubusercontent.com/31824102/35181403-0bf8746e-fdb9-11e7-9b22-ec6fe7f2cb1d.PNG)
 
 따라서 각 관측값의 leverage를 판단하는 통계량이 따로 있다.
 
@@ -489,7 +473,7 @@ $$h_{j}=\frac{1}{n}+\frac{(x_{j}-\bar x)^2}{\sum (x_{i}-\bar x)^2}$$
 
 collinearity는 두 변수, 혹은 '두개 이상'의 변수가 서로 밀접한 **선형관계**가 있는것. 만약 X1과 X2가 거의 1:1로 연결이 되어있다면, 이 경우 Y변수에 대한 **해당 변화가 X1에서 온것인지 X2에서 온것인지** 제대로 알 수 없게되고, 이는 b1, b2에 대한 신뢰계수의 문제로 확장된다.
 
-![contour-collinear](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\contour-collinear.PNG)
+![contour-collinear](https://user-images.githubusercontent.com/31824102/35181402-0bae37a0-fdb9-11e7-9edc-a2c5db094fe9.PNG)
 
 예시 설명은 않고, Limit 과 Rating이 거의 완벽한 선형결합이다는 것만.  위 그림은 Limit과 Age에 대해 적합한것과 Limit과 rating에 대해 적합한 것인데, 여러 회귀계수들에 대해 같은 SSE를 기준으로 등고선을 그린것 이다. 왼쪽 그림의 경우 최저점(least square로 구한 회귀계수)을 중심으로 원만하게 둥글어 자료의 se를 고려해도 어느정도 자신이 있다 할 수 있지만, 오른쪽 그림은 least square에서 조금만 벗어나도 SSE가 천차 만별이어서, **데이터가 조금만 변동(변화)해도 least square점이 천차 만별로 바뀌게 될 것**임을 예상할 수 있다. 이는 회귀계수 $$\beta_{j}$$에 대한 표준편차가 커짐을 의미하고, 이는 $$H_{0}:\beta_{j}=0$$을 제대로 기각할 수 없다, 즉 검정의 power가 떨어짐을 의미한다.
 
@@ -501,9 +485,9 @@ linear regression은 모수적 방법이다. 앞 장에서도 설명했지만, �
 
 반대로 비모수적 방법은 특정한 가정을 하지 않고 유연한 적합을 하는 것이다. **대표적인 비모수적 방법이  KNN regression**이다. 앞장에서 KNN classifier를 설명했었는데, 이와 근본이 같다. 정해진 상수 K에서, 예측변수 $$x_{0}$$이 주어지면 가지고 있는 데이터에서 가장 가까운 K개의 데이터를 살펴본다. 그리곤 단순히 그들의 Y값을 평균내어 예측을 하는 것이다. 식으로 나타내면 다음과 같다. ($$N_{0}$$이 K개의 점이다.)
 
-![KNN-reg](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\KNN-reg.PNG)
+![KNN-reg](https://user-images.githubusercontent.com/31824102/35181401-0b695c48-fdb9-11e7-9c3a-0a185692a7a1.PNG)
 
-![KNN-reg2](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\KNN-reg2.PNG)
+![KNN-reg2](https://user-images.githubusercontent.com/31824102/35181400-0b30540c-fdb9-11e7-8cfe-0a04d0f5615b.PNG)
 
 위 그림은 각각 K=1개, K=9개로 설정한 KNN regression이다. K=1일때는 각 공간에서 주어진 데이터를 완전히 반영하는 계단형식이고(high Var, low bias), K가 커지면 좀더 많은 데이터를 보며 곡선형태(low Var, high bias)가 되어간다. 앞장에서도 말했듯이, 최적의 K개 설정은 bias-variance trade-off에 따라 **그때그때 다르다**.
 
@@ -511,7 +495,7 @@ linear regression은 모수적 방법이다. 앞 장에서도 설명했지만, �
 
 그러나 놀랍게도 실제 함수가 linear가 아닐때에도, **다중회귀**에 들어가면 **linear regression이 KNN보다 더 좋은 결과를 낸다.(!)** 다음의 그림은 변수갯수 p가 1부터 점점 증가함에 따른 linear regression의 test MSE(회색 점선)과 KNN regression의 여러 flexibility에 따른 test MSE(초록색 곡선)이다.
 
-![knn-compare](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\knn-compare.PNG)
+![knn-compare](https://user-images.githubusercontent.com/31824102/35181399-0afcee32-fdb9-11e7-9d2b-8d9ffc500b2f.PNG)
 
 차원이 2,3차원일때는 KNN이 더 뛰어나지만 차원이 올라갈수록 linear regression은 거의 변화가 없고 KNN은 점점 성능이 눈에 띄게 떨어지게 된다.
 
