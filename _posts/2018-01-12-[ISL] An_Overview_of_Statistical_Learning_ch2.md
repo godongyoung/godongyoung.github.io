@@ -13,15 +13,15 @@ comment: true
 
 {:toc}
 
-##목차
+## 목차
 
 [preface](#preface)
 
 [시작! (statistical learning이란?)](시작_(statistical_learning이란))
 
-[Assessing Model Accuracy](#Assessing_Model_Accuracy)
+[Assessing Model Accuracy](#assessing_model_accuracy)
 
-[Bias-Variance Trade-Off](#bias-variance_trade-off)
+[Bias-Variance Trade-Off](#bias_variance_trade_off)
 
 [Assessing Model Accuracy at Classification](#assessing_model_accuracy_at_classification)
 

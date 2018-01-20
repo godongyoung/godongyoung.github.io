@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[ISL] 선형회귀 깊게 이해하기"
+title: "[ISL] 선형회귀 제대로 이해하기"
 categories:
   - 머신러닝
 tags:
@@ -24,13 +24,13 @@ supervised learning의 아주 간단한 방법인 선형회귀. 다른 통계방
 
 ---
 
-##목차
+## 목차
 
-[3.1 단순 선형회귀 (simple linear regression)](#31_단순 선형회귀_(simple_linear_regression))
+[3.1 단순 선형회귀 (simple linear regression)](#3_1_단순 선형회귀_(simple_linear_regression))
 
-[3.2 다중 선형 회귀](#32_다중_선형_회귀)
+[3.2 다중 선형 회귀](#3_2_다중_선형_회귀)
 
-[3.3 그 외 회귀모형에서 고려할 것들](#33_그_외_회귀모형에서_고려할_것들)
+[3.3 그 외 회귀모형에서 고려할 것들](#3_3_그_외_회귀모형에서_고려할_것들)
 
 ---
 
