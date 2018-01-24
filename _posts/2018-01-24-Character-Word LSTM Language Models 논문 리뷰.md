@@ -9,9 +9,11 @@ tags:
 comment: true
 ---
 
-[TOC]
+{:toc}
 
 char-word LSTM 논문 리뷰
+
+> 박스 안의 내용은 개인적인 이해를 위한 추가적인 부분
 
 https://arxiv.org/abs/1704.02813
 

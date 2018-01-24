@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[ISL] 선형회귀 제대로 이해하기"
+title: "[ISL] 3장.선형회귀 제대로 이해하기"
 categories:
   - 머신러닝
 tags:
