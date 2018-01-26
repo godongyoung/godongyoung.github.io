@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[ISL] ISL스터디 플랜"
+title: "[ISL] 1장 - ISL스터디 플랜"
 categories:
   - 머신러닝
 tags:

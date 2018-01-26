@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[ISL] 2장.An Overview of Statistical Learning"
+title: "[ISL] 2장 - An Overview of Statistical Learning"
 categories:
   - 머신러닝
 tags:
