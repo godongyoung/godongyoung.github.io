@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[ISL] 5장 - Resampling Methods"
+title: "발제용ch5 Resampling method"
 categories:
   - 머신러닝
 tags:
@@ -8,10 +8,11 @@ tags:
   - Machine Learning
 comment: true
 ---
-
-
-
 {:toc}
+
+- 이번주 진도가 4,5장입니다. 발제는 30분내로 두개를 다 할것이구, issue는 하나만 만들겟습니당
+- 작성자 : 11기 고동영
+- 발제용이 아닌 원본 : https://godongyoung.github.io/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2018/01/26/ISL-Resampling-Methods_ch5.html
 
 재표본(Resampling)은 통계학에서 빼놓을 수 없는 요소이다. 간단히 말하자면 이는 training set에서 반복해서 sample을 뽑고, 거기에 반복해서 model을 적합시켜보는 것이다. 이는 기존의 training set **전체를 단지 한번만 쓰는것** 보다 더 **추가적인 정보**(어떤것이든! 생각보다 많다)를 줄 수 있는데, 예를들면 다음과 같다. 
 
@@ -49,19 +50,11 @@ training set에서 떨어져 나온 이 data set들을 **validation set**이라�
 
 Leave-One-Out Cross-Validation, 줄여서 LOOCV는 이러한 validation set approach의 단점을 줄이고자 하는 방법이다. 이 방법은 validation set으로 반을 잘라내는 것이 아니라, **한개**만 따로 빼낸다. 그리고 전체 자료n개중 나머지 n-1개의 training set으로 적합을 한뒤, **하나의 자료에 대해서** error rate를 계산한다. ($$MSE_1=\frac {y_1-\hat y_1}{1}$$) 그리고, 위의 방법을 **모든 자료**에 **반복**한다. 
 
-> $$MSE_1=\frac {y_1-\hat y_1}{1}$$는 사실 통계적으로는 test error에 대한 '거의' unbiased한 estimator이다. (n-1개로 적합했으므로) 그러나 갯수가 1개 이므로, 매우 변동이 큰 estimator 일것이다. 사실 직관적으로 봐도 자료 1개로 추정하는건 부정확할 것 이라는건 이해할 수 있다.
->
-> > 또하나의 헷갈리는점. n개의 데이터로 적합한 것의 (training) MSE는, test MSE에 대한 'unbiased' estimator이다!(주의. 실제 함수에 대해 unbiased라는게 아님. test MSE에 unbiased) 근데 왜 training MSE로 안쓰냐, 혹은 근데 왜 training MSE는 이리 욕을 먹느냐? 그건 바로 unbiased이지만 Variance가 어마어마하기 때문. 수많은 random error를 가지고 발생한 데이터들을 가지고 적합한 모델의 training MSE의 'Expectation'은 test MSE이지만, 그 수많은 random error들로 인한 Variance가 있다. 그걸 보완해주고자 validation을 하는것. 이 경우 unbiased측면에선 약간의 손실이 생기지만(bias가 생기지만), 약간의 bias가 생긴 모델들을 '여러번' 적합하여 평균낸다는 점에서 variance가 줄어든다.
-
 ![validation3](https://user-images.githubusercontent.com/31824102/35428685-55676214-0268-11e8-890b-4333bfc5bdf0.PNG)
 
 즉, 모든 자료n을 각각 한번씩 빼고, 각각에 경우 남은 n-1개의 training set 에대해 전부 적합을 한다. 이 경우 각 **추정된 n개의 test MSE**가 생길 것이고, 이를 최종적으로 **평균** 내주어, test error를 추정한다. 식으로 나타내면 다음과 같다.
 
-<div class="pull-right">
-
 <img src='https://user-images.githubusercontent.com/31824102/35428684-552f9af0-0268-11e8-9356-03da7a9c975f.PNG'>
-
-</div>
 
 사실, 이렇게 나온 LOOCV는 평균을 내기 전에도 모든 n번의 결과에 거의 차이가 없다. (이는 사실 뒤에도 나오지만, 우리의 data에 거의 최대로 맞추어 적합했기 때문. 즉 high variance를 의미한다. 이에 관해서는 뒤에서 더 설명한다)
 
@@ -91,10 +84,6 @@ LOOCV는, 다음과 같은 장점이 있다. **1)** 데이터의 반만을 가�
 
 이렇게 나온 k-fold CV는 LOOCV와 **성능**에서도 큰 차이를 보이진 않는다. 
 
-![validation9](https://user-images.githubusercontent.com/31824102/35428679-5421a43c-0268-11e8-9923-68ab23c72244.PNG)
-
-simulated 된 data이므로 실제 true test MSE와 비교를 하였는데, 실제 함수 관계가 다양한 flexible (순서대로 적당히 flexible, 안 flexible, 많이 flexible)인 경우에 대하여 test MSE와 CV test MSE의 선이다. 파랑이 true test MSE, 주황이 10-fold CV, 검은 점선이 LOOCV로 구한 test MSE의 추정선이다. LOOCV와 10-fold CV가 거의 비슷한 선을 그리고 있음을 볼 수 있다.
-
 추가적으로 뒤에서 다루겠지만, computational 문제 외에도, **bias-variance trade-off의 측면**에서 LOOCV보다 강점이 있다.
 
 #### 5.1-4 Bias-Variance Trade-Off for k-Fold Cross-Validation
@@ -119,20 +108,7 @@ LOOCV는 낮은 bias를 가지고 있는 반면 높은 variance를 가지고 있
 $$
 CV_{(n)}=\frac{1}{n} \sum^n_{i=1}I(y_i\neq y_i)
 $$
-구체적인 예를 들어, 2장에서 나왔던 데이터에 다중로지스틱회귀를 하는 것을 생각해보자. 이 경우에도, simulated 된 데이터이므로 실제 bayes classifier와 test error를 측정할 수 있다. 가장 기본적인 로지스틱회귀 ($$log(\frac{p}{1-p})=\beta_0+\beta_1X_1+\beta_2X_2$$)의 결과는 아래 그림의 왼쪽 위 그림이다. 딱 봐도, 기존의 선형적인 로지스틱 회귀로는 안될 것같다. 따라서 이를 다항회귀에서 했던 그대로, 수정을 가한다. 수정은 간단하게 이런 식으로 하면 된다.
-$$
-log(\frac{p}{1-p})=\beta_0+\beta_1X_1+\beta_2X_1^2+\beta_3X_2+\beta_4X_2^2
-$$
-각각의 차수를 높인 경우에 대해 그림이 제시되어 있다. 
-
-![validation10](https://user-images.githubusercontent.com/31824102/35428678-53ef31aa-0268-11e8-9c78-e4d3bc7a94e9.PNG)
-
-4차항 까지 넣엇을때, test error가 조금 높아졌다. 따라서 다항로지스틱회귀로 할 수 있는 최적의 적합은 3차항까지를 추가하는 것이다. 그러나 실제에서는 이를 어떻게 알 수 있을까? 역시, Cross-Validation을 통해 가능하다. 
-
-![validation11](https://user-images.githubusercontent.com/31824102/35428677-53b1fa24-0268-11e8-8516-9c98c06228eb.PNG)
-
-그림에서 갈색 선이 실제 Test error, 검은선이 10-fold CV, 파랑선이 training error 이다. 왼쪽은 로지스틱회귀에 대한 그림, 오른쪽은 KNN으로 적합한 것에 대한 그림이다. 파랑색 train error의 경우 flexible 해질수록 감소하지만, test error는 그렇지 않다. 그리고 10-fold CV가 이를 어느정도 잘 잡아내주고 있다.
-
+예를 들어, 특정 데이터에 다중로지스틱회귀를 하는 것을 생각해보자. 몇차항 적합을 해야 가장 test MSE가 낮을 것인가에 대해 10-fold CV가 역시 좋은 추정을 해줄 수 있다.
 ### 5.2 The Bootstrap
 
 Bootstrap은 실제로는 계산하기 어려운 추정량들의 불확실성(uncertainty. 그것이 어떤 통계량의 분산이던, 평균이던 뭐던)을 계산하는데 널리 쓰이는 강력한 통계기법이다. 선형회귀분석에서 계수의 분산같은 경우 수식적으로 표준편차를 구하는 것이 가능하지만, 많은 경우, 사실 정말 많은 경우에 수식적으로 통계량의 특성은 **정확히 구하지 못한다**. 이 경우, 이 bootstrap이 매우 강력한 툴로써 활용된다. 
