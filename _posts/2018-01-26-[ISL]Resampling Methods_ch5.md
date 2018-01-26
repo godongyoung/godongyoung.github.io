@@ -7,7 +7,11 @@ tags:
   - An Introduction to Statistical Learning
   - Machine Learning
 comment: true
+author: 고동영
 ---
+
+
+
 {:toc}
 
 재표본(Resampling)은 통계학에서 빼놓을 수 없는 요소이다. 간단히 말하자면 이는 training set에서 반복해서 sample을 뽑고, 거기에 반복해서 model을 적합시켜보는 것이다. 이는 기존의 training set **전체를 단지 한번만 쓰는것** 보다 더 **추가적인 정보**(어떤것이든! 생각보다 많다)를 줄 수 있는데, 예를들면 다음과 같다. 
