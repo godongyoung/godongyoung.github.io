@@ -54,7 +54,11 @@ Leave-One-Out Cross-Validation, 줄여서 LOOCV는 이러한 validation set appr
 
 즉, 모든 자료n을 각각 한번씩 빼고, 각각에 경우 남은 n-1개의 training set 에대해 전부 적합을 한다. 이 경우 각 **추정된 n개의 test MSE**가 생길 것이고, 이를 최종적으로 **평균** 내주어, test error를 추정한다. 식으로 나타내면 다음과 같다.
 
-<center>![validation4](https://user-images.githubusercontent.com/31824102/35428684-552f9af0-0268-11e8-9356-03da7a9c975f.PNG)</center>
+<div class='pull-right'>
+
+![validation4](https://user-images.githubusercontent.com/31824102/35428684-552f9af0-0268-11e8-9356-03da7a9c975f.PNG)
+
+</div>
 
 사실, 이렇게 나온 LOOCV는 평균을 내기 전에도 모든 n번의 결과에 거의 차이가 없다. (이는 사실 뒤에도 나오지만, 우리의 data에 거의 최대로 맞추어 적합했기 때문. 즉 high variance를 의미한다. 이에 관해서는 뒤에서 더 설명한다)
 
