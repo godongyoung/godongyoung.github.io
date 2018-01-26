@@ -442,7 +442,7 @@ $$mpg=\beta_{0}+\beta_{1}*horsepower+\beta_{2}*horsepower^2+\epsilon$$
 
 우리의 가정은 모든 X수준에서의 error term $$\epsilon_{1},\epsilon_{2},...,\epsilon_{n}$$이 서로 uncorrelate되어 있다는것. 즉 $$\epsilon_{i-1}$$이 양수가 나오던 음수가 나오던 얼마던지 관계 없이 $$\epsilon_{i}$$는 자유롭게 등장한다는 것이다. 만약 실제 error term이 correlated되어 있다면 우리의 추정에 사용되는 표준편차(standard error)를 **더 작게 추정**하게 된다. 이는 신뢰구간 등에 큰 영향을 미치게 된다. 
 
-극단적인 예로 같은 데이터를 실수로 2번 집어넣게 되면, (각점에 대해 완벽하게 correlated된 점이 1쌍씩 있게됨) 추정된 회귀계수는 동일하나 standard error는 $$\sqrt{(n-2)}$$에서 $$\sqrt{(2n-2)}$$으로 대폭 작게 추정 되게 된다.(!)
+극단적인 예로 같은 데이터를 실수로 2번 집어넣게 되면, (각점에 대해 완벽하게 correlated된 점이 1쌍씩 있게됨) 추정된 회귀계수는 동일하나 standard error는 $$\sqrt{(n-2)}$$에서 $$\sqrt{(2n-2)}$$으로 바뀌기 때문에 작게 추정 되게 된다.(!)
 
 그러나 time series data등에서는 빈번하게 error term이 correlated되어 있다. 이를 보기 위해선 역시나 잔차그림이 활용된다. time에 따른 잔차를 그려보는 것
 

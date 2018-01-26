@@ -23,13 +23,13 @@ Character-Word를 둘다 사용하는 LSTM으로써 word based의 문제를 해�
 
 #### 1. Introduction
 
-Language model로 LSTM과 그것의 변형인 GRU가 많이 사용되었다. LSTM이 더 성능이 좋다고 알려져 있기에, LSTM-based 모델에 집중하였다.
+Language model로 LSTM과 그것의 변형인 GRU(Gated Recurrent Unit)가 많이 사용되었다. LSTM이 더 성능이 좋다고 알려져 있기에, LSTM-based 모델에 집중하였다.
 
 기존의 neural net Language model은 다음과 같은 결점이 있다. 1). parameter를 최적화하는데 많은 training data를 필요로해서, 빈도수가 적은 단어에 대해서는 parameter 가 부정확하다. 2) 더욱 큰 한계는 one-hot 벡터로써 인코딩을 함으로써 단어 구조 내부의 정보를 사용할 수 없었다는 것.
 
 >  예를 들어 'felicity'는 '더할나위 없는 행복' 이란 뜻으로, 대부분의 경우OOV(out-of-vocabulary)로 분류되지만, '-ity'라는 subword로 끝난다는 점에서 'ability' , 'complexity'등을 보고 명사라고 판단할 수 있을 것이다. 기존의 모델은 이를 반영할 수 없었다.
 
->  우리는 character와 word embedding을 합침으로써 이런 단어구조의 정보를 활용할 수 있게되었다.  embedding을 합침으로서, 기존의 bag-of-characters 방식(input을 character들의 뭉치로 보는것)과 다르게 철자들의 order를 유지하면서도 각각의 철자 역시 보존할 수 있게 되었다. 또한, 훨씬 작은 차원의 character embedding matrix를 가진 character embedding과 부분적으로 바꾸었으므로, word embedding의 사이즈 역시 축소되게 된다. 이는 결국 파라미터의 감소로 이어진다. (vocabulary의 크기는 embedding size의 크기와 정비례는 아니더라도 비례인듯???) 추가로, 비슷한 character sequence가 꼭 앞에만 등장하는것이 아니기에, (ex overfitting, underfitting) character를 forward로 넣어보는 것과 backward로 넣어보는 것을 둘다 해보았다.
+>  우리는 character와 word embedding을 합침으로써 이런 단어구조의 정보를 활용할 수 있게되었다.  embedding을 합침으로서, 기존의 bag-of-characters 방식(input을 character들의 뭉치로 보는것)과 다르게 철자들의 order를 유지하면서도 각각의 철자 역시 보존할 수 있게 되었다. 또한, 훨씬 작은 차원의 character embedding matrix를 가진 character embedding과 부분적으로 바꾸었으므로, word embedding의 사이즈 역시 축소되게 된다. 이는 결국 파라미터의 감소로 이어진다. (vocabulary의 크기는 embedding size의 크기와 정비례는 아니더라도 비례인듯) 추가로, 비슷한 character sequence가 꼭 앞에만 등장하는것이 아니기에, (ex overfitting, underfitting) character를 forward로 넣어보는 것과 backward로 넣어보는 것을 둘다 해보았다.
 
 논문의 결과를 **먼저 요약**하자면 다음과 같다.
 
@@ -65,16 +65,6 @@ CNN에서도 character 단위가 가능했다. char CNN과 highway, LSTM layer�
 저기서 $$c_t^1$$은 첫번째 character의 one-hot encoding이고 $$W_c^1$$은 그것의 embedding matrix이다. 전체  단어인 $$w_t$$와 그 안의 각각의 character $$c_t^1,..c_t^n$$이 각각 embedding되어 합쳐진것이, LSTM의 input이 되는것이다. 이때, 전체 embedding size는 일정하게 유지한다. 따라서 word embedding의 size가 줄어든다. (keep the total embedding size constant, the 'word' embedding size shrinks in size) 
 
 ![char-lstm-embed3](https://user-images.githubusercontent.com/31824102/35316798-6c509598-00cb-11e8-8fda-5b26101780cd.PNG)
-
-> (10x7) (7 x1) =(10x1)이게 기존
->
-> (8x7)(7x1)=(8x1)이렇게 기존거를 줄이고
->
-> (2x1)(1x1)=(1x1) 철자임베딩을 넣는식
->
-> (2x1)(1x1)=(1x1) 두번째 철자.
->
-> eT=[(8x1)(1x1)(1x1)]=(10x1)
 
 이때, 합쳐지는 character의 갯수는 일정한 상수 $$n$$으로 고정되었고, 이를 넘는 경우 순서대로 n번째까지만 넣었다. 반대로 character 갯수가 짧을 때에는, special symbol을 padding으로 넣어주었다. 또, 넣을때에는 character의 순서를 유지하였다. (순서를 무시하였을 경우 성능 향상이 없었다.)
 
