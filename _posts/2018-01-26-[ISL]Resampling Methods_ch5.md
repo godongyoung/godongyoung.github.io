@@ -56,7 +56,7 @@ Leave-One-Out Cross-Validation, 줄여서 LOOCV는 이러한 validation set appr
 
 <div class='pull-right'>
 
-![validation4](https://user-images.githubusercontent.com/31824102/35428684-552f9af0-0268-11e8-9356-03da7a9c975f.PNG)
+<img src='https://user-images.githubusercontent.com/31824102/35428684-552f9af0-0268-11e8-9356-03da7a9c975f.PNG'>
 
 </div>
 
