@@ -56,12 +56,7 @@ $$
 $$
 \frac{p(X)}{1-p(X)}=e^{\beta_{0}+\beta_{1}X}
 $$
-여기서 $$\frac{p(X)}{1-p(X)}$$에 주목하자. 이는 
-$$
-\frac{(해당클래스에 속할 확률)}{(속하지 않을 확률)}
-$$
-을 의미한다(!) 이를*odds*라고 부르는데, $$0\sim\infty$$값을 가질 수 있고 각각 **0일 수록** ($$p(X)$$가) 매우 낮은 확률, **$$\infty$$일수록** 매우 큰 확률을 의미한다.($$p(X)$$에 값을 몇개 넣어보면 바로 느낌온다.)
-
+여기서 $$\frac{p(X)}{1-p(X)}$$에 주목하자. 이는 '(해당클래스에 속할 확률)/(속하지 않을 확률)'을 의미한다(!) 이를*odds*라고 부르는데, $$0\sim\infty$$값을 가질 수 있고 각각 **0일 수록** ($$p(X)$$가) 매우 낮은 확률, **$$\infty$$일수록** 매우 큰 확률을 의미한다.($$p(X)$$에 값을 몇개 넣어보면 바로 느낌온다.)
 #### 로짓의 등장
 
 이제 거의 다왔다. 최종적으로 우리에게 익숙한 선형회귀(느낌의) 식을 만들기 위해 양쪽에 log를 취해주자
@@ -262,7 +257,11 @@ $$
 
 ![LDA-multi2](https://user-images.githubusercontent.com/31824102/35482720-461cfc04-0431-11e8-9953-c84e85aa60a7.PNG)
 
-> 저기서 ||는 Determinant. 행렬을 root씌울 수 없으니 행렬은 이렇게 표현한다.
+> 저기서 
+> $$
+> ||
+> $$
+> 는 Determinant. 행렬을 root씌울 수 없으니 행렬은 이렇게 표현한다.
 
 #### 다시 LDA
 
@@ -270,9 +269,7 @@ $$
 $$
 P(X=(x_1,..,x_p)|Y=k)=f_k(x)
 $$
-가 다변량 정규분포, 즉 $$N(\boldsymbol {\mu_k},\boldsymbol \sum)$$를 따른다고 가정한다. 이를 이용하여 다시 bayes 정리, 즉 $$
-P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum^{K}_{l=1}\pi_lf_l(x)}
-$$
+가 다변량 정규분포, 즉 $$N(\boldsymbol {\mu_k},\boldsymbol \sum)$$를 따른다고 가정한다. 이를 이용하여 다시 bayes 정리, 즉 $$P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum^{K}_{l=1}\pi_lf_l(x)}$$
 를 통해 Bayes classifier의 확률을 구하면 결국 다음의 식을 최대화하는 k클래스를 고르는 문제로 귀결된다.
 
 ![LDA-multi3](https://user-images.githubusercontent.com/31824102/35482719-45f15b08-0431-11e8-9229-cb4941825931.PNG)
@@ -281,7 +278,7 @@ $$
 
 ![LDA-multi4](https://user-images.githubusercontent.com/31824102/35482718-45c2a42a-0431-11e8-9db3-7c29f6a7705d.PNG)
 
-바로 전 그림의 3차원 확률그림을 위에서 바라본것이라 이해하면 된다. 왼쪽그림은 클래스k가 $$k=1,2,3$$인 각 경우에 
+바로 전 그림의 3차원 확률그림을 위에서 바라본것이라 이해하면 된다. 왼쪽그림은 클래스k가 $$k=1,2,3$$인 각 경우에
 $$
 P(X=(x_1,x_2)|Y=k)=f_k(x)
 $$
@@ -305,7 +302,7 @@ LDA가 default라고 평가한 104명중 81명이 실제 default라서 **default
 
 그렇다면, 왜 이런 low sensitivity가 발생하게 되었을까? 그 답은, 우리가 따라하려 목표로한 Bayes Classifier가 **'어떤 class를 틀리던간에 상관 없이'**, 전체 **_'total_ error rate를 줄이고자'** 목표하였기 때문이다. 쉽게 말해 non-default라고 평가하면 '주로' 맞으니까(train error가 적으니까), default라고 평가하는 것에 대해 매우 신중해진 것이다.
 
-이러한 문제를 해결하기 위해, Bayes classifier는 약간의 수정을 한다. 구체적으로는 '역치'를 수정을 한다. 기존의 Bayes classifier는 해당 class에 속할 확률이 가장 크면 배정을 하는, 즉 default/ non-default의 경우 50%가 넘으면 배정을 하였다. (식으로는 
+이러한 문제를 해결하기 위해, Bayes classifier는 약간의 수정을 한다. 구체적으로는 '역치'를 수정을 한다. 기존의 Bayes classifier는 해당 class에 속할 확률이 가장 크면 배정을 하는, 즉 default/ non-default의 경우 50%가 넘으면 배정을 하였다. (식으로는
 $$
 P(default=yes|X=x)>0.5
 $$
