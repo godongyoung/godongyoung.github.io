@@ -56,7 +56,7 @@ $$
 $$
 \frac{p(X)}{1-p(X)}=e^{\beta_{0}+\beta_{1}X}
 $$
-여기서 $$\frac{p(X)}{1-p(X)}$$에 주목하자. 이는 $\frac{(해당클래스에 속할 확률)}{(속하지 않을 확률)}$ 을 의미한다(!) 이를*odds*라고 부르는데, $$0\sim\infty$$값을 가질 수 있고 각각 **0일 수록** ($$p(X)$$가) 매우 낮은 확률, **$$\infty$$일수록** 매우 큰 확률을 의미한다.($$p(X)$$에 값을 몇개 넣어보면 바로 느낌온다.)
+여기서 $$\frac{p(X)}{1-p(X)}$$에 주목하자. 이는 $\frac{(해당클래스에 속할 확률)}{(속하지 않을 확률)}$        을 의미한다(!) 이를*odds*라고 부르는데, $$0\sim\infty$$값을 가질 수 있고 각각 **0일 수록** ($$p(X)$$가) 매우 낮은 확률, **$$\infty$$일수록** 매우 큰 확률을 의미한다.($$p(X)$$에 값을 몇개 넣어보면 바로 느낌온다.)
 
 #### 로짓의 등장
 
@@ -82,7 +82,7 @@ maximum likelihood란 간단하게 관측값들을 토대로 결정을 내리는
 
 ![logi-mle](https://user-images.githubusercontent.com/31824102/35482731-48311638-0431-11e8-8d74-657a69d5876b.PNG)
 
-이를 *likelihood function*이라 하는데, 이를 최대화 해주는 parameter $$\beta_{0},\beta_{1}$$을 찾는 것이다.(여기서 $p(x_i)=Pr(Y_i=y_i|x_i)$)
+이를 *likelihood function*이라 하는데, 이를 최대화 해주는 parameter $$\beta_{0},\beta_{1}$$을 찾는 것이다.(여기서 $${p(x_i)=Pr(Y_i=y_i|x_i)}$$)
 
 > maximum likelihood는 주로 log를 씌워 log-likelihood로 계산을 한다. 그렇게 함으로써 곱이 합의 형태로 바뀌며 계산이 쉬워진다.(미분을 할 경우 이게 훨씬 더 쉽다) 위의 식에 log를 씌우고 '-'를 붙이면 그 유명한 NLL(Negative log likelihood)이 된다. 즉, 둘은 사실 같은 것이다. ([참고](https://ko.wikipedia.org/wiki/%EB%A1%9C%EC%A7%80%EC%8A%A4%ED%8B%B1_%ED%9A%8C%EA%B7%80))
 
