@@ -136,7 +136,7 @@ $$
 $$
 P(X|Y)
 $$
-를  통하여 _'Bayes' theorem'_으로 
+를  통하여  *'Bayes' theorem'*으로 
 $$
 P(Y=k|X=x)
 $$
@@ -164,7 +164,10 @@ $$
 
 ### Linear Discriminant Analysis for p = 1
 
-$$P(X=x|Y=k)=f_k(x)$$를 	추정하기 위해, 위에서도 언급하였듯이 **분포를 가정**한다. 가장 대표적으론 **정규가정**을 하는데, 수식으로 표현하자면 이렇다. 
+$$
+P(X=x|Y=k)=f_k(x)
+$$
+를 	추정하기 위해, 위에서도 언급하였듯이 **분포를 가정**한다. 가장 대표적으론 **정규가정**을 하는데, 수식으로 표현하자면 이렇다. 
 
 ![LDA1](https://user-images.githubusercontent.com/31824102/35482726-47330d54-0431-11e8-88d5-c1abe5b737a0.PNG)
 
@@ -194,7 +197,11 @@ parameter는 다음과 같이 추정한다.
 
 > 이렇게 분산을 추정하는 것을 pooled variance라고 한다. k개의 $$\hat \mu$$를 사용하여 자유도를 K만큼 잃었으나 각 클래스의 평균이 모두 동일하다는 가정이 없으므로 overall variance를 구하지 못하고 해당 식을 쓰게 된다.
 
-이제 $$f_k(x)$$는 추정이 끝났고(parameter를 다 구했으니), 이제 $$\pi_k$$를 추정해야한다. (notation 정리 : $$f_k(x)=P(X=x|Y=k)$$이고 $$\pi_k=P(Y_k)$$이다.)
+이제 $$f_k(x)$$는 추정이 끝났고(parameter를 다 구했으니), 이제 $$\pi_k$$를 추정해야한다. (notation 정리 : 
+$$
+f_k(x)=P(X=x|Y=k)
+$$
+이고 $$\pi_k=P(Y_k)$$이다.)
 
 앞에서도 언급하였지만 $$\pi_k$$는 다음과 같이 간단하게 추정될 수 있다.
 $$
@@ -208,15 +215,27 @@ Linear Discriminant라는 명칭은 최종 function인 $$\hat \delta_k(x)$$가, 
 
 ![LDA5](https://user-images.githubusercontent.com/31824102/35482722-467e93e2-0431-11e8-93c3-24d6c4d16d9a.PNG)
 
-위와 같이 초록과 빨강 각각 20개의 simulated 된 데이터가 있다면, 각 클래스(초록, 빨강)에 대해 $$\hat \pi_k,\mu_k,\sigma$$를 추정하고 이를 통해 $$\hat \delta_k(x)$$가 큰 클래스로 분류를 하는 것이다. ($$p_k(x)=P(Y=k|X=x)$$의 추정확률이 제일 큰 클래스로 분류하는거랑 같은 말이다.)
+위와 같이 초록과 빨강 각각 20개의 simulated 된 데이터가 있다면, 각 클래스(초록, 빨강)에 대해 $$\hat \pi_k,\mu_k,\sigma$$를 추정하고 이를 통해 $$\hat \delta_k(x)$$가 큰 클래스로 분류를 하는 것이다. (
+$$
+p_k(x)=P(Y=k|X=x)
+$$
+의 추정확률이 제일 큰 클래스로 분류하는거랑 같은 말이다.)
 
 해당 그림에서 실선은 decision boundary, 즉 $$\hat p_{초록}(x)=\hat p_{빨강}(x)$$인 경우의 경계선이다. simulated 데이터인 만큼 엄청난 데이터를 만들어 내어 구한 실제 boundary(Bayes classifier)가 점선으로 나와 있는데, simulated test data에 대하여 Bayes는 error rate가 10.6%, LDA는 11.1%로 상당한 성능을 보였음을 알 수 있다.
 
-최종 정리하자면, LDA는 '$$f_k(x)=P(X=x|Y=k)$$에 대한 정규 가정과 각 클래스마다 다른 평균, 동일한 분산'을 가정하여 Bayes classifier의 확률을 추정하는 방법이다. 뒷장에서 '등분산'에 대한 가정을 떼어내는(즉 클래스마다 $$\sigma_k^2$$를 가질 수 있게 하는) 방법을 배울 것이다.
+최종 정리하자면, LDA는 '
+$$
+f_k(x)=P(X=x|Y=k)
+$$
+에 대한 정규 가정과 각 클래스마다 다른 평균, 동일한 분산'을 가정하여 Bayes classifier의 확률을 추정하는 방법이다. 뒷장에서 '등분산'에 대한 가정을 떼어내는(즉 클래스마다 $$\sigma_k^2$$를 가질 수 있게 하는) 방법을 배울 것이다.
 
 ### Linear Discriminant Analysis for p >1
 
-이제 한걸음 더 나아가, 변수가 여러개인 경우의 LDA에 대해 생각해보자. 기존에 $$P(X=x|Y=k)=f_k(x)$$엔 정규분포를 가정하였지만, 이젠 $$X=(X_1,..,X_p)$$가 다변량 정규분포(*multivariate Gaussian*)를 따른다고 가정한다. 이번에도, 각 class마다의 평균은 다르고, 분산은 공통의 분산을 가정한다.
+이제 한걸음 더 나아가, 변수가 여러개인 경우의 LDA에 대해 생각해보자. 기존에 
+$$
+P(X=x|Y=k)=f_k(x)
+$$
+엔 정규분포를 가정하였지만, 이젠 $$X=(X_1,..,X_p)$$가 다변량 정규분포(*multivariate Gaussian*)를 따른다고 가정한다. 이번에도, 각 class마다의 평균은 다르고, 분산은 공통의 분산을 가정한다.
 
 #### 다변량 정규분포란? 
 
@@ -238,6 +257,7 @@ $$
 > $$
 >
 
+
 이를 수식으로 나타내면 다음과 같다. 엄청 부담스러 보이지만, $$\boldsymbol \sum$$을 $$\sigma^2$$라고 생각한다면 기존에 알던 정규분포식의 생김새랑 크게 다르진 않다. 
 
 ![LDA-multi2](https://user-images.githubusercontent.com/31824102/35482720-461cfc04-0431-11e8-9953-c84e85aa60a7.PNG)
@@ -246,7 +266,14 @@ $$
 
 #### 다시 LDA
 
-다시 돌아와서, 여러개의 변수를 포함한 LDA는 k클래스에 속한 관측치들의 분포 $$P(X=(x_1,..,x_p)|Y=k)=f_k(x)$$가 다변량 정규분포, 즉 $$N(\boldsymbol {\mu_k},\boldsymbol \sum)$$를 따른다고 가정한다. 이를 이용하여 다시 bayes 정리, 즉 $$P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum^{K}_{l=1}\pi_lf_l(x)}$$를 통해 Bayes classifier의 확률을 구하면 결국 다음의 식을 최대화하는 k클래스를 고르는 문제로 귀결된다.
+다시 돌아와서, 여러개의 변수를 포함한 LDA는 k클래스에 속한 관측치들의 분포 
+$$
+P(X=(x_1,..,x_p)|Y=k)=f_k(x)
+$$
+가 다변량 정규분포, 즉 $$N(\boldsymbol {\mu_k},\boldsymbol \sum)$$를 따른다고 가정한다. 이를 이용하여 다시 bayes 정리, 즉 $$
+P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum^{K}_{l=1}\pi_lf_l(x)}
+$$
+를 통해 Bayes classifier의 확률을 구하면 결국 다음의 식을 최대화하는 k클래스를 고르는 문제로 귀결된다.
 
 ![LDA-multi3](https://user-images.githubusercontent.com/31824102/35482719-45f15b08-0431-11e8-9229-cb4941825931.PNG)
 
@@ -254,7 +281,11 @@ $$
 
 ![LDA-multi4](https://user-images.githubusercontent.com/31824102/35482718-45c2a42a-0431-11e8-9db3-7c29f6a7705d.PNG)
 
-바로 전 그림의 3차원 확률그림을 위에서 바라본것이라 이해하면 된다. 왼쪽그림은 클래스k가 $$k=1,2,3$$인 각 경우에 $$P(X=(x_1,x_2)|Y=k)=f_k(x)$$를 추정하여 boundary를 그은 것이다. 저기서 각 원들은 각 분포의 95%신뢰 구간이다. 오른쪽 그림은 실제분포에서 20개씩 관측치를 뽑아 만든 LDA와 Bayes classifier를 비교해본 그림이다.(다시한번, simulated data이기에 Bayes classifier를 구할 수 있다.) error rate가 각각 0.0746, 0.0770으로 비슷한 수준의 성능을 보였다.
+바로 전 그림의 3차원 확률그림을 위에서 바라본것이라 이해하면 된다. 왼쪽그림은 클래스k가 $$k=1,2,3$$인 각 경우에 
+$$
+P(X=(x_1,x_2)|Y=k)=f_k(x)
+$$
+를 추정하여 boundary를 그은 것이다. 저기서 각 원들은 각 분포의 95%신뢰 구간이다. 오른쪽 그림은 실제분포에서 20개씩 관측치를 뽑아 만든 LDA와 Bayes classifier를 비교해본 그림이다.(다시한번, simulated data이기에 Bayes classifier를 구할 수 있다.) error rate가 각각 0.0746, 0.0770으로 비슷한 수준의 성능을 보였다.
 
 #### null classifier의 함정(!)
 
@@ -274,7 +305,15 @@ LDA가 default라고 평가한 104명중 81명이 실제 default라서 **default
 
 그렇다면, 왜 이런 low sensitivity가 발생하게 되었을까? 그 답은, 우리가 따라하려 목표로한 Bayes Classifier가 **'어떤 class를 틀리던간에 상관 없이'**, 전체 **_'total_ error rate를 줄이고자'** 목표하였기 때문이다. 쉽게 말해 non-default라고 평가하면 '주로' 맞으니까(train error가 적으니까), default라고 평가하는 것에 대해 매우 신중해진 것이다.
 
-이러한 문제를 해결하기 위해, Bayes classifier는 약간의 수정을 한다. 구체적으로는 '역치'를 수정을 한다. 기존의 Bayes classifier는 해당 class에 속할 확률이 가장 크면 배정을 하는, 즉 default/ non-default의 경우 50%가 넘으면 배정을 하였다. (식으로는 $$P(default=yes|X=x)>0.5$$)그러나 위의 표에서 보았듯이, default는 실제 발생이 매우 드물다. 즉, 50%의 역치로는 이를 제대로 잡아주지 못하는 것이다. (실제로 default를 104명밖에 판결내리지 않았다.) 따라서, 이 역치를 줄여주는 것이다. 예를 들면 특정 input이 default일 확률이 0.2정도만 되어도 default로 평가하는 것이다.(식으로는 $$P(default=yes|X=x)>0.2$$) 역치 0.2의 LDA에 대한 결과는 다음과 같다.
+이러한 문제를 해결하기 위해, Bayes classifier는 약간의 수정을 한다. 구체적으로는 '역치'를 수정을 한다. 기존의 Bayes classifier는 해당 class에 속할 확률이 가장 크면 배정을 하는, 즉 default/ non-default의 경우 50%가 넘으면 배정을 하였다. (식으로는 
+$$
+P(default=yes|X=x)>0.5
+$$
+)그러나 위의 표에서 보았듯이, default는 실제 발생이 매우 드물다. 즉, 50%의 역치로는 이를 제대로 잡아주지 못하는 것이다. (실제로 default를 104명밖에 판결내리지 않았다.) 따라서, 이 역치를 줄여주는 것이다. 예를 들면 특정 input이 default일 확률이 0.2정도만 되어도 default로 평가하는 것이다.(식으로는 
+$$
+P(default=yes|X=x)>0.2
+$$
+) 역치 0.2의 LDA에 대한 결과는 다음과 같다.
 
 ![LDA-table2](https://user-images.githubusercontent.com/31824102/35482716-455c1a16-0431-11e8-9747-9feaa80b3239.PNG)
 
@@ -296,7 +335,11 @@ default의 역치(threshold)와 non-default의 오류율이 반비례관계에 �
 
 ### Quadratic Discriminant Analysis
 
-Quadratic Discriminant Analysis , 즉 QDA는 이름에서 느껴지다시피 LDA와 약간 다르다. $$P(X=(x_1,..,x_p)|Y=k)=f_k(x)$$에 대하여 multivariate normal 분포를 가정하여 Bayes' theorem을 이용한 분류를 한다는 점에서는 똑같지만, 모든 클래스k에 대하여 **동일한 covariance matrix를 가정했던 LDA**와 달리 QDA는 k클래스 마다 **각각의 covariance matrix를** 가지게 한다. 
+Quadratic Discriminant Analysis , 즉 QDA는 이름에서 느껴지다시피 LDA와 약간 다르다. 
+$$
+P(X=(x_1,..,x_p)|Y=k)=f_k(x)
+$$
+에 대하여 multivariate normal 분포를 가정하여 Bayes' theorem을 이용한 분류를 한다는 점에서는 똑같지만, 모든 클래스k에 대하여 **동일한 covariance matrix를 가정했던 LDA**와 달리 QDA는 k클래스 마다 **각각의 covariance matrix를** 가지게 한다. 
 
 즉, $$X\sim N(\boldsymbol {\mu_k},\boldsymbol {\sum_k})$$를 갖게 하는 것이다. 훨씬 어려워 보이지만, 최종 결정 함수에서는 기존에는 모두 동일하여 제외되었던  $$-\frac{1}{2}x_k^T\sum^{-1}x_k$$가 추가되기만 하면 된다. 식으로 나타내면 다음과 같다.
 
