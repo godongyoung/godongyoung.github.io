@@ -173,7 +173,7 @@ Table2는 이전 연구들과의 비교. 여기서 BLEU는 5명의 사람들이 
 
 generating의 관점에서, 모델이 새로운 caption을 만들어냈는지, 다양하고 high quality인지 보고자 하였다. 
 
-![show9](C:\Users\admin\내파일\3-2.5\스터디\NLP스터디\data\show9.PNG)
+![show9](https://user-images.githubusercontent.com/31824102/35672988-11b6ccf6-0738-11e8-9a78-d3a086f3d742.PNG)
 
 이는 Beam Search방법에서 N개의 best를 뽑은것. 다양한 단어, 다양한 관점에서 문장이 만들어졌다. 상위 15개의 generated 문장들을 보았을때는 58점 정도로, 사람과 견줄만한 수준이었다. 이 중 볼드체는 training set에 없었던 문장들이다. 보통 best 문장 중 80%가 training set의 문장이었다. training data가 적으므로(5개 라벨) 예시문장을 만들어내게 되었다. 그러나 15개의 best문장만을 보았을때는 절반정도가 새로운 description이었고 BLEU점수도 비슷해서, 다양하고 high quality의 문장을 만들어냈다고 볼 수 있다.
 
