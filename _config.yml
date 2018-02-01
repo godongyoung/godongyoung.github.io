@@ -4,9 +4,9 @@ highlighter:      rouge
 
 # Setup
 title:            Go's BLOG
-tagline:          ''
+tagline:          
 description:      '머신러닝, 딥러닝, 통계에 대한 개인적인 정리 자료.'
-url:              https://fongandrew.github.io/hydeout
+url:              https://godongyoung.github.io
 baseurl:          # the optional subpath of your site, e.g. "/blog"
                   # NB: This applies to all pages in your Jekyll site.
                   # If you want to move just the blog index pages but keep
@@ -36,4 +36,4 @@ sidebar_home_link:  true
                                 # set this to the root of the paginate_path
                                 # to enable a separate blog link.
 github:
-  repo:             https://github.com/fongandrew/hydeout
+  repo:             https://github.com/godongyoung/godongyoung.github.io
