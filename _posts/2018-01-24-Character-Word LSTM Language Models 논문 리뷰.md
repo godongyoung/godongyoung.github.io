@@ -186,7 +186,7 @@ OOV word가 들어왔을때 나오는 다음 단어에 대한 probability들을 
 
 char-word LSTM은 기존의 word LSTM에 비해 다음과 같은 장점이 있다.
 
-- LSTM의 size를 줄여준다
+- LSTM의 size를 줄여준다(parameter가 줄었다고 표현하는게 더 맞는거같은데, 논문에선 이렇게 표현하였다.)
 - 성능은 더 좋아진다. (improves the perplexity)
 
 또한, 여러 char embedding size, 여러 추가되는 char 갯수, 여러 order로 해보았는데, char embedding이 차지하는 비중이 지나치게 커지면 안되고, backward order가 조금더 잘했고, 양방향으로 조금씩 넣는것도 잘했다. 

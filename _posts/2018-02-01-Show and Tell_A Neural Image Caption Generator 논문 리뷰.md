@@ -17,7 +17,7 @@ https://arxiv.org/abs/1411.4555
 
 ### Abstract
 
-CNN을 사용한 Encoding과 RNN을 사용하여 image를 보고 sentence generating을 하는 neural net을 만들었다. 학습은 likelihood를 maximize하는 방향으로 학습하였다. 우리의 NIC는 양적평가(BLEU등), 질적평가에서 모두 뛰어났다. image description을 가진 size가 더 늘어나면 NIC의 성능도 증가할 것이다. 
+CNN을 사용한 Encoding과 RNN을 사용하여 image를 보고 sentence generating을 하는 neural net을 만들었다. 학습은 likelihood를 maximize하는 방향으로 학습하였다. 우리의 모델(NIC)는 양적평가(BLEU등), 질적평가에서 모두 뛰어났다. image description을 가진 size가 더 늘어나면 NIC의 성능도 증가할 것이다. 
 
 ### 1. Introduction
 
