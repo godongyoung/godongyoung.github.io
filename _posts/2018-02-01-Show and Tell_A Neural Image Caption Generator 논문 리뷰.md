@@ -59,6 +59,7 @@ object recognition에서 attribute와 location도 인식할 수 있게 되면서
 > $$
 > p(S|I)=p(S_1|I,S_0)p(S_2|I,S_0,S_1)..p(S_N|I,S_0,..,S_t-1)
 > $$
+>
 > 즉 (I가 주어졌을때의 0번째 단어가 $$S_0$$일 확률) X (I, $$S_0$$이 주어졌을때의 1번째 단어가 $$S_1$$일 확률) X ...의 형태인 것이다.
 
 train 과정에서는 이미지와 실제 description이 $$(S,I)$$의 pair로 주어지고, 위의 식에 따라 최적화를 한다. (SGD를 사용하였다.)
