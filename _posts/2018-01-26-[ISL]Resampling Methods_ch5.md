@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[ISL] 5장 - Resampling Methods"
+title: "[ISL] 5장 - Resampling Methods(CV, Bootstrap)이해하기"
 categories:
   - 머신러닝
 tags:
