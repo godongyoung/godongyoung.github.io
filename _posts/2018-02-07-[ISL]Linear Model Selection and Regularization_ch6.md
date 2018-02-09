@@ -12,6 +12,8 @@ comment: true
 
 
 {:toc}
+
+
 지금까지는, 회귀문제에서 다음과 같은 함수를 구하고자 하였다.
 $$
 Y=\beta_0+\beta_1X_1+..+\beta_pX_p+\epsilon
