@@ -121,7 +121,7 @@ AIC는 maximum likelihood로 적합시킨 모델에 대한 기준이지만, erro
 
 ![crit2](https://user-images.githubusercontent.com/31824102/35559439-ab68505a-05a2-11e8-87c0-f4985c0f3117.PNG)
 
-식을 보면 알 수 있지만, $$AIC$$와 $$C_p$$는 상수배이다. 즉, 같은 것이다. [어려운 참고](https://rstudio-pubs-static.s3.amazonaws.com/324771_0bd880964f064c53a70e757d5ef39669.html)
+식을 보면 알 수 있지만, $$AIC$$와 $$C_p$$는 상수배이다. 즉, 사실상 같은 의미를 갖는다. [어려운 참고](https://rstudio-pubs-static.s3.amazonaws.com/324771_0bd880964f064c53a70e757d5ef39669.html)
 
 BIC는 Bayesian의 관점에서 계산된 지표이다. 결과를 두고 보았을때는 AIC에서 2가 $$log(n)$$으로 바뀐 차이뿐이다. n>7이면 $$log(n)>2$$이므로 ($$e^2$$는7.38정도이다) **왠만한 경우에 BIC가 더 많은 변수에 더 패널티를 주었다**고 볼 수 있다.
 
@@ -149,7 +149,7 @@ Adjusted $$R^2$$는 다음과 같다. $$C_p, AIC, BIC$$가 **낮을 수록 좋�
 
 > one-standard-error rule에서 standard error를 구하는 식은 다음과 같다. 
 >
-> ![one-stand-rule](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\one-stand-rule.PNG)각각 '1번째 fold를 빼고 적합한 모델의 CVerror',..,'k번째 fold를 빼고 적합한 모델의 CVerror'를 의미한다. 단순히 k-fold를 통해 얻은 k개의 자료로 sd를 구했다고 받아들이면 된다.
+> ![one-stand-rule](https://user-images.githubusercontent.com/31824102/36018629-52bdca82-0d74-11e8-93f6-4002e72220dd.PNG)각각 '1번째 fold를 빼고 적합한 모델의 CVerror',..,'k번째 fold를 빼고 적합한 모델의 CVerror'를 의미한다. 단순히 k-fold를 통해 얻은 k개의 자료로 sd를 구했다고 받아들이면 된다.
 
 ### 6.2 Shrinkage Methods
 
@@ -257,7 +257,7 @@ L1 norm을 사용하는 Lasso와 L2 norm을 사용하는 Ridge를 여러 식으�
 
 ![lasso1](https://user-images.githubusercontent.com/31824102/35559428-a910e6be-05a2-11e8-94a9-25c9e5c64536.PNG)
 
-이 식은 각각 특정 상수 s일때마다 위의 식들과 완벽하게 같은 결과를 의미한다. s가 무한히 크다면 사실상 제약이 없는, 즉 least square를 의미하게 되고 s가 0에 가까워 질수록 큰 제약, 즉 null model이 된다. 즉 어떠한 상수 s보다 해당 $$\sum$$들이 작은 선에서, RSS를 최소화하는 것이다. 이는 변수가 2개일때, lasso의 경우 $$|\beta_1|+|\beta_2|\le s$$인 사각형 공간에서 RSS를 최소화하는계수를, ridge의 경우 $$\beta_1^2+\beta_2^2\le s$$의 원공간 안에서 RSS를 최소화는 계수를 찾는 **기하학적인 해석**을 가능하게 한다.(!)
+이 식은 각각 특정 상수 s일때마다 위의 식들과 완벽하게 같은 결과를 의미한다. s가 무한히 크다면 사실상 제약이 없는, 즉 least square를 의미하게 되고 s가 0에 가까워 질수록 큰 제약, 즉 null model이 된다. 즉 어떠한 상수 s보다 해당 $$\sum$$들이 작은 선에서, RSS를 최소화하는 것이다. 이는 변수가 2개일때, lasso의 경우 $$\lvert \beta_1\lvert+\lvert\beta_2\lvert\le s$$인 사각형 공간에서 RSS를 최소화하는계수를, ridge의 경우 $$\beta_1^2+\beta_2^2\le s$$의 원공간 안에서 RSS를 최소화는 계수를 찾는 **기하학적인 해석**을 가능하게 한다.(!)
 
 또한, 이러한 형태의 식은 best subset과 ridge, lasso의 관계를 밝혀주기도 하는데, best subset selection은 다음과 같이 나타낼 수 있다.
 
@@ -271,7 +271,7 @@ best subset의 의미 그대로 몇개의 $$\beta_j$$가 0일때 RSS를 최소�
 
 ![lasso4](https://user-images.githubusercontent.com/31824102/35559426-a88e3f02-05a2-11e8-9d7d-8af8ce422077.PNG)
 
-$$\hat \beta$$는 least square의 점이고, 빨간 등고선은 같은 RSS의 선이다. 그리고 왼쪽 그림의 초록색 다이아몬드와 오른쪽 그림의 원이 각각 Lasso와 Ridge의 제약, 즉 $$|\beta_1|+|\beta_2|\le s$$과 $$\beta_1^2+\beta_2^2\le s$$이다. 각각의 방법은 해당 범위 내에서, 가능한 가장 작은 RSS를 갖는 값으로 계수를 추정한다. ($$s$$가 충분히 커서 $$\hat \beta$$의 점을 포함하게 된다면 앞에서도 나왔듯이 least square와 같은 값을 추정하게 된다.) 즉 추정된 계수는 **해당 제약범위**와 가장 작은 **RSS등고선이 만나는 지점**의 값이 될 것이다. 
+$$\hat \beta$$는 least square의 점이고, 빨간 등고선은 같은 RSS의 선이다. 그리고 왼쪽 그림의 초록색 다이아몬드와 오른쪽 그림의 원이 각각 Lasso와 Ridge의 제약, 즉 $$\lvert\beta_1\lvert+\lvert\beta_2\lvert\le s$$과 $$\beta_1^2+\beta_2^2\le s$$이다. 각각의 방법은 해당 범위 내에서, 가능한 가장 작은 RSS를 갖는 값으로 계수를 추정한다. ($$s$$가 충분히 커서 $$\hat \beta$$의 점을 포함하게 된다면 앞에서도 나왔듯이 least square와 같은 값을 추정하게 된다.) 즉 추정된 계수는 **해당 제약범위**와 가장 작은 **RSS등고선이 만나는 지점**의 값이 될 것이다. 
 
 그림을 보면 알 수 있지만, Lasso의 제약범위는 **사각형 형태**라서, 한 축, 즉 **다른 계수가 0인 지점**에서 쉽게 교점이 생긴다. 예시에서는 $$\beta_2$$의 축에서 교점이 생겼으므로, $$\beta_1=0$$, 즉 $$X_1$$을 제외한 모델을 의미하게된다. 반면 Ridge는 제약범위가 **원의 형태**라서, 한 계수가 정확히 0인, 즉 **축에서 교점이 생기기가 힘들다**.(!) 이러한 성질은 차원이 높아질때도 유지된다. 변수가 3개, 즉 3차원일때는 Lasso의 제약범위는 다면체가 되고 Ridge의 제약범위는 구가 된다.
 
@@ -295,7 +295,7 @@ Lasso가 Ridge보다 해석력에서 좋다는 것은 명확하지만, 예측의
 
 #### Bayesian Interpretation for Ridge Regression and the Lasso
 
-Lasso와 Ridge를 베이지안 관점에서 해석할 수도 있다. 베이지안 관점에서, 찾고자 하는 목표 $$\boldsymbol \beta$$ 는 어떠한 사전분포 $$p(\beta)$$가 있다고 보고 사후 분포 $$p(\beta|X,Y)$$를 찾고자 한다. ($$\beta$$는 모든 계수를 포함한 벡터이다. 이후에 모든 기호 역시 벡터기호이다) 이는, likelihood $$f(Y|X,\beta)$$를 사전분포와 곱한것과 비례한다. (즉, 해당 식이 bayes' theorem의 분자이다.) 식으로 나타내면 다음과 같다.
+Lasso와 Ridge를 베이지안 관점에서 해석할 수도 있다. 베이지안 관점에서, 찾고자 하는 목표 $$\boldsymbol \beta$$ 는 어떠한 사전분포 $$p(\beta)$$가 있다고 보고 사후 분포 $$p(\beta\lvert X,Y)$$를 찾고자 한다. ($$\beta$$는 모든 계수를 포함한 벡터이다. 이후에 모든 기호 역시 벡터기호이다) 이는, likelihood $$f(Y\lvert X,\beta)$$를 사전분포와 곱한것과 비례한다. (즉, 해당 식이 bayes' theorem의 분자이다.) 식으로 나타내면 다음과 같다.
 
 ![lasso7](https://user-images.githubusercontent.com/31824102/35559424-a82dcafa-05a2-11e8-8acc-6fa22dbe5223.PNG)
 
