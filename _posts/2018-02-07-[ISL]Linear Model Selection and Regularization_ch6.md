@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[작성중][ISL] 6장 -Lasso, Ridge, PCR이해하기"
+title: "[ISL] 6장 -Lasso, Ridge, PCR이해하기"
 categories:
   - 머신러닝
 tags:
@@ -20,7 +20,7 @@ Y=\beta_0+\beta_1X_1+..+\beta_pX_p+\epsilon
 $$
 이러한 함수를 주로 'least square'로 구하여 적합하였다. 이는 선형모델이고, 7장(generalized linear model)과 8장에서 더욱 non-linear한 모델들을 배울 것이지만, 선형모델은 약간의 확장만으로 non-linear 모델과 놀라울 정도로 경쟁력을 갖고 있다. 이번장에선, 전통적인 least square(OLS라고 부른다)가 아닌 **다른 적합 방법**으로 **linear model을 개선**시키는 여러 방법에 대하여 다뤄볼 것이다. 
 
-#### 왜 안 least square요??
+### 왜 안 least square요??
 
 OLS는 우리의 가정, 즉 1) 오차의 평균이 0, 2) 오차의 분산이 모든 x의 단위에서 등분산, 3) 오차가 서로 uncorrelated인 경우 linear한 모델 중 최적의 모델이다.(iid일 필요도 없다! 자세한 설명은 [BLUE](https://en.wikipedia.org/wiki/Gauss%E2%80%93Markov_theorem)) 심지어, 앞장에서 했듯이 오차의 분포가 정규분포일 경우, OLS estimator는 또 다른 강력한 방법인 maximum likelihood estimator와 '동일'한 결과를 내게 된다.
 
@@ -39,7 +39,7 @@ OLS는 우리의 가정, 즉 1) 오차의 평균이 0, 2) 오차의 분산이 �
 >
 > 추가로, OLS의 가정이 맞고, 실제 모회귀선이 linear일 경우, $$bias=0$$이고 $$variance=p*\frac{\sigma^2}{n}$$이다. 즉, 변수 p가 늘어날 수록 모델의 variance가 커진다. [참고](http://www.stat.cmu.edu/~ryantibs/advmethods/notes/highdim.pdf)
 
-#### 그럼 어떤 방법을 쓰나요??
+### 그럼 어떤 방법을 쓰나요??
 
 이를 해결하기 위한 많은 방법이 있으나 여기서는 가장 대표적인 3가지를 다룬다
 
@@ -49,9 +49,9 @@ OLS는 우리의 가정, 즉 1) 오차의 평균이 0, 2) 오차의 분산이 �
 
 앞으로의 예시는 회귀에 중점을 두고 있지만, 4장의 classification과 같은 다른 방법에도 적용될 수 있다.
 
-### 6.1 Subset selection
+## 6.1 Subset selection
 
-#### 6.1.1 Best Subset Selection
+### 6.1.1 Best Subset Selection
 
 best subset selection은, 가능한 모든 경우의 수의 적합을 해보고 이 중 best 를 찾는 것이다. 다음의 알고리즘을 사용한다.
 
@@ -66,7 +66,7 @@ best subset selection은, 가능한 모든 경우의 수의 적합을 해보고 
 
 그러나 이는 $$2^p$$개(넣냐 안넣느냐)의 모든 가능한모델을 적합해야 함을 의미하므로, 예상했겠지만 computation 적으로 매우 힘들다. 심지어 요즘의 computation으로도 p가 40개가 넘어가면 힘들기에, 실질적으론 다음의 방법이 더 많이 사용된다.
 
-#### 6.1-2 stepwise selection
+### 6.1-2 stepwise selection
 
 계산적 문제 외에도, best subset selection은 여러 모델을 반환해준다는 점에서 p가 커지면 잘못된(overfitting된) 모델을 고르게 될 확률이 커진다는 단점이 있다고 할 수 있다. 따라서 그 대안으로는 stepwise 방법이 사용된다 
 
@@ -97,11 +97,11 @@ best subset selection은, 가능한 모든 경우의 수의 적합을 해보고 
 
 위의 방법이, 사실상 계산적 부담을 덜으면서 가장 best subset selection과 비슷한 모델을 찾아준다.
 
-### 6.1-3 Choosing the Optimal Model
+## 6.1-3 Choosing the Optimal Model
 
 앞에서 변수의 수가 다른 경우 $$R^2$$가 test error의 적절한 판단 기준이 될 수 없음을 언급하였다. 따라서, test error를 최소화하는 모델을 고르고자 할때, 우리는 test error를 **추정**해야 한다. test error를 추정하는 방법은 다음과 같다.  **1)** training error rate에 overfitting을 고려한 수학적인 보정을 가하여 test error를 간접적으로 추정하는것  **2)** training set중 몇개를 따로 빼내서 test error를 **직접적으로 추정**하는 방법(5장에서 다뤘음).
 
-#### $C_p$, AIC, BIC, and Adjusted $R^2$
+### $C_p$, AIC, BIC, and Adjusted $R^2$
 
 training error rate에 overfitting을 고려한 수학적인 보정을 가하여 test error를 **간접적으로 추정**하는것으로는 $$C_p$$, AIC, BIC, Adjusted $$R^2$$이 있다. 이를 이용하면, 변수갯수가 다른 모델들 간의 비교도 가능하게 된다. 식은 다음과 같다.
 $$
@@ -137,7 +137,7 @@ Adjusted $$R^2$$는 다음과 같다. $$C_p, AIC, BIC$$가 **낮을 수록 좋�
 
 사실, Adj $$R^2$$는 매우 널리 쓰이는 지표이지만, $$C_p, AIC, BIC$$는 많은 이론적 바탕이 있는 반면 Adj $$R^2$$는 큰 통계이론적 배경은 없다.(!)
 
-#### Validation and Cross-Validation
+### Validation and Cross-Validation
 
 5장에서 여러번의 resampling을 통해 test error를 직접적으로 추정해보는 validation 방법을 다루었었다. 놀랍게도 이는, 사실 위에서 다루었던 수학적 보정을 통한 $$C_p, AIC, BIC, adjR^2$$ 보다 이점이 많은데, 그 이유는 가정을 거의 하지 않고, 또 자유도를 구하기 힘들거나 $$\hat \sigma^2$$를 구하기 힘든 여러 경우에도 사용될 수 있기 때문이다. 
 
@@ -153,11 +153,11 @@ Adjusted $$R^2$$는 다음과 같다. $$C_p, AIC, BIC$$가 **낮을 수록 좋�
 >
 > ![one-stand-rule](https://user-images.githubusercontent.com/31824102/36018629-52bdca82-0d74-11e8-93f6-4002e72220dd.PNG)각각 '1번째 fold를 빼고 적합한 모델의 CVerror',..,'k번째 fold를 빼고 적합한 모델의 CVerror'를 의미한다. 단순히 k-fold를 통해 얻은 k개의 자료로 sd를 구했다고 받아들이면 된다.
 
-### 6.2 Shrinkage Methods
+## 6.2 Shrinkage Methods
 
 위에서는 변수를 선택하고 선택된 변수로 least square적합을 하는 방법을 다루었다. 이번에는, **모든 변수**로 적합을 하되 계수들을 0으로 constrain, 혹은 regularize하는 shrinkage 방법을 다룰 것이다. 이러한 방법은, **추정된 계수들의 변동(variance)을 대폭 줄여준다**는 강점이 있다.
 
-#### 6.2-1 Ridge Regression (!)
+### 6.2-1 Ridge Regression (!)
 
 3장에서 배웠던 least square는, 다음의 식을 최소화하는 방식으로 계수를 추정하였다. (단순한 차의 제곱들의 합이다)
 $$
@@ -185,7 +185,7 @@ $$
 $$
 쉽게 다차원에서의 원점과 $$\beta​$$의 유클리드 거리라고 생각하면 된다. 이때는 $$\lambda​$$가 커지면 x축은 0이 될것이고, $$\lambda​$$가 작아지면 x축은 1에 가까워 질 것이다. 
 
-##### X들의 표준화
+#### X들의 표준화
 
 기존의 least square에서, 변수의 단위를 c배 조정해주는것(예를 들어 '10000'만원 단위였던 것을 '1'억원으로 바꾸는것)은 **해당 변수의 계수를 1/c만큼** 조정하는 효과였다. (변수가 한단위 증가할때 '12345'만원 증가하는거나 '1.2345'억원 증가하는걸 의미한다.)
 
@@ -201,7 +201,7 @@ $$
 
 위와 표준화를 해준다는 것은 같은 scale에 있게 한다는 것과 같은 의미이다. 식을 보면 각 변수의 표준편차로 나누어 주고 있다. 따라서 모든 변수들의 표준편차가 1이 된다. 이에 따라 ridge regression이 scaling에 변동하지 않게 된다. 위의 그림은 표준화를 한 경우의 계수이다.
 
-##### 왜 Ridge 요?
+#### 왜 Ridge 요?
 
 이제, ridge regression을 이해하긴 했는데, 이걸 왜쓰는 건지 아직 와닿지 않는다. 왜 이런 기법을 쓰는 것일까? 그 해답은 또 **bias-variance trade-off**에 있다. $$\lambda$$가 증가함에 따라, flexibility는 감소하게 되고, 결과적으로 Variance는 감소하고 bias는 증가하게 된다. 
 
@@ -221,9 +221,9 @@ $$
 
 또한, 특정 $$\lambda$$에서의 계산은 한번만 하면 되기 때문에, ridge regression은 $$2^p$$번의 계산을 해야하는 best subset selection보다 computation에서도  큰 강점을 가지고 있다. (사실 $$\lambda$$에 따라서 식이 달라지는 것도 아니기에 여러 $$\lambda$$를 고려하는 것도 어렵지 않다.)
 
-### 6.2-2 The Lasso
+## 6.2-2 The Lasso
 
-##### Ridge 의 단점을 굳이 꼽아보자
+#### Ridge 의 단점을 굳이 꼽아보자
 
 앞에서 다룬 Ridge regression은 특별한 단점을 가지고 있지는 않다. 그러나 변수선택법을 통해 변수를 선택하고 적합을 하는 방식과 다르게 ridge는 특정 패널티 $$\lambda\sum_{j=1}^p\beta_j^2$$를 통해 몇몇의 변수의 계수를 0에 가깝게 가게 만든다(물론 $$\lambda$$를 무한히 크게하면 다 0으로 가지만, 보통은 그렇게 안한다). 이는 예측의 측면에서는 문제가 아니지만, 해석의 측면에서 약점을 가지고 있다 할 수 있다. 예를 들어 10개의 변수중에서, $$X_1,X_3,X_8$$이 중요한 변수임을 깨달았다 해보자. 우리는 위 3개의 변수로만 적합을 하고 싶지만, ridge regression은 그 설정상 모든 변수로 적합을 해야하고, 다른 변수의 계수는 0에 가까운 작은 값이지만(예를 들어 0.000283) 완벽한 0이 나오지는 않을 것이다. 
 
@@ -253,7 +253,7 @@ $$
 
 Ridge에서와 같이 왼쪽은 $$\lambda$$에 따른 계수들의 값이다. $$\lambda$$가 0이면 기본적인 least square와 같고, $$\lambda$$가 커지면 계수들이 전부 0이되는 null model(아무 변수도 없는, $$\bar y$$를 예측하는 모델)과 같아진다. 그러나, 오른쪽 그림을 보면 ridge와 lasso의 차이가 확연히 드러난다. 계수들이 완만하게 0으로 가며 완벽한 0이 되는 시점은 모든 계수들이 비슷한 시점이었던 위의 Ridge그림과 달리, Lasso는 Rating의 계수만 **끝까지 남아있다가** 0으로 사라진다. 그 전에는, Student와 Limit변수의 계수들이 남아있다가 사라졌다. 즉, $$\lambda$$의 수준에 따라 몇몇 변수만 0인 모델, 즉 **몇몇 변수를 제외한 모델을 만들어 낼 수** 있는 것이다. 이는 $$\lambda$$의 수준에 따라 그 크기가 shrink하긴 해도 0으로 사라지진 않던 Ridge와 구분되는 특성이다.
 
-#### Another Formulation for Ridge Regression and the Lasso
+### Another Formulation for Ridge Regression and the Lasso
 
 L1 norm을 사용하는 Lasso와 L2 norm을 사용하는 Ridge를 여러 식으로 나타내어 다양한 방식으로 이해를 해볼 수 있다. 
 
@@ -269,7 +269,7 @@ L1 norm을 사용하는 Lasso와 L2 norm을 사용하는 Ridge를 여러 식으�
 
 해당 식은 best subset의 의미 그대로 몇개의 $$\beta_j$$가 0일때 RSS를 최소화하는 지점을 판단하는 것이다. 그러나 이는 best subset의 단점에서 나왔듯이 각 s마다 $$\begin{pmatrix}p\\s\end{pmatrix}$$번의 모델을 계산해야 한다는 한계가 있었다. 이러한 점에서, lasso와 ridge는 위의 **best subset selection의 식**을 실현 가능한 형태로 **대체한 식**이라고 볼 수도 있다. 물론, lasso가 명확하게 변수를 없앤다는 점에서 best subset과는 더 유사하다.
 
-#### The Variable Selection Property of the Lasso
+### The Variable Selection Property of the Lasso
 
 그럼 왜? Lasso는 몇몇 계수들을 정확하게 0으로 보내는 성질을 갖는 것일까? 그에 대한 해답은 바로 위에서 했던 Lasso와 Ridge의 기하학적인 해석에서 알 수 있다.
 
@@ -279,7 +279,7 @@ $$\hat \beta$$는 least square의 점이고, 빨간 등고선은 같은 RSS의 �
 
 그림을 보면 알 수 있지만, Lasso의 제약범위는 **사각형 형태**라서, 한 축, 즉 **다른 계수가 0인 지점**에서 쉽게 교점이 생긴다. 예시에서는 $$\beta_2$$의 축에서 교점이 생겼으므로, $$\beta_1=0$$, 즉 $$X_1$$을 제외한 모델을 의미하게된다. 반면 Ridge는 제약범위가 **원의 형태**라서, 한 계수가 정확히 0인, 즉 **축에서 교점이 생기기가 힘들다**.(!) 이러한 성질은 차원이 높아질때도 유지된다. 변수가 3개, 즉 3차원일때는 Lasso의 제약범위는 다면체가 되고 Ridge의 제약범위는 구가 된다.
 
-#### Comparing the Lasso and Ridge Regression
+### Comparing the Lasso and Ridge Regression
 
 몇몇 변수를 아예 0으로 보내 제외시킨 다는 점에서, Lasso가 Ridge보다 해석력에서 좋다는 것은 명확해졌다. 그렇다면 예측의 정확성 측면에서는 어떨까? ![lasso5](https://user-images.githubusercontent.com/31824102/35559425-a85a14e8-05a2-11e8-8e77-ef50adce607d.PNG)
 
@@ -297,7 +297,7 @@ $$\hat \beta$$는 least square의 점이고, 빨간 등고선은 같은 RSS의 �
 
 > 또한 Ridge는 shrink할때 일정 비율로 shrink를 하고, Lasso는 shrink할때 일정 상수로 shrink를 하며, 충분히 작을 경우 0으로 줄인다.
 
-### 6.2-3 Selecting the Tuning Parameter
+## 6.2-3 Selecting the Tuning Parameter
 
 Lasso와 Ridge에서 중요한 $$\lambda$$를 몇으로 설정할 것인지에 대한 문제가 남았다. 이는 언급되었듯이, Cross-validation을 통해 이루어 진다. 몇몇의 $$\lambda$$ 값들을 선정하여, 그 값들에 대해 cross-validation을 하고 가장 작은 cross-validation error를 보인 $$\lambda$$를 선정한다. 최종적으로 다시 모든 데이터(CV에서는 몇개는 hold out했으니)에 대해 해당 $$\lambda$$로 적합을 하는 것이다.
 
@@ -305,7 +305,7 @@ Lasso와 Ridge에서 중요한 $$\lambda$$를 몇으로 설정할 것인지에 �
 
 해당 그림은 위의 예시에도 나왔던, 45개(p)의 변수 중 2개만이 유의미한 변수를 가진, (단지) 50개(n)의 자료들을 10-fold CV를 통해 Lasso 적합을 해본 것이다. 왼쪽의 점선은 최적의 cross-validation error를 낸 $$\lambda$$지점으로, 오른쪽의 $$\lambda$$에 따른 계수들을 보았을때, 회색으로 표시된 중요하지 않은 변수들을 모두 0으로 보내고 중요한 변수만이 남은 모델을 만들 수 있는 $$\lambda$$를 10-fold CV가 아주 잘 잡아내고 있는 것을 확인할 수 있다.
 
-### 6.3 Dimension Reduction Methods
+## 6.3 Dimension Reduction Methods
 
 지금까지 다뤄온 방법들( 몇개의 변수만을 선택하거나, 계수들을 0으로 shrink하게 하는 방법.)은, 각기 다른 방법으로 variance를 줄이기 위한 방법들이었다. 이들은 모두 원래의 변수, $$X_1,..,X_p$$를 사용한 방식이었다. 그러나 이번에는, **변수 자체를 변환**하여 적합하는 방법에 대해 다뤄볼 것이다. 이러한 기법을 차원축소 방법(dimension reduction)이라 부른다. 
 
@@ -335,11 +335,11 @@ $$
 
 차원 축소 방법은 어떠한 줄어든 변수$$Z_m$$을 만들고 거기에 적합을 한다. 그러나 $$Z_m$$을 어떠한 선형결합으로 만들어 낼 것인지, 즉 $$\phi_{jm}$$을 만들어내는 방법은 다양한 방법이 있다. 여기에선, principal components와 partial east square를 다룰 것이다.
 
-#### 6.3-1Principal Components Regression
+### 6.3-1Principal Components Regression
 
 Principal components analysis(줄여서 PCA)는 차원 축소의 매우 대표적인 방법이다. 이는 10장에서 더욱 상세히 나오겠지만, 여기서 간략하게 다루어 본다.
 
-##### An Overview of Principal Components Analysis
+#### An Overview of Principal Components Analysis
 
 PCA에서는 (n X p)의 크기를 가지고 있는 X를 줄이기 위해, 다음과 같은 방식을 사용한다. 데이터들의 **변동(분산)을 가장 잘 나타낼 수 있는**, first principal component direction을 찾는다. 
 
@@ -383,7 +383,7 @@ PCA에서는 (n X p)의 크기를 가지고 있는 X를 줄이기 위해, 다음
 
 변수가 2개뿐이므로, 2개의 principal component로 인해 '모든 정보'를 포함하게 되었다. (평균에서 $$Z_1$$방향으로 얼마나 떨어져 있는지, $$Z_2$$방향으로 얼마나 떨어져 있는지) 물론, 첫번째 component에서 대부분의 정보를 포함하게 된다. 이는 Figure 6.15의 오른쪽 그림에서 2nd component score 즉 first component에서 부터의 거리를 나타내는 수치가 1st component score보다 눈에 띄게 작다는 것에서도 드러난다. 따라서 2개의 component를 모두 쓰지 않고 first component만을 쓰는, 즉 차원을 축소할 수도 있는것이다. 변수가 현재는 2개였지만, 많은 변수의 경우에도 **이전의 component들**에 대해 uncorrelated되어 있으면서도 variance가 가장 큰 방향으로 component를 결정할 수 있다.
 
-#### The Principal Components Regression Approach
+### The Principal Components Regression Approach
 
 앞에서 간략하게 차원 축소 방법인 PCA에 대해 다뤄보았다. PCR은 이 PCA를 통해 만들어진 **M개의 예측변수들**을 통해 least square적합을 하는 것이다.
 
@@ -409,7 +409,7 @@ PCA에서는 (n X p)의 크기를 가지고 있는 X를 줄이기 위해, 다음
 
 ![shrink3](https://user-images.githubusercontent.com/31824102/35559431-a9ee72a4-05a2-11e8-8395-0caa71e3e3d1.PNG)
 
-#### 6.3-2 Partial Least Squares
+### 6.3-2 Partial Least Squares
 
 앞에서 다룬 PCA는, p개의 변수 $$X_1,..,X_p$$의 관계를 잘 나타내는 direction을 찾는 비지도적인(unsupervised) 방법이다. 쉽게 말해 principal component를 고려하는데 Y는 쳐다보지도(supervised하지) 않았다는 의미이다. 이는 앞에서 언급되는 PCR의 단점으로 귀결되는데, 예측변수들의 관계를 가장 잘 설명하는 direction이 **반응변수를 설명하는 예측변수들을 가장 잘 설명하는 direction이 아닐 수 있다**는 것이다.
 
@@ -425,17 +425,17 @@ PCA에서는 (n X p)의 크기를 가지고 있는 X를 줄이기 위해, 다음
 
 이는 같은 데이터에 PLS를 적합한 것이다. 점선이 PCR, 초록실선이 PLS이다. 해당 데이터에서 pop가 Y와 상관관계가 더 높았기에, 기울기가 좀더 완만한, 즉 ad를 좀 덜 반영하는 direction을 찾게 되었다. 따라서 당연한 얘기지만 PLS는 PCR만큼 기존의 변수들에 잘 부합하지는 않지만, 반응변수Y를 설명하는데에는 더 뛰어나다.
 
-2번째 변수는, 각 변수를 $$Z_1$$에 적합하고 잔차(residual)을 통해 계산한다. 이는 $$Z_1$$에 의해 설명되지 않은, uncorrelated (혹은 orthogonalized)data를 의미한다. 이 데이터를 가지고, $$Z_1$$에서 했듯이 각각을 Y에 적합하여 계수들을 합하는 식으로 $$Z_2$$를 만든다.(맞나??? 찾아보기!!!) 기본적으로 첫번째 변수가 설명하지 못한 정보를 가장 잘 설명하는 두번째 변수를 만든다는 점에서 PCR과 유사한 작동원리이다.
+2번째 변수는, 각 변수를 $$Z_1$$에 적합하고 잔차(residual)을 통해 계산한다. 이는 $$Z_1$$에 의해 설명되지 않은, uncorrelated (혹은 orthogonalized)data를 의미한다. 이 데이터를 가지고, $$Z_1$$에서 했듯이 각각을 Y에 적합하여 계수들을 합하는 식으로 $$Z_2$$를 만든다. 기본적으로 첫번째 변수가 설명하지 못한 정보를 가장 잘 설명하는 두번째 변수를 만든다는 점에서 PCR과 유사한 작동원리이다.
 
 PCR과 마찬가지로, PLS역시 변수들을 표준화한 후 계산해야하고, 몇개의 direction을 만들것인지는 cross-validation을 통해 알아본다. 그러나 실제에선 PLS는 supervised라는 점에서 bias는 줄여주지만 그에 상응하여 variance가 높아지기에 PCR이나 Ridge만큼의 성능을 보이지 못하는 경우가 많다. (띄용)
 
-### 6.4 Consideration in High Dimension
+## 6.4 Consideration in High Dimension
 
-#### 6.4-1 High-Dimensional Data
+### 6.4-1 High-Dimensional Data
 
 거의 모든 전통적인 통계기법은 low-dimension, 즉 n이 p보다 훨씬 더 많은 경우를 다루고자 고안된 기법들이다. (여기서 dimension은 'p에 관한 dimension'을 의미한다. ) 그러나 모든것이 정보화되는 시대에, 오히려 변수가 더 많아지는 경우도 등장을 하기 마련이다. 극단적인 예로 사람의 DNA를 통한 혈압예측을 하려하면, 유의미한 변수가 몇십만개도 넘을 것이다. 이러한 high-dimension의 문제에서는 전통적인 least square가 제대로 작동하지 못하고 앞서 다루었던 방법들이 빛을 내게 된다. (물론 bias-variance trade-off의 측면에서 overfitting을 방지하고자 n>p인 경우에도 사용되기도 한다.)
 
-#### 6.4-2 What Goes Wrong in High Dimensions?
+### 6.4-2 What Goes Wrong in High Dimensions?
 
 그럼, 다차원에서는 왜 기존의 통계기법들이 제대로 성능을 발휘하지 못할지를 알아보자. 여기서는 least square를 활용한 회귀문제를 다루고 있지만, 이는 다른 전통적인 통계기법, 예를들어 로지스틱 LDA등에 모두 적용되는 논의이다. 
 
@@ -453,7 +453,7 @@ p가 n보다 많거나 비슷한 경우, least square방법은 모든 변수를 
 
 high dimension에서는, 앞서 다루었던 덜 flexible한 방법들이 강점을 갖게 된다. 얼핏 예측 변수로 사용할것이 더 많은 high dimension은 더 좋은것 아닌가, 라는 생각을 할 수 있다. 물론 추가된 변수가 실제 Y와 높은 관계가 있는 변수라면 적합에 도움이 되겠지만, 추가된 변수가 **반응변수Y와 실제 관계가 별로 없는 변수**라면 오히려 이를 포함한 모델의 test error는 증가한다. 이러한 noise feature들은 차원은 증가시키면서도 overfitting의 위험은 높이는 작용을 하게 된다. 이렇듯 차원이 증가함으로써 생기는 분석의 어려움을 통틀어 '차원의 저주'라고 부른다.
 
-#### 6.4-4 Interpreting Results in High Dimensions
+### 6.4-4 Interpreting Results in High Dimensions
 
 high dimension을 다룰때는 주의할점이 많다. 분석자는, 변수가 무수히 많으면 그만큼 correlated되 있을 가능성도 많은 것이고, 이는 분석의 안정성을 저해할 수 있다는 것을 인지해야 한다. 예를 들어 수십만개의 예측변수를 가지고 있는 DNA데이터에서 변수선택법을 통해 17개의 변수를 골라 training data를 잘 설명했다 하자. 이는, 실제로도 예측에 좋은 성능을 보일 수는 있겠지만, 17개의 변수가 DNA를 설명하는 best변수라고 말해주는 것은 아니다. train data에서는 우연히 잘 안드러 났으나 17개의 변수와 상관관계가 매우 높은 다른 변수가 실제로 DNA를 설명하기 위한 best변수 였을수도 있는 것이다. 
 
