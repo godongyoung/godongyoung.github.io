@@ -349,7 +349,7 @@ PCA에서는 (n X p)의 크기를 가지고 있는 X를 줄이기 위해, 다음
 
 > 다른 선으로 project를 시켰을 경우, 점들의 분산이 first component direction에 비해 적다!(왼쪽은 다른 direction, 오른쪽은 first PC)
 >
-> ![PCA](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\PCA.PNG)
+> ![PCA](https://user-images.githubusercontent.com/31824102/36071502-17bd58c8-0f07-11e8-8b61-cf6bc022f45d.PNG)
 
 수식으로 나타내자면, 다음과 같다. (pop가 x, ad가 y이다. 이때, 데이터의 중심에 축을 두고자 변수에 centering을 하고 PCA를 진행한다. Centering은 분산에 영향을 미치지 않기에, 결과는 같다)
 
