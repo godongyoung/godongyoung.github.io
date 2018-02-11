@@ -155,7 +155,7 @@ Adjusted $$R^2$$는 다음과 같다. $$C_p, AIC, BIC$$가 **낮을 수록 좋�
 
 ### 6.2 Shrinkage Methods
 
-위에서 다루었던 변수를 선택하고 선택된 변수로 least square적합을 하는 방법이 아닌, **모든 변수**로 적합을 하되 계수들을 0으로 constrain, 혹은 regularize하는 shrinkage 방법을 다룰 것이다. 이러한 방법은, **추정된 계수들의 변동(variance)을 대폭 줄여준다**는 강점이 있다.
+위에서는 변수를 선택하고 선택된 변수로 least square적합을 하는 방법을 다루었다. 이번에는, **모든 변수**로 적합을 하되 계수들을 0으로 constrain, 혹은 regularize하는 shrinkage 방법을 다룰 것이다. 이러한 방법은, **추정된 계수들의 변동(variance)을 대폭 줄여준다**는 강점이 있다.
 
 #### 6.2-1 Ridge Regression (!)
 
@@ -173,13 +173,13 @@ $$
 
 해당 식에서 $$\beta_0$$은 shrink의 대상에 들어가 있지 않음에 주의해라. $$\beta_0$$은 단순히 모든 변수의 계수가 0일때 예측변수들의 평균으로 구하는 것이기에, 이는 shrink의 대상이 아니다.
 
-이때 두 목표중 어디에 더 치중할 것인지는 분석자가 $$\lambda$$를 통해 결정한다. $$\lambda$$가 0이면 shrinkage의 비중을 0, $$\lambda$$가 커질 수록 shrinkage효과에 비중을 두는 식이다. 결국 이 $$\lambda$$에 따라 최종적으로 추정되는 계수들도 달라지게 되므로, 이를 결정하는 것이 매우 중요하다. 이는 cross-validation을 통하여 결정하는데, 6.2.3에서 다루겠다. 
+이때 두 목표중 어디에 더 치중할 것인지는 분석자가 $$\lambda$$를 통해 결정한다. $$\lambda$$가 0이면 shrinkage의 비중을 0, $$\lambda$$가 커질 수록 shrinkage효과에 비중을 두는 식이다. 결국 이 $$\lambda$$에 따라 최종적으로 추정되는 계수들도 달라지게 되므로, $$\lambda$$를 결정하는 것이 매우 중요하다. 이는 cross-validation을 통하여 결정하는데, 조금 뒤에 따로 설명하겠다.
 
 ![shrink2](https://user-images.githubusercontent.com/31824102/35559432-aa2f880c-05a2-11e8-98b7-722e3237060e.PNG)
 
 왼쪽 그림은 예시문제에서 각각의 변수(income, limit등등)들의 계수가 $$\lambda$$가 커져갈때 어떻게 변화하는지를 그린 그래프이다. 가장 왼쪽, 즉 $$\lambda$$가 0일때는 기존의 least square와 같고, 점차 $$\lambda$$값이 커지면서 계수들이 0으로 가는것을 볼 수 있다. 그러나 Rating의 계수의 값을 보면 $$\lambda$$가 커질때 잠시 값이 커지기도 한다.
 
-오른족은 같은 계수들의 값을 이번에는 x축을 $$\lambda$$가 아닌 $$\frac{\left\|\hat\beta_{\lambda}^R\right\|_2}{\left\|\hat\beta\right\|_2}$$이다. 분자는 Ridge regression의 계수들의 L2 norm, 분모는 least square의 계수들의 L2 norm이다. L2 norm은 벡터의 크기를 나타내는 방식중 하나인데, 다음과 같이 정의 된다
+오른족은 같은 계수들의 값을 이번에는 x축을 $$\lambda$$가 아닌 $$\frac{\left\|\hat\beta_{\lambda}^R\right\|_2}{\left\|\hat\beta\right\|_2}$$이다. 분자는 Ridge regression의 계수들의 L2 norm이고, 분모는 least square의 계수들의 L2 norm이다. L2 norm은 벡터의 크기를 나타내는 방식중 하나인데, 다음과 같이 정의 된다
 $$
 \left\|\boldsymbol\beta\right\|_2=\sqrt{\sum_{j=1}^p\beta_j^2}
 $$
@@ -191,11 +191,11 @@ $$
 
 > Scaling에 관하여. scaling은 각 예측변수들의 scale이 지나치게 다른경우 계수들의 scale을 통일시켜 scale이 작은 변수들의 기여를 제대로 표현하고자(주이유), 또 큰 scale에서 오는 버림오차 등에 대한 위험을 줄이고자(부가이유) 실행한다. 또한 수학적으로는 descent 알고리즘에서 가파른 기울기를 완화시켜주는 의미를 갖는다. 또한 보통 반응변수는 scale대상이 아니다. ([참고](https://stats.stackexchange.com/questions/111467/is-it-necessary-to-scale-the-target-value-in-addition-to-scaling-features-for-re))
 >
-> scaling과 centering의 의의가 잘 정리되어 있는 [사이트](https://stats.stackexchange.com/questions/29781/when-conducting-multiple-regression-when-should-you-center-your-predictor-varia)인데, 정리하자면 모든 변수들의 mean을 0으로 만들어 절편항에 대한 의미를 부여하는 것 등의 목적으로 행하는 것이 centering이고, scale의 차이로 인한 계수해석의 어려움을 방지하고자 행하는 것이 scaling이다. 다항회귀가 아닌경우, 두가지 모두 분석 자체에 영향을 미치진 않는다.centering하는것과 scaling이 되는것을 통한 그 밖의 여러 효과가 있으니 참고하면 좋다.
+> scaling과 centering의 의의가 잘 정리되어 있는 [사이트](https://stats.stackexchange.com/questions/29781/when-conducting-multiple-regression-when-should-you-center-your-predictor-varia)인데, 정리하자면 모든 변수들의 mean을 0으로 만들어 절편항에 대한 의미를 부여하는 것 등의 목적으로 행하는 것이 centering이고, scale의 차이로 인한 계수해석의 어려움을 방지하고자 행하는 것이 scaling이다. 다항회귀가 아닌경우, 두가지 모두 분석 자체에 영향을 미치지 않는다. centering하는것과 scaling이 되는것을 통한 그 밖의 여러 효과가 있으니 참고하면 좋다.
 >
 > 추가로, scaling이 되었다고 회귀계수들을 바로 변수들의 중요성으로 보는 것은 위험한데, 이는 각 예측변수들이 서로 correlated되어 있을 경우 각 회귀계수들이 다른 예측변수들에도 영향을 받기때문이다. (참고교재 283쪽)
 
- 그러나 ridge regression은 $$\lambda\sum_{j=1}^p\beta_j^2$$이 수식에 들어가 있으므로, 변수 $$X_j$$의 scaling이 **$$\beta_j$$에만 영향을 미치는게 아니고**, 또한 다른 변수의 scaling역시 $$\beta_j$$에 영향을 미치게 된다. 즉 ridge regression에서 **추정되는 계수**는 $$\lambda$$에만 영향을 받는 것이 아니라 **변수들의 scaling에도 영향**을 받는 것이다. 따라서 보통 ridge regression전에 모든 변수들을 다음과 같이 표준화를 해주고 진행을 한다.
+ 그러나 ridge regression은 $$\lambda\sum_{j=1}^p\beta_j^2$$이 수식에 들어가 있으므로, 변수 $$X_j$$의 scaling이 **$$\beta_j$$에만 영향을 미치는게 아니고**, 또한 다른 변수의 scaling역시 $$\beta_j$$에 영향을 미치게 된다. ($$\sum$$기호를 통해 모두 연결되어 있다.) 즉 ridge regression에서 **추정되는 계수**는 $$\lambda$$에만 영향을 받는 것이 아니라 **변수들의 scaling에도 영향**을 받는 것이다. 따라서 보통 ridge regression전에 모든 변수들을 다음과 같이 표준화를 해주고 진행을 한다.
 
 ![shrink3](https://user-images.githubusercontent.com/31824102/35559431-a9ee72a4-05a2-11e8-8395-0caa71e3e3d1.PNG)
 
@@ -209,7 +209,7 @@ $$
 
 위의 그림은 $$\lambda$$에 따른 ridge regression의 bias(검은선)과 variance(초록선)이다. 검은 선을 보면 $$\lambda$$가 0일때는 bias가 0, 즉 least square의 특징인 unbiased를 잘 보여주고 있다. bias는 $$\lambda$$가 증가함에 따라 조금씩 올라간다. 그러나 초록선Variance를 보면, $$\lambda$$가 증가할때마다 더욱 큰폭으로 감소함을 볼 수 있다. $$\lambda$$라는 **제약**에 따라 계수들이 shrinkage하게 되어 변동이 크지 않은 모델이 나오는 것이다. 
 
-> $$\lambda$$는 사실 제약으로써, $$\beta$$ matrix의 $$df$$를 줄이게 된다. [참고](https://onlinecourses.science.psu.edu/stat857/node/155)
+> $$\lambda$$는 사실 제약으로써, $$\beta$$ matrix의 $$df$$를 줄이게 된다. [어려운 참고](https://onlinecourses.science.psu.edu/stat857/node/155)
 
 이에 따라 bias의 제곱과 variance로 이루어져 있는test MSE(분홍선)는 지속적으로 감소해서 $$\lambda$$가 10조금 넘는 부분에서 최소점을 찍는 것을 볼 수 있다.
 
@@ -225,7 +225,7 @@ $$
 
 ##### Ridge 의 단점을 굳이 꼽아보자
 
-앞에서 다룬 Ridge regression은 특별한 단점을 가지고 있지는 않다. 변수선택법을 통해 변수를 선택하고 적합을 하는 방식과 다르게 ridge는 특정 패널티 $$\lambda\sum_{j=1}^p\beta_j^2$$를 통해 몇몇의 변수의 계수를 0에 가깝게 가게 만든다(물론 $$\lambda$$를 무한히 크게하면 다 0으로 가지만, 보통은 그렇게 안한다). 이는 예측의 측면에서는 묹가 아니지만, 해석의 측면에서 약점을 가지고 있다 할 수 있다. 예를 들어 10개의 변수중에서, $$X_1,X_3,X_8$$이 중요한 변수임을 깨달았다 해보자. 우리는 위 3개의 변수로만 적합을 하고 싶지만, ridge regression은 그 설정상 모든 변수로 적합을 해야하고, 다른 변수의 계수는 0에 가까운 작은 값이지만 완벽한 0이 나오지는 않을 것이다. 
+앞에서 다룬 Ridge regression은 특별한 단점을 가지고 있지는 않다. 그러나 변수선택법을 통해 변수를 선택하고 적합을 하는 방식과 다르게 ridge는 특정 패널티 $$\lambda\sum_{j=1}^p\beta_j^2$$를 통해 몇몇의 변수의 계수를 0에 가깝게 가게 만든다(물론 $$\lambda$$를 무한히 크게하면 다 0으로 가지만, 보통은 그렇게 안한다). 이는 예측의 측면에서는 문제가 아니지만, 해석의 측면에서 약점을 가지고 있다 할 수 있다. 예를 들어 10개의 변수중에서, $$X_1,X_3,X_8$$이 중요한 변수임을 깨달았다 해보자. 우리는 위 3개의 변수로만 적합을 하고 싶지만, ridge regression은 그 설정상 모든 변수로 적합을 해야하고, 다른 변수의 계수는 0에 가까운 작은 값이지만(예를 들어 0.000283) 완벽한 0이 나오지는 않을 것이다. 
 
 이를 보완하기 위해 고안된 방법이 바로  Lasso이다. Lasso는 다음의 식을 최소화하는 방식으로 계수를 추정한다
 $$
@@ -233,7 +233,7 @@ $$
 $$
 식을 보면 알겠지만, ridge regression에서 최소화하려 했던 식과 매우매우 유사하다. 구체적으로 말하자면  $$\beta_j^2$$가 $$|\beta_j|$$로 바뀌었을 뿐이다.
 
-> ridge regression의 식 참고
+> **Ridge regression**의 식 참고
 > $$
 > \sum_{i=1}^n(y_i-\beta_0-\beta_1x_{i1}-..-\beta_px_{ip})^2+\lambda\sum_{j=1}^p\beta_j^2=RSS+\lambda\sum_{j=1}^p\beta_j^2
 > $$
@@ -243,13 +243,15 @@ $$
 $$
 \left\|\boldsymbol\beta\right\|_1={\sum_{j=1}^p|\beta_j|}
 $$
-즉, 단순하게 절대값의 합을 해준 방식이다. (L2 norm은 제곱들의 합의 루트였다.)(L2는 유클리드 거리라고 이해할 수 있는데, L1은 절대값의 합말고 다른 해석의 의미는 없나???) 계수들이 0의 방향으로 shrink하게 했던 ridge와 달리, Lasso는 적당한 $$\lambda$$만으로 몇몇 계수를 **정확하게 0으로** 가게 만들 수 있다. 따라서 몇몇 중요하지 않은 변수가 사라진 효과이므로 **해석력에서 ridge보다 강력한 강점**을 가지고 있다. 물론 ridge와 마찬가지로 Lasso도 $$\lambda$$를 어떻게 설정할것인지가 매우 중요하다. 이는 뒤에서 cross-validation을 통해 다룬다.
+즉, 단순하게 절대값의 합을 해준 방식이다. (L2 norm은 제곱들의 합의 루트였다.) 이때도 모든 $$\beta_j$$가 $$\sum$$으로 엮여 있기에, 같은이유로 모든 변수를 scaling해준다.
+
+계수들이 0의 방향으로 shrink하게 했던 ridge와 달리, Lasso는 적당한 $$\lambda$$만으로 몇몇 계수를 **정확하게 0으로** 가게 만들 수 있다. 따라서 몇몇 중요하지 않은 변수가 사라진 효과이므로 **해석력에서 ridge보다 강력한 강점**을 가지고 있다. 물론 ridge와 마찬가지로 Lasso도 $$\lambda$$를 어떻게 설정할것인지가 매우 중요하다. 이는 뒤에서 cross-validation을 통해 다룬다.
 
 전체의 변수를 포함하지 않고 몇몇 변수만을 포함한다는 의미에서, Lasso를 **sparse한 model**이라고도 한다. 
 
 ![lasso](https://user-images.githubusercontent.com/31824102/35559429-a94d92b2-05a2-11e8-8500-9ac935f7837b.PNG)
 
-Ridge에서와 같이 왼쪽은 $$\lambda$$에 따른 계수들의 값이다. $$\lambda$$가 0이면 기본적인 least square와 같고, $$\lambda$$가 커지면 계수들이 전부 0이되는 null model(아무 변수도 없는, $$\bar y$$를 예측하는 모델)과 같아진다. 그러나, 오른쪽 그림을 보면 ridge와 lasso의 차이가 확연히 드러난다. 계수들이 완만하게 0으로 가며 완벽한 0이 되는 시점은 모든 계수들이 비슷한 시점이었던 위의 Ridge그림과 달리, Lasso는 Rating의 계수만 끝까지 남아있다가 0으로 사라진다. 그 전에는, Student와 Limit변수의 계수들이 남아있다가 사라졌다. 즉, $$\lambda$$의 수준에 따라 몇몇 변수만 0인 모델, 즉 **몇몇 변수를 제외한 모델을 만들어 낼 수** 있는 것이다. 이는 $$\lambda$$의 수준에 따라 그 크기가 shrink하긴 해도 0으로 사라지진 않던 Ridge와 구분되는 특성이다.
+Ridge에서와 같이 왼쪽은 $$\lambda$$에 따른 계수들의 값이다. $$\lambda$$가 0이면 기본적인 least square와 같고, $$\lambda$$가 커지면 계수들이 전부 0이되는 null model(아무 변수도 없는, $$\bar y$$를 예측하는 모델)과 같아진다. 그러나, 오른쪽 그림을 보면 ridge와 lasso의 차이가 확연히 드러난다. 계수들이 완만하게 0으로 가며 완벽한 0이 되는 시점은 모든 계수들이 비슷한 시점이었던 위의 Ridge그림과 달리, Lasso는 Rating의 계수만 **끝까지 남아있다가** 0으로 사라진다. 그 전에는, Student와 Limit변수의 계수들이 남아있다가 사라졌다. 즉, $$\lambda$$의 수준에 따라 몇몇 변수만 0인 모델, 즉 **몇몇 변수를 제외한 모델을 만들어 낼 수** 있는 것이다. 이는 $$\lambda$$의 수준에 따라 그 크기가 shrink하긴 해도 0으로 사라지진 않던 Ridge와 구분되는 특성이다.
 
 #### Another Formulation for Ridge Regression and the Lasso
 
@@ -259,13 +261,13 @@ L1 norm을 사용하는 Lasso와 L2 norm을 사용하는 Ridge를 여러 식으�
 
 ![lasso1](https://user-images.githubusercontent.com/31824102/35559428-a910e6be-05a2-11e8-94a9-25c9e5c64536.PNG)
 
-이 식은 각각 특정 상수 s일때마다 위의 식들과 완벽하게 같은 결과를 의미한다. s가 무한히 크다면 사실상 제약이 없는, 즉 least square를 의미하게 되고 s가 0에 가까워 질수록 큰 제약, 즉 null model이 된다. 즉 어떠한 상수 s보다 해당 $$\sum$$들이 작은 선에서, RSS를 최소화하는 것이다. 이는 변수가 2개일때, lasso의 경우 $$\lvert \beta_1\lvert+\lvert\beta_2\lvert\le s$$인 사각형 공간에서 RSS를 최소화하는계수를, ridge의 경우 $$\beta_1^2+\beta_2^2\le s$$의 원공간 안에서 RSS를 최소화는 계수를 찾는 **기하학적인 해석**을 가능하게 한다.(!)
+이 식은 각각 특정 상수 s일때마다 위의 식들과 완벽하게 같은 결과를 의미한다. s가 무한히 크다면 사실상 제약이 없는, 즉 least square를 의미하게 되고 s가 0에 가까워 질수록 큰 제약, 즉 null model이 된다. 즉 어떠한 상수 s보다 해당 $$\sum$$들이 작은 제약 안에서, RSS를 최소화하는 것이다. 이는 변수가 2개일때, lasso의 경우 $$\lvert \beta_1\lvert+\lvert\beta_2\lvert\le s$$인 **사각형 공간**에서 RSS를 최소화하는계수를, ridge의 경우 $$\beta_1^2+\beta_2^2\le s$$의 **원공간** 안에서 RSS를 최소화는 계수를 찾는 **기하학적인 해석**을 가능하게 한다.(!)
 
 또한, 이러한 형태의 식은 best subset과 ridge, lasso의 관계를 밝혀주기도 하는데, best subset selection은 다음과 같이 나타낼 수 있다.
 
 ![lasso3](https://user-images.githubusercontent.com/31824102/35559427-a8d6a7b0-05a2-11e8-92cb-110adf18c403.PNG)
 
-best subset의 의미 그대로 몇개의 $$\beta_j$$가 0일때 RSS를 최소화하는 지점을 판단하는 것이다. 그러나 이는 best subset의 단점에서 나왔듯이 각 s마다 $$\begin{pmatrix}p\\s\end{pmatrix}$$번의 모델을 계산해야 한다는 한계가 있었다. 이러한 점에서, lasso와 ridge는 위의 **best subset selection의 식**을 실현 가능한 형태로 **대체한 식**이라고 볼 수도 있다. 물론, lasso가 명확하게 변수를 없앤다는 점에서 best subset과는 더 유사하다.
+해당 식은 best subset의 의미 그대로 몇개의 $$\beta_j$$가 0일때 RSS를 최소화하는 지점을 판단하는 것이다. 그러나 이는 best subset의 단점에서 나왔듯이 각 s마다 $$\begin{pmatrix}p\\s\end{pmatrix}$$번의 모델을 계산해야 한다는 한계가 있었다. 이러한 점에서, lasso와 ridge는 위의 **best subset selection의 식**을 실현 가능한 형태로 **대체한 식**이라고 볼 수도 있다. 물론, lasso가 명확하게 변수를 없앤다는 점에서 best subset과는 더 유사하다.
 
 #### The Variable Selection Property of the Lasso
 
@@ -279,7 +281,7 @@ $$\hat \beta$$는 least square의 점이고, 빨간 등고선은 같은 RSS의 �
 
 #### Comparing the Lasso and Ridge Regression
 
-Lasso가 Ridge보다 해석력에서 좋다는 것은 명확하지만, 예측의 정확성 측면에서는 어떨까? ![lasso5](https://user-images.githubusercontent.com/31824102/35559425-a85a14e8-05a2-11e8-8e77-ef50adce607d.PNG)
+몇몇 변수를 아예 0으로 보내 제외시킨 다는 점에서, Lasso가 Ridge보다 해석력에서 좋다는 것은 명확해졌다. 그렇다면 예측의 정확성 측면에서는 어떨까? ![lasso5](https://user-images.githubusercontent.com/31824102/35559425-a85a14e8-05a2-11e8-8e77-ef50adce607d.PNG)
 
 왼쪽 그림은 이전에 Ridge에서 나왔던 test MSE에 대한 그림의 데이터와 같은 자료로 적합한 Lasso의 test MSE이다. 역시나 초록선은 Variance, 검은선은 bias의 제곱, 분홍선은 test MSE이다. 
 
@@ -294,19 +296,6 @@ Lasso가 Ridge보다 해석력에서 좋다는 것은 명확하지만, 예측의
 정리해보자면, Lasso 역시 Ridge처럼 약간의 bias를 희생하여 기존의 least square보다 Variance측면에서 좋은, 따라서 더욱 좋은 예측을 보이는 모델을 만들어낸다. 또한 Lasso는 계수를 0으로 보내 변수선택의 효과 역시 가져, 해석력 측면에서 강점을 가지게 된다.
 
 > 또한 Ridge는 shrink할때 일정 비율로 shrink를 하고, Lasso는 shrink할때 일정 상수로 shrink를 하며, 충분히 작을 경우 0으로 줄인다.
-
-#### Bayesian Interpretation for Ridge Regression and the Lasso
-
-Lasso와 Ridge를 베이지안 관점에서 해석할 수도 있다. 베이지안 관점에서, 찾고자 하는 목표 $$\boldsymbol \beta$$ 는 어떠한 사전분포 $$p(\beta)$$가 있다고 보고 사후 분포 $$p(\beta\lvert X,Y)$$를 찾고자 한다. ($$\beta$$는 모든 계수를 포함한 벡터이다. 이후에 모든 기호 역시 벡터기호이다) 이는, likelihood $$f(Y\lvert X,\beta)$$를 사전분포와 곱한것과 비례한다. (즉, 해당 식이 bayes' theorem의 분자이다.) 식으로 나타내면 다음과 같다.
-
-![lasso7](https://user-images.githubusercontent.com/31824102/35559424-a82dcafa-05a2-11e8-8acc-6fa22dbe5223.PNG)
-
-마지막 등호는 X가 상수라는 가정하에서 나온 것이다 (??? 누가 이해좀)
-
-그럼 이제  사전분포 $$p(\beta)=\prod_{j=1}^pg(\beta_j)$$가 어떤 형태일 것인지가 관건인데, Lasso와 Ridge는 각각 특별한 g의 형태라고 한다. 구체적으로는 다음과 같다.
-
-- g가 mean=0, sd는 $$\lambda$$의 함수인 정규분포이면 사전분포의 최빈값(mode)가 ridge의 계수 해가 된다.
-- g가 mean=0인 Laplace분포이면, 사전분포의 최빈값이 lasso의 해가 된다. (어렵다..책p227)
 
 ### 6.2-3 Selecting the Tuning Parameter
 
@@ -324,13 +313,13 @@ Lasso와 Ridge에서 중요한 $$\lambda$$를 몇으로 설정할 것인지에 �
 
 ![pc1](https://user-images.githubusercontent.com/31824102/35559711-4fb675e2-05a3-11e8-89b4-b229b7bba271.PNG)
 
-예를 들면 $$Z_1=0.7X_1+0*X_2+...+2.4X_p$$와 같은 형태로 기존의 p개보다 적은 M개의 변수들을 만들어 내는 것이다. 그리곤 이 M개의 변수로, 기존에 했던것 그대로 least square를 이용한 적합을 한다.
+예를 들면 $$Z_1=0.7X_1+0*X_2+...+2.4X_p$$와 같은 형태로 기존의 p개보다 적은 M개의 변수들을 만들어 내는 것이다. 그리곤 이 'M개의 변수로', 기존에 했던것 그대로 least square를 이용한 적합을 한다.
 
 ![pc2](https://user-images.githubusercontent.com/31824102/35559710-4f82fa6e-05a3-11e8-9db8-072b7c0deb37.PNG)
 
-이를 통해 기존에 p+1개의 계수들을 추정해야 했던 문제가 M+1개의 계수를 추정하는 문제로 바뀌었다. 만약, 올바른 $$Z_m$$들, 즉 올바른 선형결합을 만드는 $$\phi_{jm}$$들이 만들어 졌다면, 이는 기존의 least square보다 더 좋은 성과를 낼 수도 있다.
+이를 통해 기존에 p+1개의 계수들을 추정해야 했던 문제가 M+1개의 계수를 추정하는 문제로 바뀐 것이다. 만약, 올바른 $$Z_m$$들, 즉 올바른 선형결합을 만드는 $$\phi_{jm}$$들이 만들어 졌다면, 이는 기존의 least square보다 더 좋은 성과를 낼 수도 있다.
 
-그럼 $$\phi_{jm}$$에 대해 알아보기 위해, 우선 다음의 식을 봐보자. 변수 변환 후의 적합, 즉 $$\theta_mz_{im}$$들의 합은 정의를 통한 약간의 변형을 통해 다음의 식으로 다시 표현할 수 있다.
+그럼 $$\phi_{jm}$$에 대해 알아보기 위해, 우선 다음의 식을 봐보자. 변수 변환 후의 적합된 결과, 즉 $$\theta_mz_{im}$$들의 합은 정의를 통한 약간의 변형을 통해 다음의 식으로 다시 표현할 수 있다.
 
 ![pc3](https://user-images.githubusercontent.com/31824102/35559709-4f4bf6ea-05a3-11e8-91b3-54ad3b54b1f5.PNG)
 
@@ -352,13 +341,19 @@ Principal components analysis(줄여서 PCA)는 차원 축소의 매우 대표�
 
 ##### An Overview of Principal Components Analysis
 
-PCA에서는 (n X p)의 크기를 가지고 있는 X를 줄이기 위해, 다음과 같은 방식을 사용한다. 데이터들의 변동을 가장 잘 나타낼 수 있는, first principal component direction을 찾는다. 
+PCA에서는 (n X p)의 크기를 가지고 있는 X를 줄이기 위해, 다음과 같은 방식을 사용한다. 데이터들의 **변동(분산)을 가장 잘 나타낼 수 있는**, first principal component direction을 찾는다. 
 
 ![pc4](https://user-images.githubusercontent.com/31824102/35559708-4efea228-05a3-11e8-9897-13ad616a3d91.PNG)
 
-어려워 보이지만 그림으로 보면 이해가 훨씬 쉽다. 위의 데이터에서, 초록색 선을 말하는 것이다. 초록색 선을 그은 후 각 점들에 대해 **선과의 거리**를 재보면(project 시켜보면) 위의 자료로 낼 수 있는 가장 큰 변동을 표현할 수 있을 것이다. (다른 선을 그으면, 자료들이 대부분 '-'에 있다던지 대부분 '+'에 있다던지, first component direction보다 좀더 몰려있을 것이다.)
+어려워 보이지만 그림으로 보면 이해가 훨씬 쉽다. 위의 그림에서 데이터의 분산을 가장 잘 설명해주는 축은, 초록색 선이다. 초록색 선을 그은 후 각 점들을 선위에 찍어 보면(project 시켜보면) 위의 자료로 낼 수 있는 가장 큰 변동을 표현할 수 있을 것이다. (다른 선을 그으면, 찍힌 점들의 분산이 first component direction의 경우에 비해 더 적을것이다.)
 
-수식으로 나타내자면, 다음과 같다. (pop가 x, ad가 y이다.)(???이거 어디서 갑툭튀????)![pc5](https://user-images.githubusercontent.com/31824102/35559727-525d2020-05a3-11e8-8cfa-ae3852ba5ab1.PNG)
+> 다른 선으로 project를 시켰을 경우, 점들의 분산이 first component direction에 비해 적다!(왼쪽은 다른 direction, 오른쪽은 first PC)
+>
+> ![PCA](C:\Users\admin\내파일\3-2.5\스터디\ISL스터디\data\PCA.PNG)
+
+수식으로 나타내자면, 다음과 같다. (pop가 x, ad가 y이다. 이때, 데이터의 중심에 축을 두고자 변수에 centering을 하고 PCA를 진행한다. Centering은 분산에 영향을 미치지 않기에, 결과는 같다)
+
+![pc5](https://user-images.githubusercontent.com/31824102/35559727-525d2020-05a3-11e8-8cfa-ae3852ba5ab1.PNG)
 
 즉 첫번째 변수 $$Z_1$$을 만드는 $$\phi_{11}$$과 $$\phi_{21}$$은 각각 0.839, 0.544인 것이다. 이 수치들은 다음의 식을 maximize하는 방향으로 계산된 것이다.
 
@@ -366,7 +361,7 @@ PCA에서는 (n X p)의 크기를 가지고 있는 X를 줄이기 위해, 다음
 
 이때, 계수로 인해 분산이 무한으로 커지는 것을 막고자 ($$\phi_{11}^2+\phi_{21}^2=1$$이라는 제약을 두고 maximize하는 값을 찾는다. 바꿔 말하면 $$\sum_{j=1}^p\phi_{j1}^2=1$$이라는 제약이 있다.)
 
-이렇게 만들어진 첫번째 변수 $$z_{i1}$$들은 principal component score라 불리며, 다음의 그림으로 직관적으로 확인할 수 있다.
+이렇게 만들어진 첫번째 변수 $$z_{i1}$$들은 principal component **score**라 불리며, 다음의 그림으로 직관적으로 확인할 수 있다.
 
 ![pc7](https://user-images.githubusercontent.com/31824102/35559724-51e7c136-05a3-11e8-9cdb-d297b9c6b06b.PNG)
 
@@ -374,7 +369,7 @@ PCA에서는 (n X p)의 크기를 가지고 있는 X를 줄이기 위해, 다음
 
 또 다른, first principal component에 대한 좀더 직관적인 해석은 데이터와 가능한 가깝게 그은 선이라는 것이다. 즉, 그림에서 점선으로 표시된 수직선들의 거리가 최소가 되도록 선을 그은 것이다. 따라서, first principal component에 project된 결과는 projection중 원래의 데이터와 '가능한 가장 가까운' projection 데이터이다. 
 
-오른쪽 그림에서 큰 파란점이 $$(\bar{pop},\bar{ad})$$를 의미하고, first principal component score($$0.839(pop_i-\bar {pop})+0.544(ad_i-\bar{ad})$$)는 이 점과의 x축 거리, 즉 수평거리를 의미한다. 이를 통해 pop와 ad의 정보를 하나로 표현할 수 있게 되었는데, 예를 들면 $$z_{i1}=-26.1$$이라면 pop와 ad 모두 평균($$\bar{pop},\bar{ad}$$)보다 낮은 값이고, $$z_{i1}=18.7$$이라면 pop와 ad값이 모두 평균보다 높은 것이라고 할 수 있게 된다.
+오른쪽 그림에서 큰 파란점이 $$(\bar{pop},\bar{ad})$$를 의미하고, first principal component score($$0.839(pop_i-\bar {pop})+0.544(ad_i-\bar{ad})$$)는 (centering을 하였기에) 이 점과의 x축 거리, 즉 수평거리를 의미한다. 이를 통해 pop와 ad의 정보를 하나로 표현할 수 있게 되었는데, 예를 들면 $$z_{i1}=-26.1$$이라면 pop와 ad 모두 평균($$\bar{pop},\bar{ad}$$)보다 낮은 값이고, $$z_{i1}=18.7$$이라면 pop와 ad값이 모두 평균보다 높은 것이라고 할 수 있게 된다.
 
 두 변수 ad와 pop가 어느정도 선형관계를 가지고 있고, 그 선형관계를 파악하여 정보를 압축하였으므로, first principal component 하나로 ad와 pop의 대부분의 정보를 포함하였다고 할 수 있다. 이는 그림을 통해서도 확인이 가능한데, ad와 pop모두 first principal component와 강한 관계를 보이고 있다.
 
@@ -386,7 +381,7 @@ PCA에서는 (n X p)의 크기를 가지고 있는 X를 줄이기 위해, 다음
 
 다시 앞의 그림에서, 아까는 설명하지 않았던 파랑 점선이 바로 second principal component이다.  $$Z_1$$과 $$Z_2$$사이는 zero correlation이 라는 것은, 둘이 직교를 한다는 의미이다. (지금은 변수가 2개뿐이라 2개의 component가 최대지만, 더 높은 다차원에서는 직교하는 '여러방향'의 선들을 그을 수 있다. 그들 중 가장 variance가 높은 방향의 선을 긋는다는 의미.)
 
-변수가 2개뿐이므로, 2개의 principal component로 인해 '모든 정보'를 포함하게 되었다. (평균에서 $$Z_1$$방향으로 얼마나 떨어져 있는지, $$Z_2$$방향으로 얼마나 떨어져 있는지) 물론, 첫번째 component에서 대부분의 정보를 포함하게 된다. 이는 Figure 6.15의 오른쪽 그림에서 2nd component score 즉 first component에서 부터의 거리를 나타내는 수치가 1st component score보다 눈에 띄게 작다는 것에서도 드러난다. 따라서 2개의 component를 모두 쓰지 않고 first component만을 쓰는, 즉 차원을 축소할 수도 있는것이다. 변수가 현재는 2개였지만, 많은 변수의 경우에도 **이전의 component들**에 대해 uncorrelated되어 있으면서도(아마 egien vector?) variance가 가장 큰 방향으로 component를 결정할 수 있다.
+변수가 2개뿐이므로, 2개의 principal component로 인해 '모든 정보'를 포함하게 되었다. (평균에서 $$Z_1$$방향으로 얼마나 떨어져 있는지, $$Z_2$$방향으로 얼마나 떨어져 있는지) 물론, 첫번째 component에서 대부분의 정보를 포함하게 된다. 이는 Figure 6.15의 오른쪽 그림에서 2nd component score 즉 first component에서 부터의 거리를 나타내는 수치가 1st component score보다 눈에 띄게 작다는 것에서도 드러난다. 따라서 2개의 component를 모두 쓰지 않고 first component만을 쓰는, 즉 차원을 축소할 수도 있는것이다. 변수가 현재는 2개였지만, 많은 변수의 경우에도 **이전의 component들**에 대해 uncorrelated되어 있으면서도 variance가 가장 큰 방향으로 component를 결정할 수 있다.
 
 #### The Principal Components Regression Approach
 
@@ -406,17 +401,17 @@ PCA에서는 (n X p)의 크기를 가지고 있는 X를 줄이기 위해, 다음
 
 이는 해당 가정을 만족하는 simulated 된 데이터이다. 왼쪽 그림을 보면, 처음 5개의 component로 데이터를 거의 완벽하게 설명할 수 있고, 따라서 5개의 component로 PCR을 하는 것이 상당한 성능의 증가를 보였다. 이는 오른쪽의 Lasso, Ridge의 적합결과 보다도 (살짝) 더 좋은 성능이다.
 
-이전의 방법들과 주의할만한 차이점은, PCR은 **변수선택법이 아니다**라는 것이다. 앞의 $$Z_1$$이 pop와 ad를 모두 포함한것 처럼, PCR의 M개의 변수들은 **모든 기존의 p개의 변수가 선형결합으로 포함된** 변수들이다. 이러한 점에서 PCR은 Lasso보다는 Ridge와 더 관련이 있다. 
+이전의 방법들과 주의할만한 차이점은, PCR은 **변수선택법이 아니다**라는 것이다. 앞의 $$Z_1$$이 pop와 ad를 모두 포함한것 처럼, PCR의 M개의 변수들은 **'모든' 기존의 p개의 변수가 선형결합으로 포함된** 변수들이다. 이러한 점에서 PCR은 Lasso보다는 Ridge와 더 관련이 있다. 
 
 >사실, 수학적으로 PCR은 Ridge의 continuous version이라고도 할 수 있다.
 
-역시나 PCR에서도, 몇개의 component를 사용할 것인지는 주로 cross-validation으로 결정한다. 또한, PCR역시, 높은 variance를 갖는 변수들이 지나치게 주요 component를 선정하는데 영향을 미치게 되므로, PCR component를 계산하기 전에 다음과 같은 식으로 scaling을 해주는 것이 좋다. (Ridge에서 나온 식. 이렇게 함으로써 모든 변수의 표준편차를 1로 만들어준 효과가 된다.)(Lasso도 scaling하나???)
+역시나 PCR에서도, 몇개의 component를 사용할 것인지는 주로 cross-validation으로 결정한다. 또한, PCR역시, 높은 variance를 갖는 변수들이 지나치게 주요 component를 선정하는데 영향을 미치게 되므로, PCR component를 계산하기 전에 다음과 같은 식으로 scaling을 해주는 것이 좋다. (Ridge에서 나온 식. 이렇게 함으로써 모든 변수의 표준편차를 1로 만들어준 효과가 된다.)
 
 ![shrink3](https://user-images.githubusercontent.com/31824102/35559431-a9ee72a4-05a2-11e8-8395-0caa71e3e3d1.PNG)
 
 #### 6.3-2 Partial Least Squares
 
-PCA는, p개의 변수 $$X_1,..,X_p$$의 관계를 잘 나타내는 direction을 찾는 비지도적인(unsupervised) 방법이다. 쉽게 말해 principal component를 고려하는데 Y는 쳐다보지도(supervised하지) 않았다는 의미이다. 이는 앞에서 언급되는 PCR의 단점으로 귀결되는데, 예측변수들의 관계를 가장 잘 설명하는 direction이 **반응변수를 설명하는 예측변수들을 가장 잘 설명하는 direction이 아닐 수 있다**는 것이다.
+앞에서 다룬 PCA는, p개의 변수 $$X_1,..,X_p$$의 관계를 잘 나타내는 direction을 찾는 비지도적인(unsupervised) 방법이다. 쉽게 말해 principal component를 고려하는데 Y는 쳐다보지도(supervised하지) 않았다는 의미이다. 이는 앞에서 언급되는 PCR의 단점으로 귀결되는데, 예측변수들의 관계를 가장 잘 설명하는 direction이 **반응변수를 설명하는 예측변수들을 가장 잘 설명하는 direction이 아닐 수 있다**는 것이다.
 
 이러한 단점을 보완하고자 PCR의 supervised한 버젼이 partial least squares (혹은 PLS)이다. PLS는 PCR처럼 기존 변수들의 선형결합으로 M개의 새로운 변수 $$Z_1,..,Z_M$$을 만들어 least square 적합을 하지만, 이번엔 M개의 변수를 supervised한 방식으로 만들어 낸다. 즉, Y역시 바라봄으로 써 단순히 기존변수들의 관계를 잘 드러내는 변수를 만들어내는 것이 아니라, **반응변수와 관계된 변수들의 관계**를 잘 드러내려 하는 것이다. 
 
@@ -424,11 +419,11 @@ PCA는, p개의 변수 $$X_1,..,X_p$$의 관계를 잘 나타내는 direction을
 
 ![pc1](https://user-images.githubusercontent.com/31824102/35559711-4fb675e2-05a3-11e8-89b4-b229b7bba271.PNG)
 
-즉, $$j=1,..,p$$ 개의 변수를 각각 하나만 포함하여 Y에 적합을 한 계수들을 사용하는 것이다. $$Y\sim X_j$$의 선형적합의 계수는 하나의 변수만 들어 있으므로, 사실 $$Y$$와 $$X_j$$의 상관관계(correlation)와 비례한다. 따라서 Y변수와 높은 상관관계에 있는 변수에 더 많은 가중치를 부여하게 된다. 
+즉, $$j=1,..,p$$ 개의 변수를 각각 하나만 포함하여 Y에 적합을 한 계수들을 사용하는 것이다. $$Y\sim X_j$$의 선형적합의 계수는 하나의 변수만 들어 있으므로, 사실 $$Y$$와 $$X_j$$의 **상관관계(correlation)와 비례**한다. 따라서 Y변수와 높은 상관관계에 있는 변수에 더 많은 가중치를 부여하게 된다. 
 
 ![pc11](https://user-images.githubusercontent.com/31824102/35559720-50e926f8-05a3-11e8-9f81-e4110c7a9d0a.PNG)
 
-같은 데이터에 PLS를 적합한 것이다. 점선이 PCR, 초록실선이 PLS이다. 해당 데이터에서 pop가 Y와 상관관계가 더 높았기에, 기울기가 좀더 완만한, 즉 ad를 좀 덜 반영하는 direction을 찾게 되었다. 따라서 당연한 얘기지만 PLS는 PCR만큼 기존의 변수들에 잘 부합하지는 않지만, 반응변수Y를 설명하는데에는 더 뛰어나다.
+이는 같은 데이터에 PLS를 적합한 것이다. 점선이 PCR, 초록실선이 PLS이다. 해당 데이터에서 pop가 Y와 상관관계가 더 높았기에, 기울기가 좀더 완만한, 즉 ad를 좀 덜 반영하는 direction을 찾게 되었다. 따라서 당연한 얘기지만 PLS는 PCR만큼 기존의 변수들에 잘 부합하지는 않지만, 반응변수Y를 설명하는데에는 더 뛰어나다.
 
 2번째 변수는, 각 변수를 $$Z_1$$에 적합하고 잔차(residual)을 통해 계산한다. 이는 $$Z_1$$에 의해 설명되지 않은, uncorrelated (혹은 orthogonalized)data를 의미한다. 이 데이터를 가지고, $$Z_1$$에서 했듯이 각각을 Y에 적합하여 계수들을 합하는 식으로 $$Z_2$$를 만든다.(맞나??? 찾아보기!!!) 기본적으로 첫번째 변수가 설명하지 못한 정보를 가장 잘 설명하는 두번째 변수를 만든다는 점에서 PCR과 유사한 작동원리이다.
 
@@ -438,7 +433,7 @@ PCR과 마찬가지로, PLS역시 변수들을 표준화한 후 계산해야하�
 
 #### 6.4-1 High-Dimensional Data
 
-거의 모든 전통적인 통계기법은 low-dimension, 즉 n이 p보다 훨씬 더 많은 경우를 다루고자 고안된 기법들이다. (여기서 dimension은 p에 관한 dimension을 의미한다. ) 그러나 모든것이 정보화되는 시대에, 오히려 변수가 더 많아지는 경우도 등장을 하기 마련이다. 극단적인 예로 사람의 DNA를 통한 혈압예측을 하려하면, 유의미한 변수가 몇십만개도 넘을 것이다. 이러한 high-dimension의 문제에서는 전통적인 least square가 제대로 작동하지 못하고 앞서 다루었던 방법들이 빛을 내게 된다. (물론 bias-variance trade-off의 측면에서 overfitting을 방지하고자 n>p인 경우에도 사용되기도 한다.)
+거의 모든 전통적인 통계기법은 low-dimension, 즉 n이 p보다 훨씬 더 많은 경우를 다루고자 고안된 기법들이다. (여기서 dimension은 'p에 관한 dimension'을 의미한다. ) 그러나 모든것이 정보화되는 시대에, 오히려 변수가 더 많아지는 경우도 등장을 하기 마련이다. 극단적인 예로 사람의 DNA를 통한 혈압예측을 하려하면, 유의미한 변수가 몇십만개도 넘을 것이다. 이러한 high-dimension의 문제에서는 전통적인 least square가 제대로 작동하지 못하고 앞서 다루었던 방법들이 빛을 내게 된다. (물론 bias-variance trade-off의 측면에서 overfitting을 방지하고자 n>p인 경우에도 사용되기도 한다.)
 
 #### 6.4-2 What Goes Wrong in High Dimensions?
 
@@ -448,13 +443,21 @@ p가 n보다 많거나 비슷한 경우, least square방법은 모든 변수를 
 
 ![dim1](https://user-images.githubusercontent.com/31824102/35559717-50a9d390-05a3-11e8-8798-abcbb8fa8c5c.PNG)
 
-이는 변수가 1개일때의 least square 적합을 나타낸 그림이다. 직관적으로도 알수 있듯이, 모든 자료에 **가능한한** 적합하고자 하는 기존의 방법은 p>n일 경우 그 데이터에 완벽하게 일치하게 적합을 하고 만다. 데이터를 통해 알수 없던 실재 관계를 알아보고자 하는 통계기법의 목적에서, 이는 좋지 못한 결과이다. 바꿔 말하자면 이는 완벽한 overfitting이다. 즉 p>n의 경우 기존의 least square 방법은 지나치게 flexible한 방법이 된다.
+이는 변수가 1개일때의 least square 적합을 나타낸 그림이다. 직관적으로도 알수 있듯이, 모든 자료에 **가능한한** 적합하고자 하는 기존의 방법은 p>n일 경우 그 데이터에 완벽하게 일치하게 적합을 하고 만다.(해당 그림에선 모수의 갯수가 2인데 자료도 2개인 완벽적합이다.) 데이터를 통해 알수 없던 실재 관계를 알아보고자 하는 통계기법의 목적에서, 이는 좋지 못한 결과이다. 바꿔 말하자면 이는 완벽한 overfitting이다. 즉 p>n의 경우 기존의 least square 방법은 지나치게 flexible한 방법이 된다.
 
-극단적인 예로 모든 X변수가 Y변수와 관계없는, 사실상 잘못된 변수들을 갖고 있다 하더라도 least square는 변수를 추가할 수록 높은 $$R^2$$를 낼 것이고, 그에 따라 training MSE는 0으로 수렴하게 될것이다. 실제에서도 몇몇 유의미한 변수에 다른 의미없는 변수를 추가하는것은 bias는 (기대값의 측면에선) 아주아주 조금 낮출 수 있더라도 Variance가 커지게 되므로 지양되어야 한다. (그럼 전체 데이터를 다 보는 PCR은 이런 유의미한 변수의 측면에서는 쓸데없는 방법아닌감???)
+극단적인 예로 모든 X변수가 Y변수와 관계없는, 사실상 잘못된 변수들을 갖고 있다 하더라도 least square는 변수를 추가할 수록 높은 $$R^2$$를 낼 것이고, 그에 따라 training MSE는 0으로 수렴하게 될것이다. 실제에서도 몇몇 유의미한 변수에 다른 의미없는 변수를 추가하는것은 bias는 (기대값의 측면에선) 아주아주 조금 낮출 수 있더라도 Variance가 커지게 되므로 지양되어야 한다. 
 
-물론 $$R^2$$를 조정하여 test MSE를 추정하기 위한 다양한 지표, 즉 $$C_p, AIC, BIC$$등이 있지만, high dimension에서는 위의 수식에 필요한 $$\hat \sigma^2$$자체를 계산하기 힘들다는 문제가 있다. (오잉 계산하기 힘들다는게 아니라, 계산이 되는데 0이 나온다고???책 241. 심지어 adj R이 1이 나온다고???) 따라서 high-dimension에서는 이를 활용하기 힘들다.
+물론 $$R^2$$를 조정하여 test MSE를 추정하기 위한 다양한 지표, 즉 $$C_p, AIC, BIC$$등이 있지만, high dimension에서는 위의 수식에 필요한 $$\hat \sigma^2$$자체를 계산하기 힘들다는 문제가 있다. $$\sigma^2$$를 추정하는데 사용되었던 SSE가 high dimension에선 완벽적합이 되어 0이 되버리기 때문이다. (이 경우 adj R같은 경우는 1이 나오게 되버린다.) 따라서 high-dimension에서는 이를 활용하기 힘들다.
 
 #### 6.4-3 Regression in High Dimensions
+
+high dimension에서는, 앞서 다루었던 덜 flexible한 방법들이 강점을 갖게 된다. 얼핏 예측 변수로 사용할것이 더 많은 high dimension은 더 좋은것 아닌가, 라는 생각을 할 수 있다. 물론 추가된 변수가 실제 Y와 높은 관계가 있는 변수라면 적합에 도움이 되겠지만, 추가된 변수가 **반응변수Y와 실제 관계가 별로 없는 변수**라면 오히려 이를 포함한 모델의 test error는 증가한다. 이러한 noise feature들은 차원은 증가시키면서도 overfitting의 위험은 높이는 작용을 하게 된다. 이렇듯 차원이 증가함으로써 생기는 분석의 어려움을 통틀어 '차원의 저주'라고 부른다.
+
+#### 6.4-4 Interpreting Results in High Dimensions
+
+high dimension을 다룰때는 주의할점이 많다. 분석자는, 변수가 무수히 많으면 그만큼 correlated되 있을 가능성도 많은 것이고, 이는 분석의 안정성을 저해할 수 있다는 것을 인지해야 한다. 예를 들어 수십만개의 예측변수를 가지고 있는 DNA데이터에서 변수선택법을 통해 17개의 변수를 골라 training data를 잘 설명했다 하자. 이는, 실제로도 예측에 좋은 성능을 보일 수는 있겠지만, 17개의 변수가 DNA를 설명하는 best변수라고 말해주는 것은 아니다. train data에서는 우연히 잘 안드러 났으나 17개의 변수와 상관관계가 매우 높은 다른 변수가 실제로 DNA를 설명하기 위한 best변수 였을수도 있는 것이다. 
+
+또한, p>n의 경우 앞에서도 언급되었듯이 기존의 평가지표, 즉 $$R^2$$이나 MSE를 사용하면 안된다. 별개의 test set이나 Cross validation을 통해 측정된 error를 보고하는 것이 모델의 평가지표로 의미가 있다. 이렇듯, 특히 high dimension에서는 모델의 해석에 유의하여야 한다. 
 
 ---
 
