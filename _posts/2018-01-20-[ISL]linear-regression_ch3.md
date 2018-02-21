@@ -125,7 +125,7 @@ $$Y=2+3X+\epsilon$$ 여기서 $\epsilon$은 평균이 0이고 많은 경우에 �
 >
 > $\frac {(y_{i}-\beta_0-\beta_{1}x_{i})}{\sigma} \sim N(0,1)$
 >
-> $\frac {\sum (y_{i}-\hat \beta_0-\hat \beta_{1}x_{i})^2}{\sigma^2} \sim \chi^2[n-2]$
+> $\frac {\sum (y_{i}-\hat \beta_0-\hat \beta_{1}x_{i})^2}{\sigma^2} \sim \chi^2[n-2]$, (두개가 hat($$\hat{\beta}$$)으로 바뀐것 유의)
 >
 > $\therefore \frac {SSE}{\sigma^2} \sim \chi^2[n-2]$
 >
