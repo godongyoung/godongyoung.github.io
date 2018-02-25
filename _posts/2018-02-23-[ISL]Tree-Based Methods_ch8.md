@@ -84,6 +84,8 @@ $$
 $$
 여기서 $$\lvert T\vert$$는 terminal node의 수를 말하는 것이다. 식을 보면, **1)** 각 terminal node안에서의 RSS를 줄여주는 loss term과 **2)**지나치게 많은 terminal node들이 있지 않도록, 즉 complexity를 줄여주는 penalty term이 있는 형태임을 알 수 있다. 이는 Lasso의 형태와 비슷하다. 둘의 비율은 $$\alpha$$로써 조절 할 수 있는데, 이 $$\alpha$$를 cross-validation을 통해 구하면 되는 것이다.
 
+> 위의 식을 좀더 직관적으로 이해해보자면, 새로운 split을 함으로써 생기는 RSS의 '이득'이 $$\alpha \lvert T\lvert$$라는 penalty보다 더 크지 못하다면 split을 안하는 형태라고 생각할 수 있다. 
+
 이를 최종적으로 정리하면, 다음과 같다.
 
 1. recursive binary splitting(즉 top-down, greedy방식)을 통해 큰 tree를 적합한다. 이때의 유일한 stop기준은 node안에 최소 기준보다 적은 수의 data가 남는 것이다.
@@ -121,7 +123,7 @@ classification tree는 만들어질때, 역시나 recursive binary splitting을 
 
 recursive binary splitting에서, 이 둘은 단순한 classification error rate보다 더 민감한 지표이기 때문에 splitting기준으로 사용된다.
 
-그 후 **Pruning에서는**, classification error나 gini index, entropy 3기준이 모두 활용될 수 있으나 예측의 정확도를 위해 **classificaion error**가 주로 사용된다.(Pruning 기준은 뭐지???이때는 complexity어쩌구 못쓰지 않나???)
+해당 기준으로 tree가 다 완성된 후, **Pruning에서는**, classification error나 gini index, entropy 3기준이 모두 활용될 수 있으나 예측의 정확도를 위해 **classificaion error**가 주로 사용된다.
 
 다음은 classification tree의 예시이다. (변수들의 의미는 크게 중요하지 않다.)
 
@@ -206,7 +208,7 @@ Bagging을 통해서는 각 Bootstrap을 하며 복원추출에 뽑히지 않은
 
 ![tree12](https://user-images.githubusercontent.com/31824102/36580561-a9c519ec-1860-11e8-8110-00a10c1285a3.PNG)
 
-> 덧. 원래 decision tree는 질적변수를 더미화하지 않아도 되지만, python의 scikit-learn에선 현재 더미화를 시켜 input으로 넣어줘야만 작동이 되게 되어있다. 이 경우 질적변수의 카테고리가 많지 않은 경우 문제가 없지만, 카테고리가 많은 경우 수백개의 더미변수들이 생겨나버려 1) 차원이 커지고, 각 변수들도 '그 더미변수의 클래스인지' '아닌지'만을 나타내는 매우 **sparse한 변수**가 되버려, 다른 양적변수들에 비해 필연적으로 중요하게 고려되지 못하게 된다.(비록 원래 중요한 변수였더라도!) 따라서 질적변수의 카테고리가 엄청나게 많을경우, 섣부른 더미화+RF적합은 위험할수 있다. 이때는 질적변수를 더미화하지 않고도 처리할수 있는 H2O를 써보는것도 좋다. [참고](https://roamanalytics.com/2016/10/28/are-categorical-variables-getting-lost-in-your-random-forests/)
+> 덧. 원래 decision tree는 질적변수를 더미화하지 않아도 되지만, python의 scikit-learn에선 현재 더미화를 시켜 input으로 넣어줘야만 작동이 되게 되어있다. 이 경우 질적변수의 카테고리가 많지 않은 경우 문제가 없지만, 카테고리가 많은 경우 수백개의 더미변수들이 생겨나버려 1) 차원이 커지고, 2) 각 변수들도 '그 더미변수의 클래스인지' '아닌지'만을 나타내는 매우 **sparse한 변수**가 되버려, 다른 양적변수들에 비해 필연적으로 중요하게 고려되지 못하게 된다.(비록 원래 중요한 변수였더라도!) 따라서 질적변수의 카테고리가 엄청나게 많을경우, 섣부른 더미화+RF적합은 위험할수 있다. 이때는 질적변수를 더미화하지 않고도 처리할수 있는 H2O를 써보는것도 좋다. [참고](https://roamanalytics.com/2016/10/28/are-categorical-variables-getting-lost-in-your-random-forests/)
 
 ### 8.2-3 Boosting
 
