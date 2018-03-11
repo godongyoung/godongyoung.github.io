@@ -316,6 +316,22 @@ $$
 
 이제 sensitivity의 관점에서, 전체 333명 중 138명, 즉 41.4%를 놓치게 되어 75.7%였던 지난 모델보다 훨씬 나은 결과를 보여주었다. 물론 non-default를 그만큼 더 못 판별하여 전체 total error-rate는 3.73%으로 늘어나게 되었다. 그러나 default를 잘 잡아내고자 하는 credit-card회사의 관점에서는 sensitivity가 낮은 이 모델이 더욱 좋은 모델인 것이다.
 
+##### 여기서 잠깐, 용어 정리. (False positive, True positive, Recall, Precision)
+
+지금은 sensitivity라는 용어를 사용하였지만, 사실 머신러닝에서는 다음의 단어가 많이 사용된다. False positive, True positive, Recall, Precision. 이들은 앞에서 다루었던 개념들에 명칭만 다른것인데, 우선 false positive, true positive부터 각각 무슨의미인지 살펴보자.
+
+![LDA99](https://user-images.githubusercontent.com/31824102/36676263-1a6776dc-1b03-11e8-801b-80d1e3f5fb22.PNG)
+
+앞의 예시와 연결짓자면, '+', 즉 positive는 'default'이고 '-',즉 negative는 'non-default'를 의미한다. 좀더 일반화해서 말하자면, **'-'는 귀무가설, '+'는 대립가설**을 의미한다. 예를들어 False Positive는 실제로는 '-'인데 잘못해서 positive('+')로 판단해버린, 즉 **1종오류를 의미**한다. 전체 '-'중에서 잘못해서 1종오류의 판단을 낸경우는 위의 표의 notation으로는 FP/N라고 표현할 수 있다. 이것이 **False positive rate**이다. 
+
+이제, recall과 precision에 대해 알아보자. recall은 말그대로 '재현율'이다. 즉, 전체 '+'(우리의 관심사건, 혹은 다른말로는 대립가설) 중 **얼마나 True Positive로 잡아내었는지**를 의미한다. 표의 notation으로는 TP/P로 쓸 수 있다. 한편 precision은 '정확률'이다. '+'라고 **잡아낸 애들중 얼마나 실제로 '+'였는지** 이다. 즉 TP/P*이다. 
+
+비슷한말이 너무 많다. 이를 알기 쉽게 표로 정리하면, 다음과 같다. 사실 recall이 '재현율', precision이 '정확률', False positive가 '잘못 positive로 판단한 애들'이란 의미를 이해하면 많이 헷갈리진 않는다.
+
+![LDA999](https://user-images.githubusercontent.com/31824102/36676264-1a9f25dc-1b03-11e8-81ee-c9be6490c31c.PNG)
+
+##### 다시 돌아와서,
+
 default의 역치(threshold)와 non-default의 오류율이 반비례관계에 있다는 것을 눈치 챘을 것이다. 이는 그래프로 나타내면, 다음과 같다.
 
 ![LDA6](https://user-images.githubusercontent.com/31824102/35482713-44c7e6c0-0431-11e8-81e5-8f0028fd4ed0.PNG)

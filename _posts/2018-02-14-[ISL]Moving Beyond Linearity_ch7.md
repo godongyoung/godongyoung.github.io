@@ -188,7 +188,7 @@ smoothing spline은 좀더 근본적인 개념에서 접근을 한 방식이다.
 
 함수 g의 smooth를 보장하는 방식은 여러개가 있지만, 대표적으로 다음의 식을 최소화함으로써 찾는 방법이 있다.
 $$
-\sum_{i=1}^n((y_i-g(x_i))^2+\lambda \int g''(t)^2dt
+\sum_{i=1}^n(y_i-g(x_i))^2+\lambda \int g''(t)^2dt
 $$
 위 식의 앞부분은 우리가 아는 RSS이며 이때 $$\lambda$$는 양수인 하이퍼파라미터이다. 위 식을 최소화하도록 하는 함수g가 바로 smoothing spline인 것이다.
 
@@ -222,7 +222,7 @@ $$
 > $$
 > \hat \beta=(G^TG+\lambda\Omega)^{-1}G^Ty
 > $$
-> 로 나타낼 수 있다. 따라서 적합값은 $$g(x)^T\hat \beta=g(x)^T(G^TG+\lambda\Omega)^{-1}G^Ty$$로 나타낼 수 잇고, 이를 정리하여 $$S_{\lambda}$$라고 notation한 것이라 볼 수 있다. 보다 자세한 설명읜 [참고](https://www.hds.utc.fr/~tdenoeux/dokuwiki/_media/en/splines.pdf)의 54쪽.
+> 로 나타낼 수 있다. 따라서 적합값은 $$g(x)^T\hat \beta=g(x)^T(G^TG+\lambda\Omega)^{-1}G^Ty$$로 나타낼 수 잇고, 이를 정리하여 $$S_{\lambda}$$라고 notation한 것이라 볼 수 있다. 보다 자세한 설명은 [참고](https://www.hds.utc.fr/~tdenoeux/dokuwiki/_media/en/splines.pdf)의 54쪽.
 
 #### $\lambda$를 정해보자
 
