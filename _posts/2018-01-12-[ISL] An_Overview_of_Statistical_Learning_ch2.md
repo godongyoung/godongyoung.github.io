@@ -239,7 +239,7 @@ $$
 
 ## KNN(K-Nearest Neighbors)
 
-그러나 Bayes Classification에서 구하고자 하는 conditional probability는 실제 구하기가 힘들다. 우리는 실제 모집단의 분포를 모르기에, 실제의 conditional probability도 알 수 없기 때문이다. (이는 conditional probability를 구하는 Bayes Theorem에 대한 이해와 부가적인 설명 필요한데, 다소 세부적인 내용이라 판단되어 참조링크만 걸어둔다.  unbiased한 conditional probability를 구하기 위해선 엄청나게 많은 수의 데이터가 필요하기 때문이라는 것. [Bayes and Naive Bayes Classifier](https://arxiv.org/abs/1404.0933)) 
+그러나 Bayes Classification에서 구하고자 하는 conditional probability는 실제 구하기가 힘들다. 우리는 실제 모집단의 분포를 모르기에, 실제의 conditional probability도 알 수 없기 때문이다. (이는 conditional probability를 구하는 Bayes Theorem에 대한 이해와 부가적인 설명 필요한데, 다소 세부적인 내용이라 판단되어 참조링크만 걸어둔다.  unbiased한 conditional probability를 구하기 위해선 엄청나게 많은 수의 데이터가 필요하기 때문이라는 것. [Bayes  and Naive Bayes Classifier](https://arxiv.org/abs/1404.0933)) 
 
 이에 따라 우리는 conditional probability를 추정하고자 하는 다양한 방법들을 사용하는데, 가장 대표적인 것이 KNN이다. 여기서 K는 양수인 하나의 숫자인데, input이 들어왔을때 우리의 training data를 기준으로 K-nearest, 즉 K개의 가장 가까운 이웃 데이터를 살펴보고(가까운을 무슨 기준으로 평가할까?=>분석자의 판단. 코사인유사도던  유클리드놈이던) 이를 토대로 conditional probability를 계산하는 것이다. 다시 위의 그림을 기준으로 설명하자면, K=5일 경우 가장 가까운 5개의 데이터를 살펴보고 데이터가 각각 ['노랑색', '노랑색','파랑색', '파랑색','파랑색']클래스 였다면 파랑색 클래스에 속할 것이라 판단하는 것이다.
 

@@ -1,6 +1,17 @@
-## Memory Networks 논문 리뷰
+---
+layout: post
+title: "[NLP] Memory Networks 논문 리뷰"
+categories:
+  - 딥러닝
+tags:
+  - Deep Learning
+  - NLP
+comment: true
+---
 
-[TOC]
+{:toc}
+
+Memory Networks 논문 리뷰
 
 논문 : https://arxiv.org/abs/1410.3916  (2014)
 
@@ -105,7 +116,7 @@ training은 **margin ranking loss**와 SGD를 통해 이루어 진다. 즉 $$x$$
 
 이때 $$\bar f,\bar {f'}, \bar r$$은 모두 잘못된 답이다. 즉, 실제답과의 차이가 각각 모두$$\gamma$$이상 만큼 나는것을 목표로 하는 것이다. 실제 답에 대한 score를 더 키우고자 학습하려 할 것이다. 이를 최소화하도록 GD를 사용하여 $$s_O$$와 $$s_R$$의 parameter  $$U_O,U_R$$을 조정한다. SGD를 사용하여 모든 traing set에 대해 $$\bar f,\bar {f'}, \bar r$$를 계산한게 아니라 sample로써 $$\bar f,\bar {f'}, \bar r$$를 계산했다.
 
-또한 RNN을 사용한 $$R$$단계에서는 언어모델에서 자주 사용하는 log likelihood을 사용하였다. (???여러분의 도움이 절실합니다. we replace the last term with the standard log likelihood used in a language modeling task, where the RNN is fed the sequence [x, o1, o2, r].) test단계에서는, [x,o_1,o_2]이 주어졌을때 max likelihood인 r을 반환한다.
+또한 RNN을 사용한 $$R$$단계에서는 언어모델에서 자주 사용하는 log likelihood을 사용하였다. (가운데 잘 이해 안되는 부분이 있는데, 전문을 옮긴다 we replace the last term with the standard log likelihood used in a language modeling task, where the RNN is fed the sequence [x, o1, o2, r].) test단계에서는, [x,o_1,o_2]이 주어졌을때 max likelihood인 r을 반환한다.
 
 다음의 섹션에서 좀더 확장된 모델을 다룬다.
 
@@ -129,7 +140,7 @@ fully supervised setting이기에, 역시나 supervised 학습을 할 수 있다
 
 ## 3.3 Efficient Memory via Hashing
 
-만약 메모리가 매우 크다면 $$o_1=O_1(x,\boldsymbol m)=argmax s_O(x,m_i), \forall i$$와 같은 형태로 메모리를 선택하는 것이 expensive할 것이다. 따라서 우리는 lookup과정에서 hassing trick([참고](https://en.wikipedia.org/wiki/Hash_table#Collision_resolution))를 사용할 것이다. input $$I(x)$$를 하나 혹은 여러개의 bucket에 hashing을 한다.(???) 그 후 same bucket에 있는 메모리 $$m_i$$에 대해서만 score를 매긴다. hasing은 다음 2가지 방법으로 한다. 1) hashing word, 2) clustering word embedding. 1번의 경우, word dictionary만큼의 bucket을 만든다. 그리고 input sentence를 그것과 관련있는 word의 bucket에 hashing한다. 그러나 1번의 문제는 $$I(x)$$에 한번이라도 등장을 해야 해당 메모리가 고려될 것, 즉 매우 sparse하다는 것이다. 2번은 이를 클러스터링으로써 보완해준다. 임베딩 메트릭스 $$U_O$$를 학습시키고 난 후, 워드벡터$$(U_O)_i$$들을 K-means 클러스터링 해준다. 즉, K개의 bucket으로 분류한다. 그리곤 given sentence가 해당 bucket의 word를 포함하고 있는 경우 각 bucket에 hash한다. 비슷한 단어의 word vector는 함께 클러스터링  될것이므로 memory도 함께 처리할 수 있다. 이때 K를 정하는 것은 speed-accuracy trade-off의 문제이다
+만약 메모리가 매우 크다면 $$o_1=O_1(x,\boldsymbol m)=argmax s_O(x,m_i), \forall i$$와 같은 형태로 메모리를 선택하는 것이 expensive할 것이다. 따라서 우리는 lookup과정에서 hassing trick([참고](https://en.wikipedia.org/wiki/Hash_table#Collision_resolution))를 사용할 것이다. input $$I(x)$$를 하나 혹은 여러개의 bucket에 hashing을 한다. 그 후 same bucket에 있는 메모리 $$m_i$$에 대해서만 score를 매긴다. hasing은 다음 2가지 방법으로 한다. 1) hashing word, 2) clustering word embedding. 1번의 경우, word dictionary만큼의 bucket을 만든다. 그리고 input sentence를 그것과 관련있는 word의 bucket에 hashing한다. 그러나 1번의 문제는 $$I(x)$$에 한번이라도 등장을 해야 해당 메모리가 고려될 것, 즉 매우 sparse하다는 것이다. 2번은 이를 클러스터링으로써 보완해준다. 임베딩 메트릭스 $$U_O$$를 학습시키고 난 후, 워드벡터$$(U_O)_i$$들을 K-means 클러스터링 해준다. 즉, K개의 bucket으로 분류한다. 그리곤 given sentence가 해당 bucket의 word를 포함하고 있는 경우 각 bucket에 hash한다. 비슷한 단어의 word vector는 함께 클러스터링  될것이므로 memory도 함께 처리할 수 있다. 이때 K를 정하는 것은 speed-accuracy trade-off의 문제이다
 
 ## 3.4 Modeling Write Time
 
@@ -141,7 +152,7 @@ fully supervised setting이기에, 역시나 supervised 학습을 할 수 있다
 $$
 S_{O_t}(x,y,y')=\Phi_x^TU_{O_t}^TU_{O_t}(\Phi_y(y)-\Phi_y(y')+\Phi_t(x,y,y'))
 $$
-앞에는 똑같은 형식인데,(물론 U는 위에랑 아래가 같은애는 아니다) 뒤의 형식이 다르다. 이때 y'는 또다른 memory로 이해할 수 있다. $$\Phi_t(x,y,y')$$는 0,1의 값을 가지는 3개의 feature를 사용하는데, 각각 x가 y보다 큰지, x가 y'보다 큰지, y가 y'보다 큰지를 나타낸다. (즉 다른 $$\Phi$$들도 3차원이 되고, 이 $$\Phi_t(x,y,y')$$를 사용하지 않을때는 전부 0값이 된다). 만약 $$S_{O_t}(x,y,y')>0$$이라면 모델이 y를 더 선호하게 되고 $$S_{O_t}(x,y,y')<0$$이라면 모델이 y'을 더 선호하게 된다. 이렇게 해당 식을 모든 메모리i ($$i=1,...,N$$)에 대해 반복하여 winning memory를 계속 갱신한다. (???Appendix C를 보자)
+앞에는 똑같은 형식인데,(물론 U는 위에랑 아래가 같은애는 아니다) 뒤의 형식이 다르다. 이때 y'는 또다른 memory로 이해할 수 있다. $$\Phi_t(x,y,y')$$는 0,1의 값을 가지는 3개의 feature를 사용하는데, 각각 x가 y보다 큰지, x가 y'보다 큰지, y가 y'보다 큰지를 나타낸다. (즉 다른 $$\Phi$$들도 3차원이 되고, 이 $$\Phi_t(x,y,y')$$를 사용하지 않을때는 전부 0값이 된다). 만약 $$S_{O_t}(x,y,y')>0$$이라면 모델이 y를 더 선호하게 되고 $$S_{O_t}(x,y,y')<0$$이라면 모델이 y'을 더 선호하게 된다. 이렇게 해당 식을 모든 메모리i ($$i=1,...,N$$)에 대해 반복하여 winning memory를 계속 갱신한다. 
 
 ## 3.5 Modeling Previously Unseen Words
 
