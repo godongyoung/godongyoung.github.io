@@ -271,19 +271,19 @@ $J(\boldsymbol\beta)=\log L(\beta)=\frac{1}{n}[\sum_i^n y_i\log f(x_i\beta)+(n-\
 
 > $\frac{\partial J(\boldsymbol\beta)}{\partial\beta_j }=\frac{\partial}{\partial\beta_j}[\frac{1}{n}\sum_i^n y_i\log f(x_i\beta)+(n-\sum y_i)\log(1-f(x_i\beta))]$
 >
-> $$=\frac{1}{n}\sum [\frac{y_i\frac{\partial}{\partial\beta_j}f(x_i\beta)}{f(x_i\beta)}+\frac{(1-y_i)\frac{\partial}{\partial \beta_j}(1-f(x_i\beta))}{1-f(x_i\beta)}]$$
+> $=\frac{1}{n}\sum [\frac{y_i\frac{\partial}{\partial\beta_j}f(x_i\beta)}{f(x_i\beta)}+\frac{(1-y_i)\frac{\partial}{\partial \beta_j}(1-f(x_i\beta))}{1-f(x_i\beta)}]$
 >
-> $$=\frac{1}{n}\sum [\frac{y_i\ f'(x_i\beta)*x_{ij}}{f(x_i\beta)}+\frac{(1-y_i)(-f'(x_i\beta))*x_{ij}}{1-f(x_i\beta)}],$$
+> $=\frac{1}{n}\sum [\frac{y_i\ f'(x_i\beta)*x_{ij}}{f(x_i\beta)}+\frac{(1-y_i)(-f'(x_i\beta))*x_{ij}}{1-f(x_i\beta)}],$
 >
-> $$\because \frac{\partial x_i\beta}{\partial\beta_j}= \frac{\partial (x_{i1}\beta_1+..+x_{ij}\beta_j+..)}{\partial\beta_j}=x_{ij}$$
+> $\because \frac{\partial x_i\beta}{\partial\beta_j}= \frac{\partial (x_{i1}\beta_1+..+x_{ij}\beta_j+..)}{\partial\beta_j}=x_{ij}$
 >
-> $$=\frac{1}{n}\sum [\frac{y_i*f(x_i\beta)*(1-f(x_i\beta))*x_{ij}}{f(x_i\beta)}-\frac{(1-y_i)*(f(x_i\beta)*(1-f(x_i\beta))*x_{ij}}{1-f(x_i\beta)}],(\because f'(A)=[f(A)*(1-f(A)])$$
+> $=\frac{1}{n}\sum [\frac{y_i*f(x_i\beta)*(1-f(x_i\beta))*x_{ij}}{f(x_i\beta)}-\frac{(1-y_i)*(f(x_i\beta)*(1-f(x_i\beta))*x_{ij}}{1-f(x_i\beta)}],(\because f'(A)=[f(A)*(1-f(A)])$
 >
-> $$=\frac{1}{n}\sum [{y_i*(1-f(x_i\beta))*x_{ij}}-{(1-y_i)*f(x_i\beta)*x_{ij}}]$$
+> $=\frac{1}{n}\sum [{y_i*(1-f(x_i\beta))*x_{ij}}-{(1-y_i)*f(x_i\beta)*x_{ij}}]$
 >
-> $$=\frac{1}{n}\sum[(y-f(x_i\beta))x_{ij}]$$
+> $=\frac{1}{n}\sum[(y-f(x_i\beta))x_{ij}]$
 >
-> 즉, 특정 데이터 $x_i$에 대해 계수 $\beta_j$의 gradient는 '$\frac{1}{n}\sum[(y-f(x_i\beta))x_{ij}]$'이다.
+> 즉, 특정 데이터 $x_i​$에 대해 계수 $\beta_j​$의 gradient는 '$\frac{1}{n}\sum[(y-f(x_i\beta))x_{ij}]​$'이다.
 
 다음은 앞서 정리한 내용을 바탕으로 구현된 logistic regression이다.대해 모든 데이터(혹은 sgd의 경우 샘플링된 데이터)에 대해  log likelihood의 편미분값을 더하고(혹은 평균내고. $\frac{1}{n}$은 상수이므로 최적화에 영향을 미치지 않는다) 그로써 learning rate(여기선 step size라고 notation이 써져있다)를 정하여 그만큼 update를 한다.
 
