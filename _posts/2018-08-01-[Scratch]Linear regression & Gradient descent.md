@@ -25,9 +25,7 @@ comment: true
 
 ISL때와 마찬가지로, linear regression부터 나가도록 하겠습니다. 지난 ISL때 선형회귀의 이론에 집중하였다면 이번에는 좀더 선형회귀의 특성과 **gradient descent를 통한 직접적인 구현**에 집중하도록 하겠습니다.
 
-선형회귀는 설명변수와 반응변수간에 선형적인 관계가 있을것이라는 다소 맹목적인 가정하에서 만들어진 모델이다. 고로 설명변수$$x$$와 반응변수 $$y$$가 있을때 목표는 $$y=\beta x+\alpha+\epsilon$$ 식의 계수를 찾는것으로 귀결되고, least squre 방법으로 위 계수는 다음과 같이 정의될 수 있다.
-
-$ y_i=\beta x_i + \alpha + \epsilon_i$
+선형회귀는 설명변수와 반응변수간에 선형적인 관계가 있을것이라는 다소 맹목적인 가정하에서 만들어진 모델이다. 고로 설명변수$$x$$와 반응변수 $$y$$가 있을때 목표는 $$ y_i=\beta x_i + \alpha + \epsilon_i$$ 식의 계수를 찾는것으로 귀결된다.
 
 
 ```python
@@ -55,13 +53,13 @@ least square에 대한 해석이 물론 여러가지 있지만 그 방법중 하
 
 likelihood는 간단히 말해, 해당 데이터를 가질만한 가장 likely한 모수$$\theta$$이다. (데이터 $v_1,..,v_n$이 있을때, 그들이 나왔을 가장 가능성이 높은 모수 $\theta$)
 
-![likelihood](C:\Users\admin\내파일\haafor.5\ML_from_scratch_data\data\likelihood.PNG)
+![likelihood](https://user-images.githubusercontent.com/31824102/44249323-dac5ae00-a1de-11e8-96cb-89d16d63439c.PNG)
 
 근데 만약 우리가 (대표적으로 simple linear에서 그러하듯이, )error에 대해 mean0의 정규분포를 가정하면, $$E(y)=\alpha+\beta*x$$이기 때문에
 
 $$y$$ ~ $$N(\hat y,\sigma)$$이므로 해당 데이터에 대한 pdf는 밑에 식이 된다. (나머지는 fixed x에 대해 모두 fixed이기 때문에 error의 분포를 그대로 받게 된다.)
 
-![mle_mse](C:\Users\admin\내파일\haafor.5\ML_from_scratch_data\data\mle_mse.PNG)
+![mle_mse](https://user-images.githubusercontent.com/31824102/44249329-de593500-a1de-11e8-91e6-794bdb47c397.PNG)
 
 또한, 만약 우리가 (대부분의 ML 기법이 기본가정으로 깔고가듯이) **각 데이터가 서로 독립이라고 가정**한다면,  전체 데이터에 대한 joint_pdf는 데이터 n개에 대해 곱하는 것과 같다. 수식으로 나타내면 다음과 같다.
 $$
@@ -300,9 +298,9 @@ v
 
 사실 gradient descent를 보면서 언제나 $-1*\eta$만큼 업데이트한다는걸 수식으로 보고 별 생각 없이 넘겼었는데, 예전에 누군가 'gradient가 음수이면 -1곱하는게 더 커지는게 아니에요?'하고 물어보니 흠칫한적이 있었다. 왜 gradient의 반대 방향으로 가는게 **'언제나'** minimize의 방향인걸까? 사실 위의 질문은, 'gradient의 뱡향'과 'gradient방향으로 갔을때 cost function의 변화'에 대해 혼동된 질문이다. 
 
-우리의 목적은 **cost function이 얼마나 움직이는 가**이다. 특정 gradient에 대해서, 우리가 어떻게 움직이던 업데이트는 **'움직인 방향'  x 'gradient '**가 될것이다(현재 주어진 정보인 gradient가 유지된다는 가정에서. 즉 taylor expension). 즉,   gradient가 음수일 경우 gradient방향으로 가는 $(x+\Delta x)$는 '**그negative방향**'으로 '**negative만큼**'간다는 의미가 되버린다. 즉, **gradient방향**으로 갈 경우 **언제나 cost function은 최대화 된다**. 다음의 예시에서 조금 더 설명한다.
+우리의 목적은 **cost function이 얼마나 움직이는 가**이다. 특정 gradient에 대해서, 우리가 어떻게 움직이던 업데이트는 **'움직인 방향'  x 'gradient '**가 될것이다(현재 주어진 정보인 gradient가 유지된다는 가정에서. 즉 taylor expension). 즉,   gradient가 음수일 경우 gradient방향으로 가는 $(x+\Delta x)​$는 '**그negative방향**'으로 '**negative만큼**'간다는 의미가 되버린다. 즉, **gradient방향**으로 갈 경우 **언제나 cost function은 최대화 된다**. 다음의 예시에서 조금 더 설명한다.
 
-![x_square](C:\Users\admin\내파일\haafor.5\ML_from_scratch_data\data\x_square.PNG)
+![x_square](https://user-images.githubusercontent.com/31824102/44249345-f466f580-a1de-11e8-9c87-bb582806a71d.PNG)
 
 위와 같이 $y=x^2$이라는 함수가 있다고 해보자. gradient는 언제나 $2*x$일 것이다. 만약 데이터 x가 -2였어서 gradient가 -4였다면, 해당 점(즉, -2)에서 gradient만큼 -4를 움직이는 것은 언제나 해당 함수를 증가시킨다.
 
