@@ -201,7 +201,7 @@ def estimate_gradient(f, v, h=0.00001):
 
 예를 들어, loss function을 $$\sum^n_{i} i*{x_i}$$ 이라고 정의해보면 다음과 같다. ($$0*x_0+1*x_1+..10*x_{10}$$과 같은 형태가 될것이다.)
 
-> 사실 loss function에는 실제 데이터를 통해 구해진 $x_i​$들이 있을테고, 그를 각 데이터들에 대해 sum(혹은 mean)을 하여 cost function을 구하게 된다. 각 데이터들에 대해서 구하는 작업은 잠시 차치하고, 여기서는 쉬운 이해를 위해 $x_i​$를 직접 설정하여 넣어준다.
+> 사실 loss function에는 실제 데이터를 통해 구해진 $x_i$들이 있을테고, 그를 각 데이터들에 대해 sum(혹은 mean)을 하여 cost function을 구하게 된다. 각 데이터들에 대해서 구하는 작업은 잠시 차치하고, 여기서는 쉬운 이해를 위해 $x_i$를 직접 설정하여 넣어준다.
 
 
 ```python
@@ -230,7 +230,7 @@ partial_difference_quotient(lambda x:my_sum(x)[1],[777*x for x in range(10)],5,1
     4.94765117764473
  $0*x_0+1*x_1+..10*x_{10}$와 같은 형태이니 $x_5$의 편미분값이 5가 나오는 것을 확인할 수 있다.(실제 limit값을 사용하지 않았기에, 약간의 계산오차가 존재한다.)
 
-이번에는 etimate_gradient함수를 이용해서, 모든 변수에 대해서 gradient를 구해보자.  $0*x_0+1*x_1+..10*x_{10}$와 같은 형태이니 $x_n$에 [0~10]의 리스트를 넣거나 [0~20]의 리스트를 넣거나 gradient값은 [0,1,..,10]이 나올 것이다.
+이번에는 etimate_gradient함수를 이용해서, 모든 변수에 대해서 gradient를 구해보자.  $$0*x_0+1*x_1+..10*x_{10}$$와 같은 형태이니 $$x_n$$에 [0~10]의 리스트를 넣거나 [0~20]의 리스트를 넣거나 gradient값은 [0,1,..,10]이 나올 것이다.
 
 ```python
 estimate_gradient(lambda x:my_sum(x)[1],[2*x for x in range(10)],h=1e-4)
@@ -248,7 +248,7 @@ estimate_gradient(lambda x:my_sum(x)[1],[2*x for x in range(10)],h=1e-4)
      8.000000000265572,
      9.000000000014552]
 
-이제 gradient는 구했고, 이를 통해 진짜 gradient descent를 이용한 최적화를 해보자. 우선 가장 쉽게, loss func이 $\sum x^2$라고 해보자. (해당 loss function식을 최소화하는 $x$들은 당연히 $x=(0,0,.,0)$일것임을 직관적으로 알고 있다.) 우선 각각에 대한 편미분은 $2*x$일 것이므로 이를 정의한다. 
+이제 gradient는 구했고, 이를 통해 진짜 gradient descent를 이용한 최적화를 해보자. 우선 가장 쉽게, loss func이 $$\sum x^2$$라고 해보자. (해당 loss function식을 최소화하는 $$x$$들은 당연히 $$x=(0,0,.,0)$$일것임을 직관적으로 알고 있다.) 우선 각각에 대한 편미분은 $$2*x$$일 것이므로 이를 정의한다. 
 
 
 ```python
