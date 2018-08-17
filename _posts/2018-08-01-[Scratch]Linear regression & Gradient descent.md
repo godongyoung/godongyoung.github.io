@@ -62,10 +62,11 @@ $$y$$ ~ $$N(\hat y,\sigma)$$이므로 해당 데이터에 대한 pdf는 밑에 �
 ![mle_mse](https://user-images.githubusercontent.com/31824102/44249329-de593500-a1de-11e8-91e6-794bdb47c397.PNG)
 
 또한, 만약 우리가 (대부분의 ML 기법이 기본가정으로 깔고가듯이) **각 데이터가 서로 독립이라고 가정**한다면,  전체 데이터에 대한 joint_pdf는 데이터 n개에 대해 곱하는 것과 같다. 수식으로 나타내면 다음과 같다.
+
+
 $$
 \begin{align} J(\alpha,\beta)&=\prod_i^n\frac{1}{\sqrt{2\pi\sigma}}exp(\frac{-(y_i-\alpha-\beta x_i)^2}{2\sigma^2})\\ & =(\frac{1}{\sqrt{2\pi\sigma}})^nexp(\frac{-\sum_i^n(y_i-\alpha-\beta x_i)^2}{2\sigma^2})\end{align}
 $$
-
 
 이때, $\pi$나 $\sigma$같은 (모델의 가정하에서) fixed constant를 빼면, 결국 $$\sum(y-\alpha-\beta x)^2$$, 즉 **least square만이 남는다**. 다시말해, error에 대한 정규분포를 가정하였을 경위 least square는 mle를 찾는 것과 완벽하게 동치이다.
 
@@ -198,9 +199,9 @@ def estimate_gradient(f, v, h=0.00001):
 
 이제 간단한 loss funcstion을 정의해서 위의 함수를 test해보자.
 
-예를 들어, loss function을 $\sum^n_{i} i*{x_i}$ 이라고 정의해보면 다음과 같다. ($0*x_0+1*x_1+..10*x_{10}$과 같은 형태가 될것이다.)
+예를 들어, loss function을 $$\sum^n_{i} i*{x_i}$$ 이라고 정의해보면 다음과 같다. ($$0*x_0+1*x_1+..10*x_{10}$$과 같은 형태가 될것이다.)
 
-> 사실 loss function에는 실제 데이터를 통해 구해진 $x_i$들이 있을테고, 그를 각 데이터들에 대해 sum(혹은 mean)을 하여 cost function을 구하게 된다. 각 데이터들에 대해서 구하는 작업은 잠시 차치하고, 여기서는 쉬운 이해를 위해 $x_i$를 직접 설정하여 넣어준다.
+> 사실 loss function에는 실제 데이터를 통해 구해진 $x_i​$들이 있을테고, 그를 각 데이터들에 대해 sum(혹은 mean)을 하여 cost function을 구하게 된다. 각 데이터들에 대해서 구하는 작업은 잠시 차치하고, 여기서는 쉬운 이해를 위해 $x_i​$를 직접 설정하여 넣어준다.
 
 
 ```python
