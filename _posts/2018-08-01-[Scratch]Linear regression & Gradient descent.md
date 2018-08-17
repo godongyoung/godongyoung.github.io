@@ -65,11 +65,13 @@ $$y$$ ~ $$N(\hat y,\sigma)$$이므로 해당 데이터에 대한 pdf는 밑에 �
 $$
 \begin{align} J(\alpha,\beta)&=\prod_i^n\frac{1}{\sqrt{2\pi\sigma}}exp(\frac{-(y_i-\alpha-\beta x_i)^2}{2\sigma^2})\\ & =(\frac{1}{\sqrt{2\pi\sigma}})^nexp(\frac{-\sum_i^n(y_i-\alpha-\beta x_i)^2}{2\sigma^2})\end{align}
 $$
-이때, $\pi나 \sigma$같은 (모델의 가정하에서) fixed constant를 빼면, 결국 $$\sum(y-\alpha-\beta x)^2$$, 즉 **least square만이 남는다**.
+
+
+이때, $\pi$나 $\sigma$같은 (모델의 가정하에서) fixed constant를 빼면, 결국 $$\sum(y-\alpha-\beta x)^2$$, 즉 **least square만이 남는다**. 다시말해, error에 대한 정규분포를 가정하였을 경위 least square는 mle를 찾는 것과 완벽하게 동치이다.
 
 다시 본론으로 돌아와서, leas square를 봐보자. 
 
-이를 통해 계산되는 계수는 다음과 같다. 
+위 식에서 loss fuctiondl, 즉 sum of squares를 최소화하는 계수는 다음과 같다. 
 
 $b_{0}=\bar y -b_{1}\bar x$
 
@@ -496,7 +498,7 @@ $(y_i-(\beta*x_1+\alpha))^2$가 목적함수니까 편미분은 각각
 
 $\frac{\partial f}{\partial \alpha}=-2(\beta*x_1+\alpha)$
 
-$\frac{\partial f}{\partial \beta}=-2*x_1(\beta*x_1+\alpha)$이 될것이다.
+$$\frac{\partial f}{\partial \beta}=-2*x_1(\beta*x_1+\alpha)$$이 될것이다.
 
 
 ```python
