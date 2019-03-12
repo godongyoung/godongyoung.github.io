@@ -41,7 +41,7 @@ $$
 
 oulier에 취약한 variance의 문제를 완화하고자 나온 개념. **robust variance**정도로 받아들이면 좋다. Variance matrix를 이용하는 mahalanobis 거리를 공부하면서 접하게 된건데, mcd를 이용할 경우 아래의 그림과 같이, 소수의 outlier에 대해 영향을 받지 않고 variance를(나아가 mahalanobis 거리를) 계산하게 된다. 단변수뿐아니라 다변수에서도 활용가능하다. robust한 cov_matrix를 구하는것이기에, **outlier로부터 robust한 correlation을 구하는데도 사용**될 수 있다.
 
-![p-dimensional points $$x$$의 Mahalanobis distance==$$\sqrt{\chi^2_{p,0.975}}$$인 지점을 그린그림](C:\Users\admin\내파일\4-1.5\개인적인 복습 및 정리\data\mahal1.PNG)
+<img width="384" alt="mahal1" src="https://user-images.githubusercontent.com/31824102/54182455-e8c57e00-44e4-11e9-8e34-a71efd12540f.PNG">
 
 정의는 간단하다. 주어진 n*p의 데이터에서 **Determinant of sample covariance matrix**를 **최소로 만드는 h개의 데이터**를 뽑아 그들만 이용하여 variance나 mean을 구한다. 
 
@@ -63,7 +63,7 @@ h는 $$(n+p+1)/2\le h\le n$$을 이용한다. ($$2p\le n$$의 조건이 필요�
 >
 > 왜? 모든 subset h에 대해서, Determinant의 order가 유지되기 때문에. 원문참조
 >
-> ![mcd1](C:\Users\admin\내파일\4-1.5\개인적인 복습 및 정리\data\mcd1.PNG)
+> <img width="563" alt="mcd1" src="https://user-images.githubusercontent.com/31824102/54182457-e95e1480-44e4-11e9-8400-98af856d5b91.PNG">
 
 그러나 정확한 MCD 계산은 $$_nC_h$$번의 계산을 요하기에 computation이 매우 버겁다. 이를 완화하고자 FAST_MCD 방법이 탄생.
 
@@ -108,6 +108,8 @@ MCD로 oulier를 trim한후 regresion하는 Least Trimmed Square와(trimmed방�
 
 
 
+
 3번을 보면 알 수 있듯이, 엄밀하게는 distance에 대한 분포라기 보단 extreme데이터에 국한된 distance의 분포이다. 또한 $$m,c$$에 대한 추정은 $$m,S^*$$이 multiple of Wishart의 분포를 가지고 있다는 가정하에서 다음의 추정을 할 수 있다는데, wishart를 모르기에 그냥 받아들였다.
 
-![mcd2](C:\Users\admin\내파일\4-1.5\개인적인 복습 및 정리\data\mcd2.PNG)
+<img width="328" alt="mcd2" src="https://user-images.githubusercontent.com/31824102/54182458-e95e1480-44e4-11e9-9656-fb43b8c59802.PNG">
+

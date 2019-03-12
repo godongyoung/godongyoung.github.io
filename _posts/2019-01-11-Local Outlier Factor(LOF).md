@@ -18,7 +18,7 @@ comment: true
 
 구체적으로는 Density based method는 density가 다른 클러스터들이 있을때 문제가 발생한다. dense를 정의할 window size나 최소 갯수등을 지정할수가 없어지기 때문.(HDBSCAN은 괜찬나???) knn-distance method역시, 각 클러스터에 대해 outlier를 고르기 위한 적절한 knn-distance가 달라진다. 다음 그림을 보면 이해가 빠르다. $$C_1$$과 $$C_2$$의 density가 다르기에, $$o_1$$은 걸러내기 쉽지만 $$o_2$$는 걸러내기가 어렵다. $$C_1$$의 대부분 데이터들이 그정도는 떨어져 있었기 때문.
 
-![lof1](C:\Users\admin\내파일\4-1.5\개인적인 복습 및 정리\data\lof1.PNG)
+<img width="211" alt="lof1" src="https://user-images.githubusercontent.com/31824102/54182467-eb27d800-44e4-11e9-98c0-c5142a46d930.PNG">
 
 이러한 문제의식에서, **local의 상대적인 dense**를 비교하여 outlier를 정하자는 lof가 나옴. 큰 틀은, neighbor들의 dense를 고려하여 비교한다는 것이다. 이때 몇가지 새로운 정의들이 나온다.
 
@@ -46,7 +46,7 @@ $$
 
 그림을 통해 보면 쉽다. 그림 [원문](https://jayhey.github.io/novelty%20detection/2017/11/10/Novelty_detection_LOF/)
 
-![lof2](C:\Users\admin\내파일\4-1.5\개인적인 복습 및 정리\data\lof2.PNG)
+<img width="484" alt="lof2" src="https://user-images.githubusercontent.com/31824102/54182468-eb27d800-44e4-11e9-8c1d-3aee82c7f327.PNG">
 
 case1의 경우,  파랑점의 lrd는 초록점들과의 거리의 평균, 혹은 뻥튀기된, 초록점들의 k_distance들의 평균의 역수가 된다. 그러나 k_distance던 그냥 거리던 평균거리가 작을 것이므로, lrd의 값은 크게 된다.
 
@@ -62,7 +62,7 @@ $$
 
 내 관심대상인 p의 'neighbor들과의 평균거리'를 주변 neighbor들의 '평균거리'와 비교하는 것이다. (사실 이게 더 직관적인거같은데 왜 굳이 역수를..)
 
-![lof3](C:\Users\admin\내파일\4-1.5\개인적인 복습 및 정리\data\lof3.PNG)
+<img width="515" alt="lof3" src="https://user-images.githubusercontent.com/31824102/54182471-eb27d800-44e4-11e9-990a-75474a4cce14.PNG">
 
 case1이나 case3같이 주변애들과 '평균거리'가 크게 차이나지 않는 점의 경우 lof는 1에 근사하게 나올 것이다. 그러나 case2 같이 주변애들이 가진 평균거리에 비해 평균거리가 더 긴애들은 lof가 1보다 더 크게 나오기 쉽상일 것이다. **즉**, lof$$\approx$$1이면 정상데이터, lof$$\gg$$1이면 outlier인 셈이다.
 
@@ -70,7 +70,7 @@ case1이나 case3같이 주변애들과 '평균거리'가 크게 차이나지 �
 
 이를 통해 local한 기준에서 평가를 하기에, 다음 그림과 같이 밀집한 지역에서는 더 빡빡한 기준으로 outlier를 잡고, 엉성한 지역에서는 더 엉성한 기준으로 outlier를 잡아낼 수 있게 된다. 문제점은 1.k를 몇으로 할지인 고질적인 문제. 그러나 경험적으로 k=20정도로 하는것이 좋다고한다. 그리고 **2. threshold를 얼마로 잡아야할지를** 알기 힘들다는 점이다. (파이썬에선 contamination이라는 옵션으로 train data중 몇%가 outlier인지를 우리가 지정해준다. auto는 0.2)
 
-![lof4](C:\Users\admin\내파일\4-1.5\개인적인 복습 및 정리\data\lof4.PNG)
+<img width="379" alt="lof4" src="https://user-images.githubusercontent.com/31824102/54182454-e8c57e00-44e4-11e9-8b00-fb3f2f7fb765.PNG">
 
 
 
