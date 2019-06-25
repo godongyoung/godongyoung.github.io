@@ -11,7 +11,7 @@ comment: true
 ---
 # Mahalanobis 거리
 
-설명은 알아서. 개념자체는 쉽다. 분포의 형태를 고려하여 거리를 재겠다는 문제의식. 이정도만 보고가자
+다변량 거리의 기본이기에 설명은 스킵. 개념자체는 쉽다. 분포의 형태를 고려하여 거리를 재겠다는 문제의식. 이정도만 보고가자
 
 scipy : https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.mahalanobis.html
 
@@ -105,6 +105,7 @@ MCD로 oulier를 trim한후 regresion하는 Least Trimmed Square와(trimmed방�
    $$
    \frac{c(m-p+1)}{pm}d^2_{s^*}(X_i,\bar X^*) \approx F_{p,m-p+1}
    $$
+
 
 
 
