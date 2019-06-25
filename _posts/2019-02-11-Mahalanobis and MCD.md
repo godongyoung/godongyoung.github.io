@@ -11,14 +11,16 @@ tags:
 comment: true
 ---
 마할라노비스 거리는 다변량 거리의 기본이다. 개념자체는 쉽다. 다변량의 데이터에서, 분포의 형태를 고려하여 거리를 재겠다는 문제의식에서 등장한 거리 척도이다. 
+
 $$
 d(u,v)=\sqrt{(u-v)\Sigma^{-1}(u-v)^T}
 $$
+
 다변량의 데이터 $$u$$와 $$v$$의 mahalanobis거리를 구하는 식이다. 대표적으로는 $$u$$에는 각 데이터, $$v$$는 데이터의 평균이 될것이다. (예를 들면 $$u=$$(키1,몸무게1), $$v=$$(키평균,몸무게평균))
 
 식을 보면, 마치 단변수에서 z-score를 구하듯이, covariance matrix의 inverse matrix를 곱하여 거리를 재는 방식이다. 이를 통해 변수들간의 correlation등 분포를 고려하여 거리를 잴 수 있다. 실제로, 모든 변수들이 independant이고 variance가 1로 정규화되어 있다면, $$\Sigma=\boldsymbol I$$가 되고, 마할라노비스 거리는 유클리드 거리와 같아진다. 
 
-(즉, $$d(u,v)=\sqrt{(u-v)\Sigma^{-1}(u-v)^T}=\sqrt{(u-v)I^{-1}(u-v)^T}=\sqrt{(u-v)\cdot(u-v)}=\sqrt{(u_1-v_1)^2+..+(u_p-v_p)^2}$$) 아래의 그림처럼, 데이터들이 강한 correlation을 가지고 있는 경우 그 분포를 고려하여, 유클리디언 상으로는 같은 거리일 지라도 correlation에 따라 중심에서 먼 정도가 달라지게 된다. 그림 상의 두 빨간 점은 모두 원점으로부터의 거리는 같지만, mahalanobis는 등고선에서 나와있듯이, x축의 데이터를 중심에서 더 가까운 데이터라고 본다. (correlation을 고려하였을때 y축의 데이터가 더 rare한 경우이기 때문이다.)
+(즉, $$d(u,v)=\sqrt{(u-v)I^{-1}(u-v)^T}=\sqrt{(u-v)\cdot(u-v)}=\sqrt{(u_1-v_1)^2+..+(u_p-v_p)^2}$$) 아래의 그림처럼, 데이터들이 강한 correlation을 가지고 있는 경우 그 분포를 고려하여, 유클리디언 상으로는 같은 거리일 지라도 correlation에 따라 중심에서 먼 정도가 달라지게 된다. 그림 상의 두 빨간 점은 모두 원점으로부터의 거리는 같지만, mahalanobis는 등고선에서 나와있듯이, x축의 데이터를 중심에서 더 가까운 데이터라고 본다. (correlation을 고려하였을때 y축의 데이터가 더 rare한 경우이기 때문이다.)
 
 <img width="488" alt="mahalanobis1" src="https://user-images.githubusercontent.com/31824102/60076891-a8bc9b00-9763-11e9-9116-221ba9a1274e.PNG">
 
@@ -26,16 +28,18 @@ $$
 
 scipy : https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.mahalanobis.html
 
-sklearn : mahttps://scikit-learn.org/stable/auto_examples/covariance/plot_mahalanobis_distances.html
+sklearn : https://scikit-learn.org/stable/auto_examples/covariance/plot_mahalanobis_distances.html
 
 ### distribution of distance
 
 원문 : https://core.ac.uk/download/pdf/22873068.pdf
 
-신기한점은, 만약 데이터가 **다변량 정규분포를** 따른다면, distance의 **exact distribution**을 알 수 있다. (물론 그 distribution이 true parameter $$\mu,\Sigma$$에 베이스하기에 결국은 근사적.) **변수가 p개인** 데이터의 maha거리의 제곱은, 다음의 **카이제곱분포**를 가진다.
+신기한점은, 만약 데이터가 **다변량 정규분포를** 따른다면, distance의 **exact distribution**을 알 수 있다. (물론 그 distribution이 true parameter $$\mu,\Sigma​$$에 베이스하기에 결국은 근사적.) **변수가 p개인** 데이터의 maha거리의 제곱은, 다음의 **카이제곱분포**를 가진다.
+
 $$
 d^2_{\Sigma}(X_i,\mu)\sim \chi^2_{p}
 $$
+
 카이제곱분포의 성질에 따라 평균p와 분산 2p도 자연스레 내포한다.
 
 > 느낌적으로는, maha거리가 마치 p차원의 데이터에 대한 normalize처럼 작용하기에, 표준정규분포Z를 제곱해서 p개 더한듯한 느낌이라고 생각하자
@@ -121,6 +125,7 @@ MCD로 oulier를 trim한후 regresion하는 Least Trimmed Square와(trimmed방�
    $$
    \frac{c(m-p+1)}{pm}d^2_{s^*}(X_i,\bar X^*) \approx F_{p,m-p+1}
    $$
+
 
 
 
