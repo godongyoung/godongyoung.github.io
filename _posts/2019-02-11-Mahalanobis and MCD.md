@@ -7,11 +7,22 @@ tags:
   -  Mahalanobis distance
   - Minimum covariance determinant
   - outlier detection
+  - fast MCD
 comment: true
 ---
-# Mahalanobis 거리
+마할라노비스 거리는 다변량 거리의 기본이다. 개념자체는 쉽다. 다변량의 데이터에서, 분포의 형태를 고려하여 거리를 재겠다는 문제의식에서 등장한 거리 척도이다. 
+$$
+d(u,v)=\sqrt{(u-v)\Sigma^{-1}(u-v)^T}
+$$
+다변량의 데이터 $$u$$와 $$v$$의 mahalanobis거리를 구하는 식이다. 대표적으로는 $$u$$에는 각 데이터, $$v$$는 데이터의 평균이 될것이다. (예를 들면 $$u=$$(키1,몸무게1), $$v=$$(키평균,몸무게평균))
 
-다변량 거리의 기본이기에 설명은 스킵. 개념자체는 쉽다. 분포의 형태를 고려하여 거리를 재겠다는 문제의식. 이정도만 보고가자
+식을 보면, 마치 단변수에서 z-score를 구하듯이, covariance matrix의 inverse matrix를 곱하여 거리를 재는 방식이다. 이를 통해 변수들간의 correlation등 분포를 고려하여 거리를 잴 수 있다. 실제로, 모든 변수들이 independant이고 variance가 1로 정규화되어 있다면, $$\Sigma=\boldsymbol I$$가 되고, 마할라노비스 거리는 유클리드 거리와 같아진다. 
+
+(즉, $$d(u,v)=\sqrt{(u-v)\Sigma^{-1}(u-v)^T}=\sqrt{(u-v)I^{-1}(u-v)^T}=\sqrt{(u-v)\cdot(u-v)}=\sqrt{(u_1-v_1)^2+..+(u_p-v_p)^2}$$) 아래의 그림처럼, 데이터들이 강한 correlation을 가지고 있는 경우 그 분포를 고려하여, 유클리디언 상으로는 같은 거리일 지라도 correlation에 따라 중심에서 먼 정도가 달라지게 된다. 그림 상의 두 빨간 점은 모두 원점으로부터의 거리는 같지만, mahalanobis는 등고선에서 나와있듯이, x축의 데이터를 중심에서 더 가까운 데이터라고 본다. (correlation을 고려하였을때 y축의 데이터가 더 rare한 경우이기 때문이다.)
+
+<img width="488" alt="mahalanobis1" src="https://user-images.githubusercontent.com/31824102/60076891-a8bc9b00-9763-11e9-9116-221ba9a1274e.PNG">
+
+
 
 scipy : https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.mahalanobis.html
 
@@ -21,7 +32,7 @@ sklearn : mahttps://scikit-learn.org/stable/auto_examples/covariance/plot_mahala
 
 원문 : https://core.ac.uk/download/pdf/22873068.pdf
 
-신기한점은, 만약 데이터가 normal이라면, distance의 **exact distribution**을 알 수 있다. (물론 그 distribution이 true parameter $$\mu,\Sigma$$에 베이스하기에 결국은 근사적.) 변수가 p개인 데이터의 maha거리의 제곱은, 다음의 카이제곱분포를 가진다.
+신기한점은, 만약 데이터가 **다변량 정규분포를** 따른다면, distance의 **exact distribution**을 알 수 있다. (물론 그 distribution이 true parameter $$\mu,\Sigma$$에 베이스하기에 결국은 근사적.) **변수가 p개인** 데이터의 maha거리의 제곱은, 다음의 **카이제곱분포**를 가진다.
 $$
 d^2_{\Sigma}(X_i,\mu)\sim \chi^2_{p}
 $$
@@ -29,9 +40,9 @@ $$
 
 > 느낌적으로는, maha거리가 마치 p차원의 데이터에 대한 normalize처럼 작용하기에, 표준정규분포Z를 제곱해서 p개 더한듯한 느낌이라고 생각하자
 
-(그 외에도, 이리 저리 조합해서 beta 분포, F분포 등을 도출해낼 수 있다. 이건 그냥 원문을 봐라 넘많다.)
+(그 외에도, 이리 저리 조합해서 beta 분포, F분포 등을 도출해낼 수 있다. 이건 너무 깊게 들어가기에, 논문을 참고하는것이 좋다.)
 
-이에 따라 카이제곱분포의 0.975 quantile지점까지를 기준으로 삼고 outlier이다 아니다 등으로 딱 떨어지게 논할수가 있다.
+이에 따라 카이제곱분포의 0.975 quantile지점까지를 기준으로 삼고 **다변량의 관점**에서, outlier이다 아니다 등으로 딱 떨어지게 논할수가 있다. 이에 따라 단변량의 z-score를 고려하는 것보다 좀더 합리적인 outlier를 검출할 수 있게 된다.
 
 그러나 (뒤에설명할) MCD를 이용한 robust에서는 exact distribution을 도출할 수 없다. MCD estimator역시 consistency를 가지기에 근사적으로 카이제곱을 따른다 할 수 있지만, 경험적으로 0.975로 끊을 경우 필요이상을 이상치라고 말하게 된다고 한다. 뒤에서 더 자세히 설명하겠다.
 
@@ -39,15 +50,15 @@ $$
 
 원문 : https://wis.kuleuven.be/stat/robust/papers/2010/wire-mcd.pdf
 
-oulier에 취약한 variance의 문제를 완화하고자 나온 개념. **robust variance**정도로 받아들이면 좋다. Variance matrix를 이용하는 mahalanobis 거리를 공부하면서 접하게 된건데, mcd를 이용할 경우 아래의 그림과 같이, 소수의 outlier에 대해 영향을 받지 않고 variance를(나아가 mahalanobis 거리를) 계산하게 된다. 단변수뿐아니라 다변수에서도 활용가능하다. robust한 cov_matrix를 구하는것이기에, **outlier로부터 robust한 correlation을 구하는데도 사용**될 수 있다.
+Mahalanobis를 구하기 위해선 **covariance matrix**를 구해야하고, 사실 이것이 majhalanobis거리의 핵심이다. 그러나 variance는 제곱텀에서 만들어지기에, **outlier에 굉장히 취약**하다. 따라서 몇개의 이상한 극단치 데이터들이 covairance matrix를 망칠 수 있고 이에 따라 합리적이지 않은 distance가 측정될 수 있는것이다. 이렇듯 oulier에 취약한 variance의 문제를 완화하고자 나온 개념이 바로 MCD이다. **robust variance**정도로 받아들이면 좋다. Variance matrix를 이용하는 mahalanobis 거리를 공부하면서 접하게 된건데, mcd를 이용할 경우 아래의 그림과 같이, 소수의 outlier에 대해 영향을 받지 않고 variance를(나아가 mahalanobis 거리를) 계산하게 된다. 단변수뿐아니라 다변수에서도 활용가능하다. robust한 cov_matrix를 구하는것이기에, **outlier로부터 robust한 correlation을 구하는데도 사용**될 수 있다.
 
 <img width="384" alt="mahal1" src="https://user-images.githubusercontent.com/31824102/54182455-e8c57e00-44e4-11e9-8e34-a71efd12540f.PNG">
 
 정의는 간단하다. 주어진 n*p의 데이터에서 **Determinant of sample covariance matrix**를 **최소로 만드는 h개의 데이터**를 뽑아 그들만 이용하여 variance나 mean을 구한다. 
 
->Cov_mat의 Determinant는 단변수의 std와 아주아주 rough하게 연관되 있다. multivariate normal일경우 어느정도 [성립](https://math.stackexchange.com/questions/889425/what-does-determinant-of-covariance-matrix-give). 단변수인 경우 그냥 variance를 최소로 하는 h개를 iteration돌며 뽑아서 계속 계산해본다생각하면 된다.
+>Cov_mat의 Determinant는 단변수의 std와 아주아주 rough하게 연관되 있다. multivariate normal일경우 어느정도 [성립](https://math.stackexchange.com/questions/889425/what-does-determinant-of-covariance-matrix-give). 즉 coaviance matrix의 '크기'를 determinant로 계산한다고 보면 된다. 단변수인 경우 그냥 variance를 최소로 하는 h개를 iteration돌며 뽑아서 계속 계산해본다생각하면 된다. 그러나 matrix의 경우 크기라는 개념이 애매해지기 때문에 determinant를 사용하게 된다.
 
-h는 $$(n+p+1)/2\le h\le n$$을 이용한다. ($$2p\le n$$의 조건이 필요하지만 차원의 저주로부터 안정적이기 위해 $$5p\le n$$정도를 요한다고 한다.) 이 경우 consistenct나 asymptotic normality등의 **대표본성질이 여전히 만족**한다는 특성이 있다.
+MCD계산에 사용되는 데이터의 갯수 h는 $$(n+p+1)/2\le h\le n$$을 이용한다. ($$2p\le n$$의 조건이 필요하지만 차원의 저주로부터 안정적이기 위해 $$5p\le n$$정도를 요한다고 한다.) 이 경우 consistenct나 asymptotic normality등의 **대표본성질이 여전히 만족**한다는 특성이 있다.
 
 또한, MCD estimator(mu,sigma)는 **affine equivariant**하다는 특성이 있다.
 
@@ -65,9 +76,13 @@ h는 $$(n+p+1)/2\le h\le n$$을 이용한다. ($$2p\le n$$의 조건이 필요�
 >
 > <img width="563" alt="mcd1" src="https://user-images.githubusercontent.com/31824102/54182457-e95e1480-44e4-11e9-8400-98af856d5b91.PNG">
 
-그러나 정확한 MCD 계산은 $$_nC_h$$번의 계산을 요하기에 computation이 매우 버겁다. 이를 완화하고자 FAST_MCD 방법이 탄생.
+이러한 방법을 통해, 극단적인 데이터를 제외하고 좀더 robust한 covariance matrix를 계산할 수 있게 된다. 또한, covariance matrix의 off-diagonal term이 covariance라는 점에서, 이는 outlier를 제외한 **robust correlation**으로도 활용될 수 있다.
+
+그러나 정확한 MCD 계산은 전체 n개의 데이터 중 h개의 데이터를 계속 뽑아서 계속 variance matrix를 구하고 determinant를 계산해야하기 때문에 $$_nC_h$$번의 계산작업을 요한다. 즉 computation이 매우 버겁다. 이를 완화하고자 FAST_MCD 방법이 탄생하였다.
 
 ### Fast MCD
+
+$$_nC_h$$는 n이 커질때마다 기하급수적으로 커진다. 따라서, 굉장한 연산량을 요한다. 이를 근사하기 위한 fast MCD방법이 있는데, 다음과 같은 순서를 통해 계산된다. 
 
 1. n개의 data중 h개의 subset $$H_1$$을 뽑고, 그들로 $$\hat \mu_1, \hat \Sigma_1$$를 구한다.
 
@@ -87,6 +102,8 @@ h는 $$(n+p+1)/2\le h\le n$$을 이용한다. ($$2p\le n$$의 조건이 필요�
 
 MCD로 oulier를 trim한후 regresion하는 Least Trimmed Square와(trimmed방법은 여러가지로 사용된다. trimmed mle등 무수히 많을수)  robust Covariance matrix의 eigenvector를 이용하는 ROBPCA등이 가장 대표적이다.
 
+덧. 아래는 원문을 읽어야 더 도움이 되는 부분인 이론적인 파트이다. 그러나 MCD의 distance 자체가 활용되는 경우는 많지 않기에, 참고만 해도 좋을듯하다.
+
 ### MCD 를 이용한 distance의 distribution
 
 역시나 원문 : https://core.ac.uk/download/pdf/22873068.pdf
@@ -97,7 +114,6 @@ MCD로 oulier를 trim한후 regresion하는 Least Trimmed Square와(trimmed방�
    $$
    mc^{-1}S^*\sim Wishart_p(m,\Sigma)
    $$
-   (Wishart분포는 나도 모른다???)
 
 2. tail쪽에 있는 data들은 MCD의 estimate과 독립인듯한 형태를 띄고 있다.
 
@@ -110,7 +126,9 @@ MCD로 oulier를 trim한후 regresion하는 Least Trimmed Square와(trimmed방�
 
 
 
-3번을 보면 알 수 있듯이, 엄밀하게는 distance에 대한 분포라기 보단 extreme데이터에 국한된 distance의 분포이다. 또한 $$m,c$$에 대한 추정은 $$m,S^*$$이 multiple of Wishart의 분포를 가지고 있다는 가정하에서 다음의 추정을 할 수 있다는데, wishart를 모르기에 그냥 받아들였다.
+
+
+3번을 보면 알 수 있듯이, 엄밀하게는 distance에 대한 분포라기 보단 extreme데이터에 국한된 distance의 분포이다. 또한 $$m,c$$에 대한 추정은 $$m,S^*$$이 multiple of Wishart의 분포를 가지고 있다는 가정하에서 다음의 추정을 할 수 있다고 한다. 
 
 <img width="328" alt="mcd2" src="https://user-images.githubusercontent.com/31824102/54182458-e95e1480-44e4-11e9-9656-fb43b8c59802.PNG">
 
