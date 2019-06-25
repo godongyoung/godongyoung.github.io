@@ -12,7 +12,7 @@ comment: true
 
 
 
-원문 : https://dl.acm.org/citation.cfm?id=335388
+원논문 : https://dl.acm.org/citation.cfm?id=335388
 
 LOF는 대표적인 outlier detection의 기법중 하나이다. LOF의 문제의식은, 문제의식은 기존의 방법들이 **local정보에 대한 고려**가 없다는것이다. 데이터들간의 특성에 따라, 어떤 집단(혹은 군집)에선 매우 가까운 거리가, 어떤 집단에선 매우 먼 거리일 수 있다는 것이다. 자세한 설명은 아래의 그림과 함께 하겠다.
 
@@ -76,3 +76,59 @@ case1이나 case3같이 주변애들과 '평균거리'가 크게 차이나지 �
 
 
 
+---
+
+### 코드 상세 
+
+아래는 sklearn의 예시에서 좀더 가시성을 확보하기 위해 손 본 코드입니다. 
+
+[원문](https://scikit-learn.org/stable/auto_examples/neighbors/plot_lof_outlier_detection.html)
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.neighbors import LocalOutlierFactor
+from matplotlib.pyplot import figure
+figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+
+
+np.random.seed(42)
+
+# Generate train data
+X_inliers = 0.3 * np.random.randn(100, 2)#정규분포에서 100*2만들고
+X_inliers = np.r_[X_inliers + 2, 2*X_inliers - 2]#각각 2,2 혹은 -2,-2만큼 평행이동한거를 vstack. 즉 cluster 2개
+
+# Generate some outliers
+X_outliers = np.random.uniform(low=-4, high=4, size=(20, 2))
+X = np.r_[X_inliers, X_outliers]#-4,4에서 뽑은 outlier와 inlier를 vstack
+
+n_outliers = len(X_outliers)
+ground_truth = np.ones(len(X), dtype=int)
+ground_truth[-n_outliers:] = -1
+
+# fit the model for outlier detection (default)
+clf = LocalOutlierFactor(n_neighbors=20, contamination=0.1)
+# use fit_predict to compute the predicted labels of the training samples
+# (when LOF is used for outlier detection, the estimator has no predict,
+# decision_function and score_samples methods).
+y_pred = clf.fit_predict(X) #1,-1로 나온다.
+n_errors = (y_pred != ground_truth).sum()
+X_scores = clf.negative_outlier_factor_
+
+#fig, ax = plt.subplots()
+plt.title("Local Outlier Factor (LOF)")
+plt.scatter(X[:, 0], X[:, 1], color='b', s=3., label='Data points')
+# plot circles with radius proportional to the outlier scores
+radius = (X_scores.max() - X_scores) / (X_scores.max() - X_scores.min()) #오홍 minmax scaling으로 radius를 정햇네
+plt.scatter(X[:, 0], X[:, 1], s=1000 * radius, edgecolors='r',
+            facecolors='none', label='Outlier scores')
+n=np.copy(X_scores)
+n[n>-1.3]=np.nan
+n=np.round(n,2)
+for i, txt in enumerate(n):
+    if np.isnan(txt):continue
+    plt.annotate(txt, (X[i,0], X[i,1]))
+legend = plt.legend(loc='upper left')
+plt.show()
+```
+<img width="379" alt="lof4" src="https://user-images.githubusercontent.com/31824102/54182454-e8c57e00-44e4-11e9-8b00-fb3f2f7fb765.PNG">
