@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[데이터분석 정리]Local Outlier Factor(LOF) 개인적 정리"
+title: "[데이터분석 정리]Local Outlier Factor(LOF) 개인적 정리(with python)"
 categories:
   - 머신러닝
 tags:
