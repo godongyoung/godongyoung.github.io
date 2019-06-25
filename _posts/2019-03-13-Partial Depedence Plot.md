@@ -90,7 +90,7 @@ input으로 들어가는 $$(X_s,x_{ic})$$는 함수가 만들어 졌으면(즉 �
 
 아래의 내용은 이론적 측면에서의 주의점이다. 방법의 깊은 이해를 위해선 필요하지만 사용을 위해선 받아들이고만 넘어가도 좋은 부분이다.
 
-이때 PDP를 통해 나오는 $$\hat f_{X_s}(X_s)$$는 $$\tilde f_{X_s}(X_s)=E_{X_c|x_s}[f(X_s,X_c)|x_s]$$가 아님에 주의하자. (구분하기 위해 물결표를 위해 그렷다.) 미묘한 차이인데, $$E_{X_c}[f(X_s,X_c)]=\sum f(X_s,X_c)f_{X_c}(x_c)$$ 여기서 곱해지는 pdf가 $$X_c$$만의 pdf $$f_{X_c}(x_c)$$인지, 아님 주어진 $$X_s$$에 대해 condition이 걸어진 conditional pdf $$f(X_c|x_s)$$인지의 차이이다. 
+이때 PDP를 통해 나오는 $$\hat f_{X_s}(X_s)$$는 $$\tilde f_{X_s}(X_s)=E_{X_c| x_s}[f(X_s,X_c)|  x_s]$$가 아님에 주의하자. (구분하기 위해 물결표를 위해 그렷다.) 미묘한 차이인데, $$E_{X_c}[f(X_s,X_c)]=\sum f(X_s,X_c)f_{X_c}(x_c)$$ 여기서 곱해지는 pdf가 $$X_c$$만의 pdf $$f_{X_c}(x_c)$$인지, 아님 주어진 $$X_s$$에 대해 condition이 걸어진 conditional pdf $$f(X_c| x_s)$$인지의 차이이다. 
 
 후자(Conditional pdf를 사용)의 경우 $$X_c$$의 영향력을 무시한 (marginalize out한) $$X_s$$의 함수라고 할 수 있고, 전자(PDP)의 경우 $$X_c$$의 effect를 (평균값으로라도) 고려해준  $$X_s$$의 함수라고 할 수 있다. 또한 후자의 경우,  $$f(X)$$와 $$X_s$$와의 관계뿐 아니라 $$X_s$$와 $$X_c$$의 **결합으로 생긴 관계도** 반영하게 되기 때문에, $$X_s$$가 결과값과 **크게 관련이 없는 변수들일 경우에도 strong effect가 잡힐 수** 있다고 한다. (ESL370p) 혹은 [논문](https://projecteuclid.org/download/pdf_1/euclid.aos/1013203451) 자세한 이해를 위해 예시를 첨부한다.
 
@@ -108,9 +108,9 @@ $$=h_1(X_s)*\int f_{X_c}(x_c)dx_c+\int h_2(X_c)f_{X_c}(x_c)dx_c=h_1(X_s)+const$$
 
 반면, conditional pdf를 이용하는 방법의 경우, $$h_1(X_s)$$를 복원하지 못한다. 
 
-즉 $$E_{X_c|x_s}[f(X_s,X_c)|x_s]=\int (h_1(X_s)+h_2(X_c))f_{X_c|X_s}(x_c|X_s)dx_c$$
+즉 $$E_{X_c| x_s}[f(X_s,X_c)| x_s]=\int (h_1(X_s)+h_2(X_c))f_{X_c| X_s}(x_c| X_s)dx_c$$
 
-$$=h_1(X_s)+\int h_2(X_c)f_{X_c|X_s}(x_c|X_s)dx_c$$
+$$=h_1(X_s)+\int h_2(X_c)f_{X_c| X_s}(x_c| X_s)dx_c$$
 
 여기서 뒤의 항은 $$X_s$$에 따라 값이 달라지는 값이고 즉 ,constant가 아니다. 이에 따라 각 $$X_s$$마다 $$h_1(X_s)$$를 복원하지 못하게 되고, **뒤의 항때문에** 결과 해석에서 **의도치 않은 영향을 해석하게 될수도** 있다.
 
@@ -126,9 +126,9 @@ $$=h_1(X_s)*\int h_2(X_c)f_{X_c}(x_c)dx_c=h_1(X_s)*const$$
 
 반면, conditional pdf를 이용하는 방법의 경우, 이 예시에서도 $$h_1(X_s)$$를 복원하지 못한다. 
 
-즉 $$E_{X_c|x_s}[f(X_s,X_c)|x_s]=\int (h_1(X_s)*h_2(X_c))f_{X_c|X_s}(x_c|X_s)dx_c$$
+즉 $$E_{X_c| x_s}[f(X_s,X_c)| x_s]=\int (h_1(X_s)*h_2(X_c))f_{X_c| X_s}(x_c| X_s)dx_c$$
 
-$$=h_1(X_s)*\int h_2(X_c)f_{X_c|X_s}(x_c|X_s)dx_c$$
+$$=h_1(X_s)*\int h_2(X_c)f_{X_c| X_s}(x_c| X_s)dx_c$$
 
 여기서 뒤의 항은 $$X_s$$에 따라 값이 달라지는 값이고 즉 ,constant가 아니다. 이에 따라 각 $$X_s$$마다 $$h_1(X_s)$$를 복원하지 못하게 되고, **뒤의 항때문에** 결과 해석에서 **의도치 않은 영향을 해석하게 될수도** 있다.
 
