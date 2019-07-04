@@ -217,7 +217,7 @@ date '2001-09-28' + integer '7'같은 timestamp용 operator나 age(timestamp_obj
 
 역시나 'postgresql string function'검색.
 
-SELECT first_name &#124;' '&#124; last_name AS full_name FROM customer; (이름과 성을 concat.)
+SELECT first_name &#124;&#124; &#124;&#124; last_name AS full_name FROM customer; (이름과 성을 concat.)
 
 SELECT lower(first_name) FROM customer;
 
