@@ -217,7 +217,7 @@ date '2001-09-28' + integer '7'같은 timestamp용 operator나 age(timestamp_obj
 
 역시나 'postgresql string function'검색.
 
-SELECT first_name || ' ' || last_name AS full_name FROM customer; (이름과 성을 concat.)
+SELECT first_name $||$ ' ' $||$ last_name AS full_name FROM customer; (이름과 성을 concat.)
 
 SELECT lower(first_name) FROM customer;
 
@@ -255,14 +255,3 @@ ON a.first_name = b.last_name;
 참고한 자료
 
 시각화로 join 잘 설명한 사이트 : https://blog.codinghorror.com/a-visual-explanation-of-sql-joins/
-
-
-
-### 
-
-
-
-
-
-
-
