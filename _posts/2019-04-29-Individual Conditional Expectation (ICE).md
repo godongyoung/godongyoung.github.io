@@ -11,6 +11,8 @@ tags:
 comment: true
 ---
 
+해당 글은 앞선 정리글인 PDP에 이어지는 내용입니다. 더 나은 이해를 위해 [PDP](https://godongyoung.github.io/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2019/04/13/Partial-Depedence-Plot.html)글을 한번 읽어보시기 바랍니다.
+
 앞선 글에서 black box 모델에서 변수의 영향을 근사적으로 파악하기 위한 방법을 PDP를 다뤘다. 이번엔 pdp의 단점들을 보완하기 위한 방법들에 대해 다뤄본다. 구체적으로 Individual Conditional Expectation (ICE)와 Centered ICE Plot이다.
 
 # Individual Conditional Expectation (ICE)

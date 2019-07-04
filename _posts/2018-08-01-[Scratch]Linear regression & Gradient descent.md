@@ -1,11 +1,12 @@
 ---
 layout: post
-title: "[DataScience from Scratch] linear regression 이해하고 Gradient descent로 직접 최적화하기(with Python)"
+title: "[DS from Scratch] linear regression 이해하고 Gradient descent로 직접 최적화하기(with Python)"
 categories:
   - 머신러닝
 tags:
   - machine learning
   - python implementation
+  - DataScience from Scratch
 comment: true
 ---
 

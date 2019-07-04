@@ -9,6 +9,7 @@ tags:
   - PDP
 comment: true
 ---
+{:toc}
 
 ### 서론. 모델의 해석에 관하여
 
@@ -72,6 +73,16 @@ input으로 들어가는 $$(X_s,x_{ic})$$는 함수가 만들어 졌으면(즉 �
 위의 알고리즘을 읽으면서 예상했다시피, 모든 $$X_s$$의 feature space 에 대해 $$X_c$$를 돌면서 예측을 해야하므로, 계산량이 엄청나다. 그래서 그런지 실제 구현도 그닥 예쁘게 되어 있는게 없다. (R은 랜포에만 있고, python은 xgb에만 있다.) python을 통해 그린 그림은 다음과 같다. ([사용법](https://scikit-learn.org/stable/auto_examples/ensemble/plot_partial_dependence.html)은 매우간단). 짜여진 효율적인 함수가 없으니, 필요할때 마다 내가 만들어 쓰자. 
 
 ![sphx_glr_plot_partial_dependence_0011](https://user-images.githubusercontent.com/31824102/55940980-3405b480-5c7c-11e9-97e3-4012a12620d3.png)
+
+> 앞서서 필요할때 만들어 쓰자고 했는데, 내가 필요해서 내가 만들어 썼다... X변수가 categorical인 경우와 continuous 인 경우 모두에 대해 작동할 수 있도록 함수를 짜보았다. (필요하신분 있으면 개인적으로 연락주세요)
+>
+> 사용 예시1. continuous에 대해 (왼쪽은 등고선그림, 오른쪽은 3D그림)
+>
+> <img width="680" alt="PDP_self" src="https://user-images.githubusercontent.com/31824102/60665422-60a62280-9e9f-11e9-9456-0997d0d70276.PNG">
+>
+> 사용 예시2. categorical에 대해
+>
+> <img width="205" alt="PDP_self2" src="https://user-images.githubusercontent.com/31824102/60665423-60a62280-9e9f-11e9-84db-1a528033fa0b.PNG">
 
 ### 이상적인 사용
 
