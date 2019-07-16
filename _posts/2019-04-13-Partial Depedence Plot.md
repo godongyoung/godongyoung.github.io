@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "[데이터분석 정리] black box interpretation.  Partial dependency plot 개인적 정리"
+title: "[interpretable machine learning]Partial dependence plot 개인적 정리"
 categories:
   - 머신러닝
 tags:
   - black box
   - Partial dependency plot
   - PDP
+  - interpretable machine learning
 comment: true
 ---
 {:toc}

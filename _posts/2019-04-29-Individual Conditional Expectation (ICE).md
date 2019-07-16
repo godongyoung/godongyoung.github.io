@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[데이터분석 정리] black box interpretation.  Individual Conditional Expectation 개인적 정리"
+title: "[interpretable machine learning] Individual Conditional Expectation 개인적 정리"
 categories:
   - 머신러닝
 tags:
@@ -8,6 +8,7 @@ tags:
   - Individual Conditional Expectation
   - ICE
   - Centered ICE
+  - interpretable machine learning
 comment: true
 ---
 
