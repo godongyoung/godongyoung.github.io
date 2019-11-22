@@ -126,7 +126,7 @@ cat('estimated paramter:',round(eta,2),'\n True parameter:',true_eta,'\n')
     estimated paramter: 0.13 0.87 0.35 6.19 2.37 
      True parameter: 0.1 0.3 0.6 0 4 7 1 
 
-
+여기서 group indicator(1,2,3)의 부여는 임의적인 것이기에, 순서는 다를 수 있다. 실제 mixture분포의 true 비율인 0.1, 0.3, 0.6을 0.13, 0.35, 0.87로, true 평균인 0,4,7을 0.35, 2.37, 6.19로 잡아내고 있음을 볼 수 있다
 
 ```R
 posterior_mean_pi=pi
